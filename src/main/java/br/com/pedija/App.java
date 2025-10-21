@@ -1,12 +1,16 @@
 package br.com.pedija;
 
-import br.com.pedija.view.usuario.MenuPrincipalView;
+import br.com.pedija.superadm.view.EscolherAppview;
+
 
 public class App {
     public static void main(String[] args) {
-        MenuPrincipalView menu = new MenuPrincipalView();
 
-        menu.exibirMenuCliente();
+        EscolherAppview firstview = new EscolherAppview();
+
+        firstview.EscolherAppview();
+
+
 
         }
     }
