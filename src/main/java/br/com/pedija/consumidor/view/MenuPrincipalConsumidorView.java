@@ -32,6 +32,7 @@ public class MenuPrincipalConsumidorView {
 
             try {
                 opcao = sc.nextInt();
+
                 resultadoOpcao(opcao);
             } catch (Exception erro) {
                 System.out.println("Opção inválida!");
