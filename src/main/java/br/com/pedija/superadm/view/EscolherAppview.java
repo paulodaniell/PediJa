@@ -1,11 +1,11 @@
 package br.com.pedija.superadm.view;
 
-import br.com.pedija.consumidor.view.MenuPrincipalView;
+import br.com.pedija.consumidor.view.MenuPrincipalConsumidorView;
 import java.util.Scanner;
 
 public class EscolherAppview {
 
-    MenuPrincipalView menuconsumidor = new MenuPrincipalView();
+    MenuPrincipalConsumidorView menuconsumidor = new MenuPrincipalConsumidorView();
     Scanner sc = new Scanner(System.in);
     int opcao = -1;
 
