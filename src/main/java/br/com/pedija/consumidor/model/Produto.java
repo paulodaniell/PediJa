@@ -1,6 +1,7 @@
 package br.com.pedija.consumidor.model;
 
 public class Produto {
+
     private int id;
     private String nome;
     private String descricao;
@@ -14,6 +15,8 @@ public class Produto {
         this.preco = preco;
         this.quantidade = quantidade;
     }
+
+    public Produto() {}
 
     public int getId() {
         return id;

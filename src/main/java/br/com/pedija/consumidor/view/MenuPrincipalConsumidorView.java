@@ -1,5 +1,7 @@
 package br.com.pedija.consumidor.view;
 
+import br.com.pedija.consumidor.view.perfil.TelaPerfil;
+
 import java.util.Scanner;
 
 public class MenuPrincipalConsumidorView {
