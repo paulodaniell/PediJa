@@ -4,7 +4,10 @@ import java.util.Scanner;
 
 public class TelaPerfil {
 
+    CodigoEntregaConta codigoEntregaConta = new CodigoEntregaConta();
+
     Scanner sc = new Scanner(System.in);
+
 
     public void verPerfil() {
 
@@ -26,9 +29,10 @@ public class TelaPerfil {
                 System.out.print("\nEscolha uma opção: ");
 
                 try {
-                    opcao = sc.nextInt();
 
+                    opcao = sc.nextInt();
                     resultadoOpcao(opcao);
+
                 } catch (Exception erro) {
                     System.out.println("Opção inválida!");
                     sc.nextLine();
@@ -54,7 +58,8 @@ public class TelaPerfil {
                     break;
 
                 case 4:
-                    System.out.println("Código de entrega");
+                    System.out.println("Código de entrega \n");
+                    codigoEntregaConta.alterarCodigo();
                     break;
 
                 case 5:
