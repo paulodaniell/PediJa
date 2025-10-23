@@ -14,10 +14,10 @@ public class DadosConta {
 
         System.out.println("===== DADOS DA CONTA =====");
 
-        System.out.println("Nome: " + usuario.getNome());
-        System.out.println("Idade: " + usuario.getIdade());
-        System.out.println("Email: " + usuario.getEmail());
-        System.out.println("Telefone: " + usuario.getTelefone());
+//        System.out.println("Nome: " + usuario.getNome());
+//        System.out.println("Idade: " + usuario.getIdade());
+//        System.out.println("Email: " + usuario.getEmail());
+//        System.out.println("Telefone: " + usuario.getTelefone());
 
         System.out.println("\n Quer alterar algum dado? (1 - Sim, 2 - Não)");
         int opcao = sc.nextInt();
@@ -34,21 +34,21 @@ public class DadosConta {
                 switch (dado) {
                     case 1:
                         System.out.print("Novo nome: ");
-                        usuario.setNome(sc.nextLine());
+//                        usuario.setNome(sc.nextLine());
                         break;
                     case 2:
                         System.out.print("Nova idade: ");
-                        usuario.setIdade(sc.nextInt());
+//                        usuario.setIdade(sc.nextInt());
                         break;
                     case 3:
                         System.out.print("Novo email: ");
                         sc.nextLine(); // limpar buffer
-                        usuario.setEmail(sc.nextLine());
+//                        usuario.setEmail(sc.nextLine());
                         break;
                     case 4:
                         System.out.print("Novo telefone: ");
                         sc.nextLine(); // limpar buffer
-                        usuario.setTelefone(sc.nextLine());
+//                        usuario.setTelefone(sc.nextLine());
                         break;
                     default:
                         System.out.println("Opção inválida!");
