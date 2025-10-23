@@ -28,11 +28,4 @@ public class Duvida {
     public String getData() { return data; }
     public void setData(String data) { this.data = data; }
 
-    @Override
-    public String toString() {
-        return "\nID: " + id +
-                "\nTítulo: " + titulo +
-                "\nDescrição: " + descricao +
-                "\nData: " + data;
-    }
 }

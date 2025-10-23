@@ -8,7 +8,7 @@ public class TelaPedidosParceiro {
 
     MenuPrincipalParceiro menuParceiro = new MenuPrincipalParceiro();
 
-    public void exibirPedidos() {
+    public static void exibirPedidos() {
 
         int opcao = -1;
 
@@ -24,12 +24,12 @@ public class TelaPedidosParceiro {
             System.out.print("\nEscolha uma opção: ");
 
             try {
-                opcao = sc.nextInt();
-
-                resultadoOpc(opcao);
+//                opcao = sc.nextInt();
+//
+//                resultadoOpc(opcao);
             } catch (Exception erro) {
                 System.out.println("Erro  digite apenas numeros!");
-                sc.nextLine();
+//                opcao = sc.nextLine();
             }
 
 

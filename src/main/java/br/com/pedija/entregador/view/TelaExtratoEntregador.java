@@ -4,7 +4,7 @@ public class TelaExtratoEntregador {
 
     public void extrato() {
 
-        double ganhoSemanal = 1.300;
+        double ganhoSemanal = 1300;
         System.out.println("Ganho da semana: " + ganhoSemanal);
 
         double ganhoDiario = 100;

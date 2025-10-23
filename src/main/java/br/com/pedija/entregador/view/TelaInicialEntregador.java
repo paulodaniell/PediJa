@@ -63,7 +63,7 @@ public class TelaInicialEntregador {
                 break;
 
             case 4:
-                System.out.println("Opção Mais selecionada!");
+                System.out.println("Opção Mais selecionada!\n");
                 telaMais.mais();
                 break;
 
