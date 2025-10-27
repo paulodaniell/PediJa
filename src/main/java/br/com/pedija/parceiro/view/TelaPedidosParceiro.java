@@ -38,22 +38,18 @@ public class TelaPedidosParceiro {
         private void resultadoOpc(int opcao) {
             switch (opcao) {
                 case 1:
-                    System.out.println("Pedidos Prontos");
-                    System.out.println("#0001 Daniel S");
-                    System.out.println("#0002 Pedro P");
+                    System.out.println("\nPedidos Prontos");
+                    //pedidoControler
                     //falar com cliente/entregador
                     break;
 
                 case 2:
-                    System.out.println("Pedidos Agendados");
+                    System.out.println("\nPedidos Agendados");
                     //TelaEntregasParceiro.exibirEntrega();
                     break;
 
                 case 3:
-                    System.out.println("Pedidos em preparo");
-                    System.out.println("Pedido:0003");
-                    System.out.println("Pedido:0004");
-                    System.out.println("Pedido:0005");
+                    System.out.println("\nPedidos em preparo");
 
                     break;
 
