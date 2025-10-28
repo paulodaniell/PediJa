@@ -28,7 +28,7 @@ public class TelaInicialEntregador {
                 resultadoOpcao(opcao);
 
             } catch (Exception error) {
-                System.out.println("Opção inválida!");
+                System.out.println("Erro na leitura de dados!");
                 sc.nextLine();
             }
 
