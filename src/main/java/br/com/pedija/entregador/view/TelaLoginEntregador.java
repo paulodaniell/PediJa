@@ -21,6 +21,12 @@ public class TelaLoginEntregador {
 
         if  (opcao == 1) {
 
+            System.out.println("Digite seu CPF: ");
+            entregador.setCpf(sc.nextInt());
+
+            System.out.println("Digite sua senha: ");
+            entregador.setSenha(sc.next());
+
             telainicial.TelaInicioEntregador();
 
         }

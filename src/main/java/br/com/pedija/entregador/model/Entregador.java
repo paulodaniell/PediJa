@@ -11,16 +11,18 @@ public class Entregador {
     private String nome_emergencia;
     private String formaEntrega;
     private String formaPagamento;
+    private String senha;
 
     public Entregador () {}
 
-    public Entregador (int id, int cpf, String nome, String email, int telefone, int contato_emergencia,  String nome_emergencia) {
+    public Entregador (int id, int cpf, String nome, String email, int telefone, int contato_emergencia,  String nome_emergencia, String senha) {
         this.id = id;
         this.cpf = cpf;
         this.telefone = telefone;
         this.email = email;
         this.contato_de_emergencia = contato_emergencia;
         this.nome_emergencia = nome_emergencia;
+        this.senha = senha;
     }
 
     public int getId() { return id; }
@@ -50,6 +52,9 @@ public class Entregador {
 
     public String getFormaPagamento() { return formaPagamento; }
     public void setFormaPagamento(String formaPagamento) { this.formaPagamento = formaPagamento;}
+
+    public String getSenha() { return senha; }
+    public void setSenha(String senha) { this.senha = senha; }
 
     }
 
