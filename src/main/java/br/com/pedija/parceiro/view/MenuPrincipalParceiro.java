@@ -43,7 +43,7 @@ public class MenuPrincipalParceiro {
         switch (opcao) {
             case 1:
                 System.out.println("Gerenciar  Pedido");
-                TelaPedidosParceiro.exibirPedidos();
+                //TelaPedidosParceiro.exibirPedidos();
                 break;
 
             case 2:

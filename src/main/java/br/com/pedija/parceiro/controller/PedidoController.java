@@ -11,13 +11,13 @@ public class PedidoController {
 
     public boolean adicionar(Pedido pedido) {
         pedido.setId(proximoId++);
-        return pedidos.add(pedido);
+        return PedidoController.pedidos.add(pedido);
     }
 
-    public List<Pedido>listarPorParceiro(int idParceiro) {
+    public List<Pedido>listarPorParceiroEStatus(int idParceiro, String status) {
         List<Pedido> resultado = new ArrayList<>();
         for (Pedido p : pedidos) {
-            if(p.getIdParceiro() == idParceiro){
+            if(p.getIdParceiro() == idParceiro && p.getStatus().equals(status)) {
                 pedidos.add(p);
             }
         }
