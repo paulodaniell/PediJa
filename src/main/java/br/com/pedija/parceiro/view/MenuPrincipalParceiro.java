@@ -1,12 +1,16 @@
 package br.com.pedija.parceiro.view;
 
+import br.com.pedija.parceiro.model.Parceiro;
+
 import java.util.Scanner;
 
 public class MenuPrincipalParceiro {
     private Scanner sc;
+    private Parceiro parceiro;
 
-    public MenuPrincipalParceiro() {
+    public MenuPrincipalParceiro(Parceiro parceiro) {
         this.sc = new Scanner(System.in);
+        this.parceiro = parceiro;
     }
 
     public void exibirMenuParceiro() {
@@ -14,7 +18,7 @@ public class MenuPrincipalParceiro {
 
 
         do {
-            System.out.println("||Menu Sushi Loko||");
+            System.out.println("||Menu Principal ||");
             System.out.println("------------------------------");
             System.out.println(" 1 - Gerenciar Pedidos      ");
             System.out.println(" 2 - Acompanhar Entrega      ");
@@ -30,6 +34,7 @@ public class MenuPrincipalParceiro {
                 opcao = sc.nextInt();
 
                resultadoOp(opcao);
+                sc.nextLine();
             } catch (Exception erro) {
                 System.out.println("Erro  digite apenas numeros!");
                 sc.nextLine();
@@ -43,7 +48,8 @@ public class MenuPrincipalParceiro {
         switch (opcao) {
             case 1:
                 System.out.println("Gerenciar  Pedido");
-                //TelaPedidosParceiro.exibirPedidos();
+                TelaPedidosParceiro telaPedidos = new TelaPedidosParceiro(parceiro);
+                telaPedidos.exibirPedidos();
                 break;
 
             case 2:

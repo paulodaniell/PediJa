@@ -7,6 +7,7 @@ import java.util.List;
 public class Pedido {
     private int id;
     private String nomeCliente;
+    private int idCliente;
     private List<ItemPedido> itens;
     private double valoTotal;
     private String status;
@@ -20,6 +21,14 @@ public class Pedido {
 
     public void setIdParceiro(int idParceiro) {
         this.idParceiro = idParceiro;
+    }
+
+    public int getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
     }
 
     public Pedido(){
@@ -81,5 +90,10 @@ public class Pedido {
 
     public void setFormaPagamento(String formaPagamento) {
         this.formaPagamento = formaPagamento;
+    }
+
+    public void adicionarItem(ItemPedido item) {
+        this.itens.add(item);
+
     }
 }

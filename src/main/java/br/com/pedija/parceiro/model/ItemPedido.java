@@ -1,10 +1,14 @@
 package br.com.pedija.parceiro.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ItemPedido {
     private int idProduto;
     private String nomeProduto;
     private int quantidade;
     private double precoUnidade;
+    private List<ItemPedido> itens = new ArrayList<>();
 
     public ItemPedido(int idProduto, String nomeProduto, int quantidade, double precoUnidade) {
         this.idProduto = idProduto;
@@ -47,5 +51,9 @@ public class ItemPedido {
 
     public void setPrecoUnidade(double precoUnidade) {
         this.precoUnidade = precoUnidade;
+    }
+
+    public void adicionarItem(ItemPedido item) {
+        itens.add(item);
     }
 }

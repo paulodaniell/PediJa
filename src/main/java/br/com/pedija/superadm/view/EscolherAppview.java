@@ -2,12 +2,15 @@ package br.com.pedija.superadm.view;
 
 import br.com.pedija.consumidor.view.MenuPrincipalConsumidorView;
 import br.com.pedija.entregador.view.TelaLoginEntregador;
+import br.com.pedija.parceiro.view.TelaLoginParceiro;
+
 import java.util.Scanner;
 
 public class EscolherAppview {
 
     MenuPrincipalConsumidorView menuconsumidor = new MenuPrincipalConsumidorView();
     TelaLoginEntregador telaLoginEntregador = new TelaLoginEntregador();
+    TelaLoginParceiro telaLoginParceiro = new TelaLoginParceiro();
 
     Scanner sc = new Scanner(System.in);
     int opcao = -1;
@@ -39,6 +42,9 @@ public class EscolherAppview {
         switch (opcao) {
             case 1:
                 System.out.println("Opção parceiro escolhida!");
+                telaLoginParceiro.exibir();
+
+
                 break;
             case 2:
                 System.out.println("Opção entregador escolhida! \n");
