@@ -1,6 +1,7 @@
 package br.com.pedija.entregador.view;
-import br.com.pedija.App;
 
+import br.com.pedija.App;
+import br.com.pedija.superadm.view.EscolherAppview;
 import java.awt.*;
 import java.util.Scanner;
 
@@ -53,7 +54,8 @@ public class TelaPerfilEntregador {
             case 2:
                 System.out.println("Excluir Conta\n");
                 System.out.println("Tem certeza que quer exluir sua conta? (1 - Não) (2 - Sim)\n");
-                App.main();
+                EscolherAppview menu = new EscolherAppview();
+                menu.EscolherAppview();
                 break;
 
             case 0:

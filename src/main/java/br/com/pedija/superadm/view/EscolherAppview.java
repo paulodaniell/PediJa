@@ -1,6 +1,6 @@
 package br.com.pedija.superadm.view;
 
-import br.com.pedija.consumidor.view.MenuPrincipalConsumidorView;
+import br.com.pedija.consumidor.view.TelaLoginConsumidor;
 import br.com.pedija.entregador.view.TelaLoginEntregador;
 import br.com.pedija.parceiro.view.TelaLoginParceiro;
 
@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class EscolherAppview {
 
-    MenuPrincipalConsumidorView menuconsumidor = new MenuPrincipalConsumidorView();
+    TelaLoginConsumidor menuconsumidor = new TelaLoginConsumidor();
     TelaLoginEntregador telaLoginEntregador = new TelaLoginEntregador();
     TelaLoginParceiro telaLoginParceiro = new TelaLoginParceiro();
 
@@ -43,8 +43,6 @@ public class EscolherAppview {
             case 1:
                 System.out.println("Opção parceiro escolhida!");
                 telaLoginParceiro.exibir();
-
-
                 break;
             case 2:
                 System.out.println("Opção entregador escolhida! \n");
@@ -52,7 +50,7 @@ public class EscolherAppview {
                 break;
             case 3:
                 System.out.println("Opção consumidor escolhida!");
-                menuconsumidor.exibirMenuCliente();
+                menuconsumidor.exibirLogin();
                 break;
             case 0:
                 System.out.println("Saindo...");

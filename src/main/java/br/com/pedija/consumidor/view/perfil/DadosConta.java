@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class DadosConta {
 
     private Scanner sc = new Scanner(System.in);
-    private Usuario usuario = new Usuario();
+
 
     public DadosConta() {}
 

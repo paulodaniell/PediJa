@@ -4,7 +4,7 @@ import br.com.pedija.superadm.view.EscolherAppview;
 
 
 public class App {
-    public static void main() {
+    public static void main(String[] args) {
 
         EscolherAppview firstview = new EscolherAppview();
 
