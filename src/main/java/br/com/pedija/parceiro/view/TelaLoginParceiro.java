@@ -1,17 +1,17 @@
 package br.com.pedija.parceiro.view;
 
-import br.com.pedija.parceiro.controller.parceiroController;
+import br.com.pedija.parceiro.controller.ParceiroController;
 import br.com.pedija.parceiro.model.Parceiro;
 import java.util.Scanner;
 
 public class TelaLoginParceiro {
 
     private Scanner sc;
-    private parceiroController controller;
+    private ParceiroController controller;
 
     public TelaLoginParceiro() {
         this.sc = new Scanner(System.in);
-        this.controller = new parceiroController();
+        this.controller = new ParceiroController();
     }
 
     public void exibir() {

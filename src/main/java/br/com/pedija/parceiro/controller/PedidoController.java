@@ -20,7 +20,7 @@ public class PedidoController {
         p1.setFormaPagamento("Cartão");
         p1.setStatus("PENDENTE");
         p1.adicionarItem(new ItemPedido(1, "Combo 1 - Sashimi", 2, 55.90));
-        p1.setValoTotal(111.80);
+        p1.setValorTotal(111.80);
         pedidos.add(p1);
 
         // Pedido 2 - Em preparo
@@ -32,7 +32,7 @@ public class PedidoController {
         p2.setFormaPagamento("PIX");
         p2.setStatus("EM_PREPARO");
         p2.adicionarItem(new ItemPedido(2, "Combo Prime", 1, 249.40));
-        p2.setValoTotal(249.40);
+        p2.setValorTotal(249.40);
         pedidos.add(p2);
 
         // Pedido 3 - Pronto
@@ -44,7 +44,7 @@ public class PedidoController {
         p3.setFormaPagamento("Dinheiro");
         p3.setStatus("PRONTO");
         p3.adicionarItem(new ItemPedido(3, "Temaki Salmão", 1, 25.00));
-        p3.setValoTotal(25.00);
+        p3.setValorTotal(25.00);
         pedidos.add(p3);
 
         proximoId = 4;
@@ -91,5 +91,32 @@ public class PedidoController {
             }
         }
         return contador;
+    }
+    public double calcularFaturamentoTotal(int idParceiro) {
+        double soma = 0.0;
+        for (Pedido p : pedidos) {
+            if (p.getIdParceiro() == idParceiro && "ENTREGUE".equalsIgnoreCase(p.getStatus())) {
+                soma += p.getValorTotal();
+            }
+        }
+        return soma;
+    }
+
+
+    public int contarPedidosEntregues(int idParceiro) {
+        int contador = 0;
+        for (Pedido p : pedidos) {
+            if (p.getIdParceiro() == idParceiro && "ENTREGUE".equalsIgnoreCase(p.getStatus())) {
+                contador++;
+            }
+        }
+        return contador;
+    }
+
+
+    public double calcularTicketMedio(int idParceiro) {
+        int total = contarPedidosEntregues(idParceiro);
+        if (total == 0) return 0.0;
+        return calcularFaturamentoTotal(idParceiro) / total;
     }
 }

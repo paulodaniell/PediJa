@@ -73,16 +73,18 @@ public class TelaPedidosParceiro {
             System.out.println("\nNenhum pedido pendente");
             return;
         }
-
         for (Pedido p : pedidos) {
-            System.out.println("\nPEDIDO #" + p.getId());
-            System.out.println("Cliente: " + p.getNomeCliente());
-            System.out.println("Valor: R$" + String.format("%.2f", p.getValoTotal()));
-            System.out.println("Pagamento: " + p.getFormaPagamento());
+            System.out.printf("%nPEDIDO #%d%n", p.getId());
+            System.out.printf("Cliente: %s%n", p.getNomeCliente());
+            System.out.printf("Valor: R$ %.2f%n", p.getValorTotal());
+            System.out.printf("Pagamento: %s%n", p.getFormaPagamento());
             System.out.println("Itens:");
+
             for (var item : p.getItens()) {
-                System.out.println(" • " + item.getQuantidade() + "x " + item.getNomeProduto() +
-                        " - R$" + String.format("%.2f", item.getSubTotal()));
+                System.out.printf(" • %dx %s - R$ %.2f%n",
+                        item.getQuantidade(),
+                        item.getNomeProduto(),
+                        item.getSubTotal());
             }
         }
 
@@ -120,10 +122,11 @@ public class TelaPedidosParceiro {
         }
 
         for (Pedido p : pedidos) {
-            System.out.println("\nPedido #" + p.getId());
-            System.out.println("Cliente: " + p.getNomeCliente());
-            System.out.println("Valor: R$" + String.format("%.2f", p.getValoTotal()));
+            System.out.printf("%nPedido #%d%n", p.getId());
+            System.out.printf("Cliente: %s%n", p.getNomeCliente());
+            System.out.printf("Valor: R$ %.2f%n", p.getValorTotal());
         }
+
 
         System.out.println("\n[1] Marcar como Pronto");
         System.out.println("[0] Voltar");
@@ -151,9 +154,9 @@ public class TelaPedidosParceiro {
             return;
         }
         for (Pedido p : pedidos) {
-            System.out.println("\nPEDIDO #" + p.getId());
-            System.out.println("Cliente: " + p.getNomeCliente());
-            System.out.println("Valor: R$" + String.format("%.2f", p.getValoTotal()));
+            System.out.printf("%nPEDIDO #%d%n", p.getId());
+            System.out.printf("Cliente: %s%n", p.getNomeCliente());
+            System.out.printf("Valor: R$ %.2f%n", p.getValorTotal());
             System.out.println("Aguardando entregador...");
         }
     }
@@ -169,7 +172,10 @@ public class TelaPedidosParceiro {
             int limite = Math.min(10, entregues.size());
             for (int i = 0; i < limite; i++) {
                 Pedido p = entregues.get(i);
-                System.out.println("#" + p.getId() + " - " + p.getNomeCliente() + " - R$ " + String.format("%.2f", p.getValoTotal()));
+                System.out.printf("#%d - %s - R$ %.2f%n",
+                        p.getId(),
+                        p.getNomeCliente(),
+                        p.getValorTotal());
             }
         }
     }

@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProdutoDAO {
+public class produtoDAO {
 
     // CREATE
     public void criar(Produto produto) {

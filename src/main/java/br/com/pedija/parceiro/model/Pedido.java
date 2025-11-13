@@ -60,11 +60,11 @@ public class Pedido {
         this.itens = itens;
     }
 
-    public double getValoTotal() {
+    public double getValorTotal() {
         return valoTotal;
     }
 
-    public void setValoTotal(double valoTotal) {
+    public void setValorTotal(double valoTotal) {
         this.valoTotal = valoTotal;
     }
 
