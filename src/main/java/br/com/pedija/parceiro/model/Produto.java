@@ -7,6 +7,7 @@ public class Produto {
     private String categoria;
     private double preco;
     private boolean disponivel;
+    private int quantidade;
 
     public String getDescricao() {
         return descricao;
@@ -75,5 +76,13 @@ public class Produto {
 
     public void setDisponivel(boolean disponivel) {
         this.disponivel = disponivel;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
     }
 }
