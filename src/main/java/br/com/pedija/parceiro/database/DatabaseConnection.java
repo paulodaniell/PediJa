@@ -36,6 +36,16 @@ public class DatabaseConnection {
                 )
                 """;
 
+        String createParceiroSQL = """
+                   CREATE TABLE IF NOT EXISTS parceiros (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    nome VARCHAR(100) NOT NULL,
+                    cnpj INT(11) NOT NULL,
+                    senha VARCHAR(100) NOT NULL,
+                    FOREIGN KEY (produtos_id) REFERENCES produtos(id)
+               )
+              """;
+
         Connection conn = null;
         try {
             conn = getConnection();
