@@ -24,11 +24,12 @@ public class BuscaProdutoConsumidor {
                 System.out.println("Produto encontrado com sucesso!\n");
                 System.out.println("Produto: " + produto.checar());
                 System.out.println("Informações: ");
-            } else ()
+            } else
             {
                 System.out.println("Produto não encontrado!");
             }
-        }while(produto.checar() == null)
+            
+        }while(produto.checar() == null);
 
 
 
