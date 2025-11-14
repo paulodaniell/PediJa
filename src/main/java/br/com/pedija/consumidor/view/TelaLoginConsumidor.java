@@ -2,7 +2,6 @@ package br.com.pedija.consumidor.view;
 
 import br.com.pedija.consumidor.controller.UsuarioController;
 import br.com.pedija.consumidor.model.Usuario;
-import br.com.pedija.consumidor.view.MenuPrincipalConsumidorView;
 import java.util.Scanner;
 
 public class TelaLoginConsumidor {
@@ -24,14 +23,14 @@ public class TelaLoginConsumidor {
             System.out.println("[1] ENTRAR");
             System.out.println("[2] CADASTRAR");
             System.out.print("\n Escolha uma opção: ");
-            int opcao = sc.nextInt();
 
             try {
                 opcao = sc.nextInt();
+                sc.nextLine();
                 resultadoOpcao(opcao);
             } catch (Exception erro) {
                 System.out.println("Opção inválida!");
-                sc.nextLine(); // limpa o buffer
+                sc.nextLine();
             }
         } while (opcao != 0);
 
@@ -51,13 +50,31 @@ public class TelaLoginConsumidor {
 
     public void entrar(){
 
-        //colocar um confere aqui para saber se a pessoa existe ou não. Eu não sei como faz.
         System.out.println("Digite seu Email: ");
+        String email = sc.nextLine();
 
         System.out.println("Digite seu telefone: ");
+        String telefone = sc.nextLine();
 
-        MenuPrincipalConsumidorView menu = new MenuPrincipalConsumidorView();
-        menu.exibirMenuCliente();
+        // ===============================================================
+        // AQUI ENTRA O BANCO DE DADOS (FUTURO)
+        // Aqui vai chamar algo como controller.validarLogin(email, telefone)
+        // ===============================================================
+
+        if (email.isBlank() || telefone.isBlank()) {
+            System.out.println("Preencha email e telefone antes de entrar.\n");
+            return;
+        }
+
+        boolean existe = controller.validarLogin(email, telefone);
+
+        if(existe) {
+            System.out.println("LOGIN REALIZADO COM SUCESSO!");
+            menu.exibirMenuCliente();
+        }   else {
+            System.out.println("Credenciais inválidas!\n");
+        }
+
     }
 
     public void cadastrar(){
@@ -75,6 +92,13 @@ public class TelaLoginConsumidor {
 
         System.out.print("Nome: ");
         novoConsumidor.setNome(sc.nextLine());
+
+        // ===============================================================
+        // AQUI ENTRA O BANCO DE DADOS (FUTURO)
+        // Aqui vai salvar o novo usuário no banco
+        // ===============================================================
+
+        controller.cadastrarUsuario(novoConsumidor); // SIMULAÇÃO
 
         menu.exibirMenuCliente();
     }

@@ -55,7 +55,7 @@ public class MenuPrincipalConsumidorView {
 
             case 2:
                 System.out.println("Buscar Produtos");
-                buscaProdutoConsumidor.buscarProdutos();
+                buscaProdutoConsumidor.exibirbuscarProdutos();
                 break;
 
             case 3:
@@ -77,8 +77,8 @@ public class MenuPrincipalConsumidorView {
                 System.out.println("Saindo..");
                 break;
 
-                default:System.out.println("Opção inválida!");
-                    break;
+            default:System.out.println("Opção inválida!");
+                break;
 
 
         }

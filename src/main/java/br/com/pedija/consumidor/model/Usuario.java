@@ -10,13 +10,7 @@ public class Usuario {
     private String formadepagamento;
 
     public Usuario() {
-        this.id = id;
-        this.email = email;
-        this.telefone = telefone;
-        this.CPF = CPF;
-        this.nome = nome;
-        this.endereco = endereco;
-        this.formadepagamento = formadepagamento;
+
     }
 
     public int getId() {return id;}
