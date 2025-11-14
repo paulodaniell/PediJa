@@ -4,39 +4,52 @@ public class Produto {
     private int id;
     private String nome;
     private String descricao;
-    private String categoria;
     private double preco;
+    private String categoria;
+    private int tempoPreparo;
+
+    public Integer getCategoriaId() {
+        return categoriaId;
+    }
+
+    public void setCategoriaId(Integer categoriaId) {
+        this.categoriaId = categoriaId;
+    }
+
+    public String getCategoriaNome() {
+        return categoriaNome;
+    }
+
+    public void setCategoriaNome(String categoriaNome) {
+        this.categoriaNome = categoriaNome;
+    }
+
     private boolean disponivel;
-    private int quantidade;
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public int getIdParceiro() {
-        return idParceiro;
-    }
-
-    public void setIdParceiro(int idParceiro) {
-        this.idParceiro = idParceiro;
-    }
-
     private int idParceiro;
+    private int quantidade;
+    private Integer categoriaId; // Integer (objeto) para permitir null
+    private String categoriaNome;
 
-    public Produto(){
+    public int getQuantidade() {
+        return quantidade;
     }
 
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public Produto() {
+    }
+
+    // Construtor com parâmetros
     public Produto(int id, String nome, double preco, int idParceiro) {
         this.id = id;
         this.nome = nome;
         this.preco = preco;
+        this.idParceiro = idParceiro;
         this.disponivel = true;
-        this.idParceiro=idParceiro;
     }
+
 
     public int getId() {
         return id;
@@ -54,12 +67,12 @@ public class Produto {
         this.nome = nome;
     }
 
-    public String getCategoria() {
-        return categoria;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public double getPreco() {
@@ -70,6 +83,22 @@ public class Produto {
         this.preco = preco;
     }
 
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public int getTempoPreparo() {
+        return tempoPreparo;
+    }
+
+    public void setTempoPreparo(int tempoPreparo) {
+        this.tempoPreparo = tempoPreparo;
+    }
+
     public boolean isDisponivel() {
         return disponivel;
     }
@@ -78,11 +107,11 @@ public class Produto {
         this.disponivel = disponivel;
     }
 
-    public int getQuantidade() {
-        return quantidade;
+    public int getIdParceiro() {
+        return idParceiro;
     }
 
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
+    public void setIdParceiro(int idParceiro) {
+        this.idParceiro = idParceiro;
     }
 }

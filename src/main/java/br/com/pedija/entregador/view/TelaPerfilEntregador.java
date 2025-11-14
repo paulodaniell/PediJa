@@ -1,7 +1,7 @@
 package br.com.pedija.entregador.view;
-
 import br.com.pedija.App;
 import br.com.pedija.superadm.view.EscolherAppview;
+
 import java.awt.*;
 import java.util.Scanner;
 

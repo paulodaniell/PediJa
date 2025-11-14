@@ -46,7 +46,7 @@ public class ProdutoController {
     }
     public boolean remover(int id){
         return produtos.removeIf(p -> p.getId() == id);
-        // Remove o produto com o ID especificado e retorna true se remover algum
+
     }
 
     public boolean alterarDisponibilidade(int id,boolean disponivel){
@@ -56,5 +56,35 @@ public class ProdutoController {
             return true;
         }
         return false;
+    }
+    public void listarMaisVendidos(int idParceiro) {
+        List<Produto> produtosDoParceiro = listarPorParceiros(idParceiro);
+
+        if (produtosDoParceiro.isEmpty()) {
+            System.out.println("Nenhum produto cadastrado para este parceiro.");
+            return;
+        }
+
+        System.out.println("\n TOP 5 PRODUTOS MAIS VENDIDOS ");
+        System.out.println("────────────────────────────────────────");
+
+        int limite = Math.min(5, produtosDoParceiro.size());
+
+        for (int i = 0; i < limite; i++) {
+            Produto p = produtosDoParceiro.get(i);
+            System.out.printf("%dº - %s%n", i + 1, p.getNome());
+            System.out.printf("Preço: R$ %.2f%n", p.getPreco());
+            System.out.println("Vendas: (colocar contador!!!!!!!!!!!!)");//colocar contador
+            System.out.println();
+        }
+    }
+    public int contarPorParceiro(int idParceiro) {
+        int contador = 0;
+        for (Produto p : produtos) {
+            if (p.getIdParceiro() == idParceiro) {
+                contador++;
+            }
+        }
+        return contador;
     }
 }

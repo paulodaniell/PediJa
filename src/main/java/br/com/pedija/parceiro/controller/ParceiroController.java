@@ -4,7 +4,7 @@ import java.util.List;
 import br.com.pedija.parceiro.model.Parceiro;
 
 
-public class parceiroController {
+public class ParceiroController {
 
         private static List<Parceiro> parceiros = new ArrayList<>();
         private static int proximoId = 1;

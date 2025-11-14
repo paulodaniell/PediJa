@@ -18,13 +18,14 @@ public class MenuPrincipalParceiro {
 
 
         do {
-            System.out.println("||Menu Principal ||");
+            System.out.println("|Menu Principal |");
             System.out.println("------------------------------");
-            System.out.println(" 1 - Gerenciar Pedidos      ");
-            System.out.println(" 2 - Acompanhar Entrega      ");
-            System.out.println(" 3 - Gerenciar Cardapio          ");
-            System.out.println(" 4 - Criar promoção              ");
-            System.out.println(" 5 - Configurações da conta            ");
+            System.out.println(" 1 - Gerenciar Pedidos        ");
+            System.out.println(" 2 - Acompanhar Entrega       ");
+            System.out.println(" 3 - Gerenciar Cardapio       ");
+            System.out.println(" 4 - Criar promoção           ");
+            System.out.println(" 5 - Relatório e Estatisticas ");
+            System.out.println(" 6 - Configurações da conta   ");
             System.out.println(" 0 - Sair                     ");
             System.out.println("------------------------------");
 
@@ -59,19 +60,25 @@ public class MenuPrincipalParceiro {
 
             case 3:
                 System.out.println("Gerenciar  Cardapio");
-                // CadastroPratoView().menuCardapio();
+                TelaProdutosParceiro telaProdutos = new TelaProdutosParceiro(parceiro);
+                telaProdutos.exibirProdutos();
                 break;
+
 
             case 4:
                 System.out.println("Criar promoção");
-                //PromocaoView().criarPromocao();
+                TelaPromocaoParceiro telaPromocao = new TelaPromocaoParceiro(parceiro);
+                telaPromocao.menuPromocaoParceiro();
+
                 break;
 
             case 5:
+                TelaRelatorioParceiro telaRelatorio = new TelaRelatorioParceiro(parceiro);
+                telaRelatorio.menuRelatorio();
+                break;
+            case 6:
                 System.out.println("Configurações da conta");
                 //ConfiguracoesView().exibirConfiguracoes();
-                break;
-
             case 0:
                 System.out.println("Saindo..");
                 break;
