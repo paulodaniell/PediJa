@@ -114,9 +114,35 @@ public class PedidoController {
     }
 
 
-    public double calcularTicketMedio(int idParceiro) {
-        int total = contarPedidosEntregues(idParceiro);
-        if (total == 0) return 0.0;
-        return calcularFaturamentoTotal(idParceiro) / total;
+
+    public boolean atribuirEntregador(int idPedido, int idEntregador) {
+        Pedido p = buscarPorId(idPedido);
+
+        if (p != null) {
+            p.setIdEntregador(idEntregador);
+            p.setStatus("EM_ENTREGA");
+            return true;
+        }
+
+        return false;
     }
+
+
+    public List<Pedido> listarAguardandoEntregador(int idParceiro) {
+        List<Pedido> resultado = new ArrayList<>();
+
+        for (Pedido p : pedidos) {
+            if (p.getIdParceiro() == idParceiro &&
+                    p.getStatus().equals("PRONTO") &&
+                    p.getIdEntregador() == 0) {
+                resultado.add(p);
+            }
+        }
+
+        return resultado;
+    }
+
+
 }
+
+

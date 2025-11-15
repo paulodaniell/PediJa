@@ -35,7 +35,7 @@ public class TelaRelatorioParceiro {
 
             try {
                 opcao = sc.nextInt();
-                sc.nextLine(); // limpar buffer
+                sc.nextLine();
                 resultadoOp(opcao);
             } catch (Exception erro) {
                 System.out.println("Erro: digite apenas números!");
@@ -80,12 +80,11 @@ public class TelaRelatorioParceiro {
 
         int totalPedidos = pedidoController.contarPedidosEntregues(parceiro.getId());
         double faturamento = pedidoController.calcularFaturamentoTotal(parceiro.getId());
-        double ticketMedio = pedidoController.calcularTicketMedio(parceiro.getId());
+
 
         System.out.println("Total de Pedidos Entregues: " + totalPedidos);
         System.out.printf("Faturamento Total:          R$ %.2f%n", faturamento);
-        System.out.printf("Ticket Médio:               R$ %.2f%n", ticketMedio);
-        System.out.println("Horário de Pico:            12h - 13h (exemplo)");
+        System.out.println("Horário de Pico:            12h - 18h");
     }
 
     private void relatorioMes() {
@@ -93,11 +92,10 @@ public class TelaRelatorioParceiro {
 
         int totalPedidos = pedidoController.contarPedidosEntregues(parceiro.getId());
         double faturamento = pedidoController.calcularFaturamentoTotal(parceiro.getId());
-        double ticketMedio = pedidoController.calcularTicketMedio(parceiro.getId());
 
         System.out.println("Total de Pedidos Entregues: " + totalPedidos);
         System.out.printf("Faturamento Total:          R$ %.2f%n", faturamento);
-        System.out.printf("Ticket Médio:               R$ %.2f%n", ticketMedio);
+
     }
 
     private void produtosMaisVendidos() {
@@ -113,9 +111,7 @@ public class TelaRelatorioParceiro {
         System.out.println("Pedidos Entregues:   " + pedidoController.contarPorStatus(parceiro.getId(), "ENTREGUE"));
 
         double faturamento = pedidoController.calcularFaturamentoTotal(parceiro.getId());
-        double ticketMedio = pedidoController.calcularTicketMedio(parceiro.getId());
-
         System.out.printf("Faturamento Total:   R$ %.2f%n", faturamento);
-        System.out.printf("Ticket Médio:        R$ %.2f%n", ticketMedio);
+
     }
 }

@@ -2,6 +2,8 @@ package br.com.pedija.parceiro.view;
 
 import br.com.pedija.parceiro.controller.ParceiroController;
 import br.com.pedija.parceiro.model.Parceiro;
+
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class TelaLoginParceiro {
@@ -68,7 +70,7 @@ public class TelaLoginParceiro {
             int tipoOpcao = sc.nextInt();
             sc.nextLine();
 
-            String categoria = obterTipoRestaurante(tipoOpcao);
+            String categoria = exibirTipoRestaurante(tipoOpcao);
             if (tipoOpcao == 7) {
                 System.out.print("Digite o tipo: ");
                 categoria = sc.nextLine();
@@ -119,7 +121,7 @@ public class TelaLoginParceiro {
     }
 
 
-    private String obterTipoRestaurante(int opcao) {
+    private String exibirTipoRestaurante(int opcao) {
         switch (opcao) {
             case 1: return "Pizzaria";
             case 2: return "Hamburgueria";
