@@ -1,12 +1,9 @@
 package br.com.pedija.parceiro.model;
 
-
-import java.util.ArrayList;
-import java.util.List;
+import br.com.pedija.consumidor.model.Endereco;
 
 public class Parceiro {
     private int id;
-    private String cpf;
     private String cnpj;
     private String nome;
     private String senha;
@@ -20,9 +17,6 @@ public class Parceiro {
     private String cidade;
     private String bairro;
     private int numero;
-    private String horarioSemana ="10:00 ás 18:00";
-    private String horarioFimSemana = "10:00 ás 14:00";
-    private List<String> formasPagamento;
 
 
 
@@ -33,39 +27,6 @@ public class Parceiro {
         this.taxaEntrega = taxaEntrega;
         this.aberto = aberto;
     }
-
-    private void inicializarFormasPagamentoPadrao() {
-        this.formasPagamento = new ArrayList<>();
-        this.formasPagamento.add("Dinheiro");
-        this.formasPagamento.add("PIX");
-        this.formasPagamento.add("Cartão de Crédito");
-        this.formasPagamento.add("Cartão de Débito");
-    }
-
-    public List<String> getFormasPagamento() {
-        return formasPagamento;
-    }
-
-    public void setFormasPagamento(List<String> formasPagamento) {
-        this.formasPagamento = formasPagamento;
-    }
-
-    public String getHorarioSemana() {
-        return horarioSemana;
-    }
-
-    public void setHorarioSemana(String horarioSemana) {
-        this.horarioSemana = horarioSemana;
-    }
-
-    public String getHorarioFimSemana() {
-        return horarioFimSemana;
-    }
-
-    public void setHorarioFimSemana(String horarioFimSemana) {
-        this.horarioFimSemana = horarioFimSemana;
-    }
-
     public String getCep() {
         return cep;
     }

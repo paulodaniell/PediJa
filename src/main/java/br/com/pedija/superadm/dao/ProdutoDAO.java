@@ -1,13 +1,13 @@
-package br.com.pedija.parceiro.dao;
+package br.com.pedija.superadm.dao;
 
-import br.com.pedija.parceiro.database.DatabaseConnection;
-import br.com.pedija.parceiro.model.Produto;
+import br.com.pedija.superadm.database.DatabaseConnection;
+import br.com.pedija.superadm.model.Produto;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class produtoDAO {
+public class ProdutoDAO {
 
     // CREATE
     public void criar(Produto produto) {

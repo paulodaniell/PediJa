@@ -1,4 +1,4 @@
-package br.com.pedija.parceiro.model;
+package br.com.pedija.superadm.model;
 
 public class Entregador {
     private int id;
@@ -8,27 +8,7 @@ public class Entregador {
     private String veiculo;
     private boolean disponivel;
 
-
-    public Entregador() {
-        this.disponivel = true;
-
-    }
-
-    public Entregador(int id, String nomeEntregador, String telefone, String veiculo) {
-        this.id = id;
-        this.nomeEntregador = nomeEntregador;
-        this.telefone = telefone;
-        this.veiculo = veiculo;
-        this.disponivel = true;
-
-    }
-
-
     public int getId() {
-        return id;
-    }
-
-    public int getIdEntregador() {
         return id;
     }
 
@@ -67,6 +47,7 @@ public class Entregador {
     public void setVeiculo(String veiculo) {
         this.veiculo = veiculo;
     }
+
     public boolean isDisponivel() {
         return disponivel;
     }
@@ -74,6 +55,4 @@ public class Entregador {
     public void setDisponivel(boolean disponivel) {
         this.disponivel = disponivel;
     }
-
-
 }
