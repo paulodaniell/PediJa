@@ -59,9 +59,9 @@ public class Produto {
     }
 
 
-    //será usado para checar se existe o produto que a pessoa digitou no banco de dados.
-    //public String checar(String nome)
-    //{
+//será usado para checar se existe o produto que a pessoa digitou no banco de dados.
+/*public String checar(String nome)
+{
 
-    //}
+ }*/
 }

@@ -6,18 +6,19 @@ import java.util.Scanner;
 
 public class BuscaProdutoConsumidor {
 
-    private Scanner sc = new Scanner(System.in);;
+    private Scanner sc = new Scanner(System.in);
+    ;
     Produto produto = new Produto();
+}
 
+   // void exibirbuscarProdutos() {
 
-    void exibirbuscarProdutos(){
-
-        do {
+        /*do {
             System.out.println("Qual produto você gostaria de pedir?");
             System.out.print("Digite: ");
             produto.setNome(sc.nextLine());
+        }
 
-            produto.checar();
 
             //é para retornar o nome do produto ou NULL, caso não tenha
             if (produto.checar()) {
@@ -28,15 +29,7 @@ public class BuscaProdutoConsumidor {
             {
                 System.out.println("Produto não encontrado!");
             }
-            
-        }while(produto.checar() == null);
 
+        }while(produto.checar() == null);*/
 
-
-
-
-
-
-    }
-
-}
+    //}

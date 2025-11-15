@@ -55,7 +55,7 @@ public class MenuPrincipalConsumidorView {
 
             case 2:
                 System.out.println("Buscar Produtos");
-                buscaProdutoConsumidor.exibirbuscarProdutos();
+                //buscaProdutoConsumidor.exibirbuscarProdutos();
                 break;
 
             case 3:
