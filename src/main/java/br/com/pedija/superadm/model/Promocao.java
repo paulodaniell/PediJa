@@ -1,5 +1,4 @@
 package br.com.pedija.superadm.model;
-import br.com.pedija.superadm.model.Parceiro;
 
 
 public class Promocao {

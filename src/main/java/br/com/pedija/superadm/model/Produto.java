@@ -1,4 +1,4 @@
-package br.com.pedija.consumidor.model;
+package br.com.pedija.superadm.model;
 
 public class Produto {
 

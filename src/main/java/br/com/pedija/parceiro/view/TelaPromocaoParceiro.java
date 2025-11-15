@@ -2,9 +2,9 @@ package br.com.pedija.parceiro.view;
 
 import br.com.pedija.parceiro.controller.ProdutoController;
 import br.com.pedija.parceiro.controller.PromocaoController;
-import br.com.pedija.parceiro.model.Parceiro;
-import br.com.pedija.parceiro.model.Produto;
-import br.com.pedija.parceiro.model.Promocao;
+import br.com.pedija.superadm.model.Parceiro;
+import br.com.pedija.superadm.model.Produto;
+import br.com.pedija.superadm.model.Promocao;
 import java.util.List;
 import java.util.Scanner;
 

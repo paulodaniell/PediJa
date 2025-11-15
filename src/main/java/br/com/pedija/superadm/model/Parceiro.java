@@ -1,6 +1,5 @@
-package br.com.pedija.parceiro.model;
+package br.com.pedija.superadm.model;
 
-import br.com.pedija.consumidor.model.Endereco;
 
 public class Parceiro {
     private int id;
@@ -92,14 +91,6 @@ public class Parceiro {
     }
 
     private boolean aberto;
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
 
     public String getCnpj() {
         return cnpj;

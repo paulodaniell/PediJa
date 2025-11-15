@@ -1,26 +1,13 @@
 package br.com.pedija.parceiro.controller;
 import java.util.ArrayList;
 import java.util.List;
-import br.com.pedija.parceiro.model.Parceiro;
+import br.com.pedija.superadm.model.Parceiro;
 
 
 public class ParceiroController {
 
     private static List<Parceiro> parceiros = new ArrayList<>();
     private static int proximoId = 1;
-
-    //Produtos para teste sem banco de dados
-    static {
-
-        Parceiro p1 = new Parceiro(1, "Sushi loko", "Japonês", 10.00,true);
-        p1.setEmail("sushi@.com");
-        p1.setSenha("123");
-        p1.setCnpj("11.222.333/0001-22");
-        p1.setTelefone("(61) 97777-7777");
-        p1.setEndereco("Rua xxxx, 300");
-        parceiros.add(p1);
-        proximoId = 2;
-    }
 
     public Parceiro login(String email, String senha) {
 

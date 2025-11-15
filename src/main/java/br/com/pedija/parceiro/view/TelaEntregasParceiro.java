@@ -1,9 +1,9 @@
 package br.com.pedija.parceiro.view;
 import br.com.pedija.parceiro.controller.EntregadorController;
 import br.com.pedija.parceiro.controller.PedidoController;
-import br.com.pedija.parceiro.model.Entregador;
-import br.com.pedija.parceiro.model.Parceiro;
-import br.com.pedija.parceiro.model.Pedido;
+import br.com.pedija.superadm.model.Entregador;
+import br.com.pedija.superadm.model.Parceiro;
+import br.com.pedija.superadm.model.Pedido;
 import java.util.List;
 import java.util.Scanner;
 
