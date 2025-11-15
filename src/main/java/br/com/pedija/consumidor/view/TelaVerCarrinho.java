@@ -1,7 +1,7 @@
 package br.com.pedija.consumidor.view;
 
 import br.com.pedija.consumidor.controller.CarrinhoController;
-import br.com.pedija.consumidor.model.Produto;
+import br.com.pedija.superadm.model.Produto;
 import java.util.Scanner;
 
 

@@ -1,6 +1,6 @@
 package br.com.pedija.parceiro.controller;
 
-import br.com.pedija.parceiro.model.Produto;
+import br.com.pedija.superadm.model.Produto;
 
 import java.util.ArrayList;
 import java.util.List;

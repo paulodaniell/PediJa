@@ -1,7 +1,7 @@
 package br.com.pedija.consumidor.view;
 
 import br.com.pedija.consumidor.controller.UsuarioController;
-import br.com.pedija.consumidor.model.Usuario;
+import br.com.pedija.superadm.model.Usuario;
 import java.util.Scanner;
 
 public class TelaLoginConsumidor {

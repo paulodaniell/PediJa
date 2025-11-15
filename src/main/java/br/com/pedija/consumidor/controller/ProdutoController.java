@@ -1,6 +1,6 @@
 package br.com.pedija.consumidor.controller;
 
-import br.com.pedija.consumidor.model.Produto;
+import br.com.pedija.superadm.model.Produto;
 import java.util.ArrayList;
 
 public class ProdutoController {

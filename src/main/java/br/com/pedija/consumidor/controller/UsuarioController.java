@@ -1,6 +1,6 @@
 package br.com.pedija.consumidor.controller;
 
-import br.com.pedija.consumidor.model.Usuario;
+import br.com.pedija.superadm.model.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +24,7 @@ public class UsuarioController {
         exemplo.setId(id++);
         exemplo.setEmail("user@gmail.com");
         exemplo.setTelefone("11999999999");
-        exemplo.setCPF("11111111111");
+        exemplo.setcpf("11111111111");
         exemplo.setNome("Usuário Teste");
         exemplo.setEndereco("Rua Exemplo");
         exemplo.setFormadepagamento("Cartão");

@@ -1,6 +1,6 @@
 package br.com.pedija.parceiro.view;
 
-import br.com.pedija.parceiro.model.Parceiro;
+import br.com.pedija.superadm.model.Parceiro;
 
 import java.util.Scanner;
 
