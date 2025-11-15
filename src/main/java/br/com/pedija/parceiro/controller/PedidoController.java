@@ -3,7 +3,7 @@ package br.com.pedija.parceiro.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.pedija.parceiro.model.ItemPedido;
+import br.com.pedija.superadm.model.ItemPedido;
 import br.com.pedija.parceiro.model.Pedido;
 
 public class PedidoController {
