@@ -13,20 +13,18 @@ public class MenuPrincipalConsumidorView {
     TelaPerfil telaPerfil = new TelaPerfil();
     TelaPromocoes telaPromocoes = new TelaPromocoes();
 
-    public MenuPrincipalConsumidorView() {
-        this.sc = new Scanner(System.in);
-    }
+    public MenuPrincipalConsumidorView() {this.sc = new Scanner(System.in);}
 
     public void exibirMenuCliente() {
         int opcao = -1;
 
         do {
             System.out.println("------------------------------");
-            System.out.println(" 1 - Fazer Pedido             ");
-            System.out.println(" 2 - Buscar Produtos          ");
+            System.out.println(" 1 - Início                   ");
+            System.out.println(" 2 - Buscar                   ");
             System.out.println(" 3 - Promoções                ");
-            System.out.println(" 4 - Ver Pedidos              ");
-            System.out.println(" 5 - Ver Perfil               ");
+            System.out.println(" 4 - Pedidos                  ");
+            System.out.println(" 5 - Perfil                   ");
             System.out.println(" 0 - Sair                     ");
             System.out.println("------------------------------");
 
@@ -49,12 +47,12 @@ public class MenuPrincipalConsumidorView {
     private void resultadoOpcao(int opcao) {
         switch (opcao) {
             case 1:
-                System.out.println("Fazer  Pedido");
+                System.out.println("Início");
                 escolherParceiro.exibirParceiros();
                 break;
 
             case 2:
-                System.out.println("Buscar Produtos");
+                System.out.println("Buscar");
                 buscaProdutoConsumidor.buscarProdutos();
                 break;
 
@@ -64,12 +62,12 @@ public class MenuPrincipalConsumidorView {
                 break;
 
             case 4:
-                System.out.println("Ver Pedidos");
+                System.out.println("Pedidos");
                 telaPedidos.verPedidos();
                 break;
 
             case 5:
-                System.out.println("Ver Perfil");
+                System.out.println("Perfil");
                 telaPerfil.verPerfil();
                 break;
 
@@ -79,7 +77,6 @@ public class MenuPrincipalConsumidorView {
 
                 default:System.out.println("Opção inválida!");
                     break;
-
 
         }
     }
