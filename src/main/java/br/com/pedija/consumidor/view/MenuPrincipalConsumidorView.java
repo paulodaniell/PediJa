@@ -1,5 +1,6 @@
 package br.com.pedija.consumidor.view;
 
+import br.com.pedija.consumidor.controller.CarrinhoController;
 import br.com.pedija.consumidor.view.perfil.TelaPerfil;
 
 import java.util.Scanner;
@@ -7,8 +8,9 @@ import java.util.Scanner;
 public class MenuPrincipalConsumidorView {
     private Scanner sc;
 
-    TelaEscolherParceiro escolherParceiro = new TelaEscolherParceiro();
-    BuscaProdutoConsumidor buscaProdutoConsumidor = new BuscaProdutoConsumidor();
+    CarrinhoController carrinho = new CarrinhoController();
+    BuscaProdutoConsumidor buscaProdutoConsumidor = new BuscaProdutoConsumidor(carrinho);
+    TelaVerCarrinho telaCarrinho = new TelaVerCarrinho(carrinho);
     TelaPedidos telaPedidos = new TelaPedidos();
     TelaPerfil telaPerfil = new TelaPerfil();
     TelaPromocoes telaPromocoes = new TelaPromocoes();
@@ -22,8 +24,8 @@ public class MenuPrincipalConsumidorView {
 
         do {
             System.out.println("------------------------------");
-            System.out.println(" 1 - Fazer Pedido             ");
-            System.out.println(" 2 - Buscar Produtos          ");
+            System.out.println(" 1 - Buscar Produtos            ");
+            System.out.println(" 2 - Ver Carrinho          ");
             System.out.println(" 3 - Promoções                ");
             System.out.println(" 4 - Ver Pedidos              ");
             System.out.println(" 5 - Ver Perfil               ");
@@ -41,7 +43,6 @@ public class MenuPrincipalConsumidorView {
                 sc.nextLine();
             }
 
-
         } while (opcao != 0);
 
     }
@@ -49,13 +50,13 @@ public class MenuPrincipalConsumidorView {
     private void resultadoOpcao(int opcao) {
         switch (opcao) {
             case 1:
-                System.out.println("Fazer  Pedido");
-                escolherParceiro.exibirParceiros();
+                System.out.println("Buscar Produtos");
+                buscaProdutoConsumidor.exibirbuscarProdutos();
                 break;
 
             case 2:
-                System.out.println("Buscar Produtos");
-                //buscaProdutoConsumidor.exibirbuscarProdutos();
+                System.out.println("Ver Carrinho");
+                telaCarrinho.vercarrinho();
                 break;
 
             case 3:

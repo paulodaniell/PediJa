@@ -93,6 +93,9 @@ public class TelaLoginConsumidor {
         System.out.print("Nome: ");
         novoConsumidor.setNome(sc.nextLine());
 
+        System.out.println("CADASTRO REALIZADO COM SUCESSO!");
+        System.out.println("BEM-VINDO AO PEDIJÁ!");
+
         // ===============================================================
         // AQUI ENTRA O BANCO DE DADOS (FUTURO)
         // Aqui vai salvar o novo usuário no banco

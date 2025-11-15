@@ -88,9 +88,9 @@ public class TelaPerfilParceiro {
     public void horarioFuncionamento() {
         System.out.println("Horário de Funcionamento " + parceiro.getNome());
         System.out.println("Aberto de segunda a sexta.");
-        System.out.println("Horário: " + parceiro.getHorarioSemana());
+        System.out.println("Horário: ");
         System.out.println("Sábado e domingo.");
-        System.out.println("Horário: " + parceiro.getHorarioFimSemana());
+        System.out.println("Horário: ");
         System.out.println("\nDeseja editar o horário de funcionamento? (S/N)");
         String resposta = sc.nextLine();
         if (resposta.equalsIgnoreCase("S")) {
@@ -103,19 +103,18 @@ public class TelaPerfilParceiro {
 
             switch (opcao) {
                 case 1:
-                    System.out.println("Horário atual: " + parceiro.getHorarioSemana());
+                    System.out.println("Horário atual: " );
                     System.out.print("Digite o novo horário (ex: 08:00 às 17:00): ");
                     String novoHorarioSemana = sc.nextLine();
 
-                    parceiro.setHorarioSemana(novoHorarioSemana);
                     System.out.println("Novo horário definido!");
                     break;
                 case 2:
-                    System.out.println("Horário atual: " + parceiro.getHorarioFimSemana());
+                    System.out.println("Horário atual: ");
                     System.out.print("Digite o novo horário (ex: 09:00 às 15:00): ");
                     String novoHorarioFimSemana = sc.nextLine();
 
-                    parceiro.setHorarioFimSemana(novoHorarioFimSemana);
+
                     System.out.println("Novo horário definido!");
                     break;
 
@@ -129,9 +128,7 @@ public class TelaPerfilParceiro {
     public void exibirFormasPagamento() {
         System.out.println("\n FORMAS DE PAGAMENTO ACEITAS:");
         System.out.println("─────────────────────────────");
-        for (String forma : parceiro.getFormasPagamento()) {
-            System.out.println(" " + forma);
-        }
+
 
     }
 }

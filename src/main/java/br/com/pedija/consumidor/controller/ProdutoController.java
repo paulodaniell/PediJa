@@ -7,13 +7,13 @@ public class ProdutoController {
 
 
     // "Banco de dados" fake em memória
-    private static ArrayList<Produto> produtosteste = new ArrayList<>();
+    private static final ArrayList<Produto> produtosteste = new ArrayList<>();
     private static int id = 1;
 
     static {
-        produtosteste.add(new Produto(id++, "Pizza Calabresa", "Pizza grande com calabresa", 45.00));
-        produtosteste.add(new Produto(id++, "Hambúrguer", "Hambúrguer artesanal com cheddar", 25.00));
-        produtosteste.add(new Produto(id++, "Coca-Cola 2L", "Refrigerante Coca-Cola 2 litros", 10.00));
+        produtosteste.add(new Produto(id++, "Pizza Calabresa", "Pizza grande com calabresa", 45.00, "Moema"));
+        produtosteste.add(new Produto(id++, "Hamburguer", "Hambúrguer artesanal com cheddar", 25.00, "Giraffas"));
+        produtosteste.add(new Produto(id++, "Coca Cola", "Refrigerante Coca-Cola 2 litros", 10.00, "Seu Zé"));
     }
 
     public Produto buscarPorNome(String nome) {

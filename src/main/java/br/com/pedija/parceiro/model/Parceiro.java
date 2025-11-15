@@ -1,7 +1,5 @@
 package br.com.pedija.parceiro.model;
 
-import br.com.pedija.consumidor.model.Endereco;
-
 public class Parceiro {
     private int id;
     private String cpf;
