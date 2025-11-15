@@ -3,7 +3,6 @@ package br.com.pedija.parceiro.view;
 import br.com.pedija.parceiro.controller.ParceiroController;
 import br.com.pedija.parceiro.model.Parceiro;
 
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class TelaLoginParceiro {
@@ -54,8 +53,21 @@ public class TelaLoginParceiro {
             System.out.print(" Telefone: ");
             novoParceiro.setTelefone(sc.nextLine());
 
-            System.out.print(" Endereço: ");
-            novoParceiro.setEndereco(sc.nextLine());
+            System.out.print(" Cidade: ");
+            novoParceiro.setCidade(sc.nextLine());
+
+            System.out.print(" Estado: ");
+            novoParceiro.setEstado(sc.nextLine());
+
+            System.out.print(" Bairro: ");
+            novoParceiro.setBairro(sc.nextLine());
+
+            System.out.print(" CEP: ");
+            novoParceiro.setCep(sc.nextLine());
+
+            System.out.print(" Numero: ");
+            novoParceiro.setNumero(sc.nextInt());
+            sc.nextLine();
 
             System.out.println(" Categoria da sua loja ");
             System.out.println("[1] Pizzaria");
@@ -67,8 +79,7 @@ public class TelaLoginParceiro {
             System.out.println("[7] Outro");
 
             System.out.print("Escolha: ");
-            int tipoOpcao = sc.nextInt();
-            sc.nextLine();
+            int tipoOpcao = Integer.parseInt(sc.nextLine());
 
             String categoria = exibirTipoRestaurante(tipoOpcao);
             if (tipoOpcao == 7) {
@@ -77,9 +88,6 @@ public class TelaLoginParceiro {
             }
             novoParceiro.setCategoria(categoria);
 
-            System.out.print("\n Taxa de Entrega (R$): ");
-            novoParceiro.setTaxaEntrega(sc.nextDouble());
-            sc.nextLine();
 
             System.out.println("\n-----------------------------------");
             System.out.println("||      CONFIRMAR CADASTRO?      ||");
@@ -89,7 +97,6 @@ public class TelaLoginParceiro {
             System.out.println(" CNPJ: " + novoParceiro.getCnpj());
             System.out.println(" Telefone: " + novoParceiro.getTelefone());
             System.out.println(" Tipo: " + novoParceiro.getCategoria());
-            System.out.println(" Taxa Entrega: R$ " + String.format("%.2f", novoParceiro.getTaxaEntrega()));
             System.out.println("----------------------------------");
 
             System.out.print("\nConfirma cadastro? (S/N): ");
@@ -100,7 +107,7 @@ public class TelaLoginParceiro {
                 if (controller.cadastrar(novoParceiro)) {
                     System.out.println("\n Parceiro cadastrado com sucesso!");
                     System.out.println(" Bem-vindo ao Pedija, " + novoParceiro.getNome() + "!");
-                    novoParceiro.setId(1);
+
 
                     Parceiro parceiroLogado = controller.login(novoParceiro.getEmail(), novoParceiro.getSenha());
                     if (parceiroLogado != null) {
@@ -115,8 +122,8 @@ public class TelaLoginParceiro {
             }
 
         } catch (Exception e) {
-            System.out.println("\n️ Erro no cadastro: " + e.getMessage());
-            sc.nextLine();
+            e.printStackTrace();
+            System.out.println("\n️ Erro no cadastro.");
         }
     }
 
