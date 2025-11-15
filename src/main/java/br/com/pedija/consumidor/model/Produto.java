@@ -6,21 +6,17 @@ public class Produto {
     private String nome;
     private String descricao;
     private double preco;
-    private int quantidade;
 
-    public Produto(int id, String nome, String descricao, double preco, int quantidade) {
+    public Produto(int id, String nome, String descricao, double preco) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
-        this.quantidade = quantidade;
     }
 
     public Produto() {}
 
-    public int getId() {
-        return id;
-    }
+    public int getId() {return id;}
 
     public void setId(int id) {
         this.id = id;
@@ -50,18 +46,4 @@ public class Produto {
         this.preco = preco;
     }
 
-    public int getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
-
-
-    //será usado para checar se existe o produto que a pessoa digitou no banco de dados.
-    //public String checar(String nome)
-    //{
-
-    //}
 }
