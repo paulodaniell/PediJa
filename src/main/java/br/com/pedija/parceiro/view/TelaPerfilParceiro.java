@@ -123,7 +123,7 @@ public class TelaPerfilParceiro {
                     System.out.println("Opção inválida!");
             }
         } else if (resposta.equalsIgnoreCase("N")) {
-            exibirInfoParceiro();
+            exibirPerfilParceiro();
         }
     }
     public void exibirFormasPagamento() {
