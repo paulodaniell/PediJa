@@ -34,7 +34,7 @@ public class TelaPedidosParceiro {
             System.out.println("1- Pedidos Pendentes: (" + pendentes + ")");
             System.out.println("2- Pedidos em Preparo: (" + emPreparo + ")");
             System.out.println("3- Pedidos Prontos: (" + prontos + ")");
-            System.out.println("4- Histórico:");
+            System.out.println("4- Histórico.");
             System.out.println("0- Voltar");
 
             System.out.println("\nEscolha uma opção: ");
@@ -53,12 +53,15 @@ public class TelaPedidosParceiro {
 
     private void resultadoOpc(int opcao) {
         switch (opcao) {
-            case 1 -> exibirPendentes();
-            case 2 -> exibirEmPreparo();
-            case 3 -> exibirProntos();
-            case 4 -> exibirHistorico();
-            case 0 -> System.out.println("Voltando..");
-            default -> System.out.println("Opção inválida!");
+            case 1 : exibirPendentes(); break;
+            case 2 : exibirEmPreparo(); break;
+            case 3 : exibirProntos(); break;
+            case 4 : exibirHistorico(); break;
+            case 0 :
+                System.out.println("Voltando..");
+                break;
+            default:System.out.println("Opção inválida!");
+                break;
         }
     }
 
@@ -197,23 +200,24 @@ public class TelaPedidosParceiro {
         System.out.println("\nMotivo da rejeição:");
         System.out.println("[1] Fora da área de entrega");
         System.out.println("[2] Produto indisponível");
-        System.out.println("[3] Outro");
         System.out.print("Escolha: ");
         int opcao = sc.nextInt();
         sc.nextLine();
 
-        String motivo = switch (opcao) {
-            case 1 -> "Fora da área de entrega";
-            case 2 -> "Produto indisponível";
-            default -> {
-                System.out.print("Digite o motivo: ");
-                yield sc.nextLine();
-            }
-        };
+        String motivo;
 
+        if (opcao == 1) {
+            motivo = "Fora da área de entrega";
+        } else if (opcao == 2) {
+            motivo = "Produto indisponível";
+        } else {
+            System.out.println("Opção inválida! Cancelando operação.");
+            return;
+        }
+
+        System.out.println("\nMotivo selecionado: " + motivo);
         if (pedidoController.atualizarStaus(id, "REJEITADO")) {
             System.out.println("\nPedido #" + id + " rejeitado!");
-            System.out.println("Motivo: " + motivo);
         }
     }
 

@@ -47,11 +47,9 @@ public class TelaProdutosParceiro {
 
         } while (opcao != 0);
     }
-
-
     private void exibirProdutos(List<Produto> produtos) {
-        System.out.println("\n)-----------------------------------------------");
-        System.out.println("|  PRODUTOS CADASTRADOS (" + produtos.size() + ")");
+        System.out.println("\n-----------------------------------------------");
+        System.out.println("  PRODUTOS CADASTRADOS (" + produtos.size() + ")");
         System.out.println("-------------------------------------------------");
 
         if (produtos.isEmpty()) {
@@ -70,20 +68,17 @@ public class TelaProdutosParceiro {
                     System.out.println("|  " + p.getDescricao());
                 }
 
-                System.out.println(" ────────────────────────────────");
+                System.out.println(" ------------------------------------------");
             }
         }
 
 
     }
-
-
     private void exibirMenu() {
         System.out.println("1- Adicionar Produto");
         System.out.println("2 - Editar Produto");
         System.out.println("3 - Remover Produto");
         System.out.println("4 -Alterar Disponibilidade");
-        System.out.println("5 -Buscar Produto");
         System.out.println("0 -Voltar");
     }
 
@@ -101,9 +96,6 @@ public class TelaProdutosParceiro {
                 break;
             case 4:
                 alterarDisponibilidade();
-                break;
-            case 5:
-                buscarProduto();
                 break;
             case 0:
                 System.out.println("Voltando...");
@@ -355,49 +347,6 @@ public class TelaProdutosParceiro {
             sc.nextLine();
         }
 
-
     }
 
-
-    private void buscarProduto() {
-
-        System.out.println("\n===========================================");
-        System.out.println("         BUSCAR PRODUTO                  ");
-        System.out.println("===========================================\n");
-
-        try {
-            System.out.print("Digite o ID do produto: ");
-            int id = sc.nextInt();
-            sc.nextLine();
-
-            Produto produto = produtoController.buscarPorId(id);
-
-            if (produto == null) {
-                System.out.println("\n Produto não encontrado!");
-            } else if (produto.getIdParceiro() != parceiro.getId()) {
-                System.out.println("\n Este produto não pertence ao seu restaurante!");
-            } else {
-                System.out.println("\n===========================================");
-                System.out.println("       DETALHES DO PRODUTO                  ");
-                System.out.println("===========================================");
-                System.out.println("  ID: " + produto.getId());
-                System.out.println("  Nome: " + produto.getNome());
-                System.out.println("  Preço: R$ " + String.format("%.2f", produto.getPreco()));
-                System.out.println("  Categoria: " + produto.getCategoria());
-                System.out.println("  Tempo: " + produto.getTempoPreparo() + " min");
-                System.out.println("  Status: " + (produto.isDisponivel() ? "Disponível " : "Indisponível "));
-
-                if (produto.getDescricao() != null && !produto.getDescricao().isEmpty()) {
-                    System.out.println("  Descrição: " + produto.getDescricao());
-                }
-
-                System.out.println("-------------------------------------");
-            }
-
-        } catch (Exception e) {
-            System.out.println("\n Erro: " + e.getMessage());
-            sc.nextLine();
-        }
-
-    }
 }

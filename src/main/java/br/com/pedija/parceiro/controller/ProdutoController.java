@@ -15,7 +15,7 @@ public class ProdutoController {
         produtos.add(new Produto(2,"Combo Prime - 108 peças",249.40,1));
         produtos.add(new Produto(3,"Combo Show - 100 peças",199.90,1));
     }
-    //Listar produtos de um parceiro
+
     public List<Produto> listarPorParceiros(int idParceiro){
         List<Produto> resultado = new ArrayList<>();
         for(Produto p : produtos){
@@ -25,7 +25,7 @@ public class ProdutoController {
         }
         return resultado;
     }
-    //Adicionar produto
+
     public boolean adicionar(Produto produto){
         if(produto.getNome() == null){
             return false;
@@ -66,7 +66,7 @@ public class ProdutoController {
         }
 
         System.out.println("\n TOP 5 PRODUTOS MAIS VENDIDOS ");
-        System.out.println("────────────────────────────────────────");
+        System.out.println("-----------------------------------");
 
         int limite = Math.min(5, produtosDoParceiro.size());
 
@@ -74,7 +74,7 @@ public class ProdutoController {
             Produto p = produtosDoParceiro.get(i);
             System.out.printf("%dº - %s%n", i + 1, p.getNome());
             System.out.printf("Preço: R$ %.2f%n", p.getPreco());
-            System.out.println("Vendas: (colocar contador!!!!!!!!!!!!)");//colocar contador
+            System.out.println("Vendas: (colocar contador!!!!!!!!!!!!)");
             System.out.println();
         }
     }

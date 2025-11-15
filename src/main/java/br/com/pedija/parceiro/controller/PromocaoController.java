@@ -14,7 +14,6 @@ public class PromocaoController {
         return promocoes.add(promocao);
     }
 
-
     public List<Promocao> listarPorParceiro(int idParceiro) {
         List<Promocao> resultado = new ArrayList<>();
         for (Promocao p : promocoes) {
@@ -24,29 +23,10 @@ public class PromocaoController {
         }
         return resultado;
     }
-
-
-    public Promocao buscarPorId(int id) {
-        for (Promocao p : promocoes) {
-            if (p.getId() == id) {
-                return p;
-            }
-        }
-        return null;
-    }
-
-
     public boolean remover(int id) {
         return promocoes.removeIf(p -> p.getId() == id);
     }
 
 
-    public boolean desativar(int id) {
-        Promocao p = buscarPorId(id);
-        if (p != null) {
-            p.setAtiva(false);
-            return true;
-        }
-        return false;
-    }
+
 }

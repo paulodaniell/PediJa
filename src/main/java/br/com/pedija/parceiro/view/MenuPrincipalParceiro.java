@@ -33,9 +33,8 @@ public class MenuPrincipalParceiro {
 
             try {
                 opcao = sc.nextInt();
-
-               resultadoOp(opcao);
                 sc.nextLine();
+               resultadoOp(opcao);
             } catch (Exception erro) {
                 System.out.println("Erro  digite apenas numeros!");
                 sc.nextLine();
@@ -55,7 +54,8 @@ public class MenuPrincipalParceiro {
 
             case 2:
                 System.out.println("Acompanhar Entrega");
-                //TelaEntregasParceiro.exibirEntrega();
+                TelaEntregasParceiro telaEntregas = new TelaEntregasParceiro(parceiro);
+                telaEntregas.menuEntregasParceiro();
                 break;
 
             case 3:
@@ -78,9 +78,12 @@ public class MenuPrincipalParceiro {
                 break;
             case 6:
                 System.out.println("Configurações da conta");
-                //ConfiguracoesView().exibirConfiguracoes();
+                TelaPerfilParceiro telaPerfilParceiro = new TelaPerfilParceiro(parceiro);
+                telaPerfilParceiro.exibirPerfilParceiro();
+                break;
             case 0:
                 System.out.println("Saindo..");
+
                 break;
 
             default:System.out.println("Opção inválida!");

@@ -10,10 +10,35 @@ public class Pedido {
     private int idCliente;
     private List<ItemPedido> itens;
     private double valoTotal;
+    private int idEntregador;
     private String status;
     private String endereco;
     private String formaPagamento;
     private int idParceiro;
+
+
+    public Pedido() {
+        this.itens = new ArrayList<>();
+        this.status = "PENDENTE";
+        this.idEntregador = 0;
+    }
+
+    public double getValoTotal() {
+        return valoTotal;
+    }
+
+    public int getIdEntregador() {
+        return idEntregador;
+    }
+
+    public void setIdEntregador(int idEntregador) {
+        this.idEntregador = idEntregador;
+    }
+
+    public void setValoTotal(double valoTotal) {
+        this.valoTotal = valoTotal;
+    }
+
 
     public int getIdParceiro() {
         return idParceiro;
@@ -29,11 +54,6 @@ public class Pedido {
 
     public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
-    }
-
-    public Pedido(){
-        this.itens = new ArrayList<>();
-        this.status = "PENDENTE";
     }
 
     public int getId() {

@@ -32,8 +32,7 @@ public class TelaPromocaoParceiro {
             System.out.println("------------------------------");
             System.out.println(" 1 - Criar Promoção");
             System.out.println(" 2 - Remover Promoção");
-            System.out.println(" 3 - Editar Promoção");
-            System.out.println(" 4 - Listar Promoções Ativas");
+            System.out.println(" 3 - Listar Promoções Ativas");
             System.out.println(" 0 - Voltar");
             System.out.println("------------------------------");
             System.out.print("Escolha uma opção: ");
@@ -59,9 +58,6 @@ public class TelaPromocaoParceiro {
                 removerPromocao();
                 break;
             case 3:
-                editarPromocao();
-                break;
-            case 4:
                 listarPromocoesAtivas();
                 break;
 
@@ -79,7 +75,6 @@ public class TelaPromocaoParceiro {
         System.out.println("     CRIAR NOVA PROMOÇÃO            ");
         System.out.println("================================\n");
 
-
         List<Produto> produtos = produtoController.listarPorParceiros(parceiro.getId());
 
         if (produtos.isEmpty()) {
@@ -87,13 +82,11 @@ public class TelaPromocaoParceiro {
 
             return;
         }
-
         System.out.println("SEUS PRODUTOS:");
         for (Produto p : produtos) {
             System.out.println("ID: " + p.getId() + " - " + p.getNome() +
                     " (R$ " + String.format("%.2f", p.getPreco()) + ")");
         }
-
 
         try {
             System.out.print("\nDigite o ID do produto: ");
@@ -113,8 +106,6 @@ public class TelaPromocaoParceiro {
 
                 return;
             }
-
-
             System.out.println("\nProduto: " + produto.getNome());
             System.out.println("Preço Original: R$ " + String.format("%.2f", produto.getPreco()));
 
@@ -127,8 +118,6 @@ public class TelaPromocaoParceiro {
 
                 return;
             }
-
-
             double desconto = ((produto.getPreco() - precoPromocional) / produto.getPreco()) * 100;
 
             System.out.println("\nDesconto: " + String.format("%.0f", desconto) + "%");
@@ -159,8 +148,6 @@ public class TelaPromocaoParceiro {
 
 
     }
-
-
     private void removerPromocao() {
         System.out.println("\n================================\n");
         System.out.println("     REMOVER PROMOÇÃO               ");
@@ -202,10 +189,7 @@ public class TelaPromocaoParceiro {
             System.out.println(" Erro: " + e.getMessage());
             sc.nextLine();
         }
-
-
     }
-
     private void listarPromocoesAtivas() {
         System.out.println("\n================================\n");
         System.out.println("     PROMOÇÕES ATIVAS               ");
@@ -228,18 +212,5 @@ public class TelaPromocaoParceiro {
             }
         }
 
-
     }
-
-
-
-
-
-//Terminar
-    private void editarPromocao() {
-        System.out.println("️Incompleta ");
-
-    }
-
-
 }
