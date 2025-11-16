@@ -36,12 +36,12 @@ public class ParceiroDAO {
             stmt.setString(12, parceiro.getCidade());
             stmt.setString(13, parceiro.getBairro());
             stmt.setInt(14, parceiro.getNumero());
-            stmt.setString(15, parceiro.getHorarioSemana());
-            stmt.setString(16, parceiro.getHorarioFimSemana());
+            //stmt.setString(15, parceiro.getHorarioSemana());
+            //stmt.setString(16, parceiro.getHorarioFimSemana());
 
             // converte List<String> → "pix,crédito,débito"
-            String formasPagamento = String.join(",", parceiro.getFormasPagamento());
-            stmt.setString(17, formasPagamento);
+            //String formasPagamento = String.join(",", parceiro.getFormasPagamento());
+            //stmt.setString(17, formasPagamento);
 
             stmt.executeUpdate();
 
@@ -77,12 +77,12 @@ public class ParceiroDAO {
                 p.setCidade(rs.getString("cidade"));
                 p.setBairro(rs.getString("bairro"));
                 p.setNumero(rs.getInt("numero"));
-                p.setHorarioSemana(rs.getString("horarioSemana"));
-                p.setHorarioFimSemana(rs.getString("horarioFimSemana"));
+                //p.setHorarioSemana(rs.getString("horarioSemana"));
+                //p.setHorarioFimSemana(rs.getString("horarioFimSemana"));
 
                 // converte "pix,credito" → List<String>
                 String formasPagamento = rs.getString("formasPagamento");
-                p.setFormasPagamento(Arrays.asList(formasPagamento.split(",")));
+                //p.setFormasPagamento(Arrays.asList(formasPagamento.split(",")));
 
                 parceiros.add(p);
             }
@@ -122,11 +122,11 @@ public class ParceiroDAO {
                 p.setCidade(rs.getString("cidade"));
                 p.setBairro(rs.getString("bairro"));
                 p.setNumero(rs.getInt("numero"));
-                p.setHorarioSemana(rs.getString("horarioSemana"));
-                p.setHorarioFimSemana(rs.getString("horarioFimSemana"));
+                //p.setHorarioSemana(rs.getString("horarioSemana"));
+                //p.setHorarioFimSemana(rs.getString("horarioFimSemana"));
 
                 String formasPagamento = rs.getString("formasPagamento");
-                p.setFormasPagamento(Arrays.asList(formasPagamento.split(",")));
+                //p.setFormasPagamento(Arrays.asList(formasPagamento.split(",")));
 
                 return p;
             }
@@ -166,11 +166,11 @@ public class ParceiroDAO {
             stmt.setString(11, parceiro.getCidade());
             stmt.setString(12, parceiro.getBairro());
             stmt.setInt(13, parceiro.getNumero());
-            stmt.setString(14, parceiro.getHorarioSemana());
-            stmt.setString(15, parceiro.getHorarioFimSemana());
+            //stmt.setString(14, parceiro.getHorarioSemana());
+            //stmt.setString(15, parceiro.getHorarioFimSemana());
 
-            String formasPagamento = String.join(",", parceiro.getFormasPagamento());
-            stmt.setString(16, formasPagamento);
+            //String formasPagamento = String.join(",", parceiro.getFormasPagamento());
+            //stmt.setString(16, formasPagamento);
 
             stmt.setInt(17, parceiro.getId());
 

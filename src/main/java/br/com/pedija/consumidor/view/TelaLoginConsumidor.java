@@ -88,10 +88,13 @@ public class TelaLoginConsumidor {
         novoConsumidor.setTelefone(sc.nextLine());
 
         System.out.print("CPF: ");
-        novoConsumidor.setCPF(sc.nextLine());
+        novoConsumidor.setcpf(sc.nextLine());
 
         System.out.print("Nome: ");
         novoConsumidor.setNome(sc.nextLine());
+
+        System.out.print("Endereço: ");
+        novoConsumidor.setEndereco(sc.nextLine());
 
         System.out.println("CADASTRO REALIZADO COM SUCESSO!");
         System.out.println("BEM-VINDO AO PEDIJÁ!");

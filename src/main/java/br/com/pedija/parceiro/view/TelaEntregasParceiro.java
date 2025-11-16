@@ -83,7 +83,7 @@ public class TelaEntregasParceiro {
             System.out.println("\n PEDIDO #" + p.getId());
             System.out.println("Cliente: " + p.getNomeCliente());
             System.out.println("Endereço: " + p.getEndereco());
-            System.out.println("Valor: R$ " + String.format("%.2f", p.getValorTotal()));
+            //System.out.println("Valor: R$ " + String.format("%.2f", p.getValorTotal()));
             System.out.println("─────────────────────────────");
         }
 
@@ -162,7 +162,7 @@ public class TelaEntregasParceiro {
             System.out.println("\n PEDIDO #" + p.getId());
             System.out.println("Cliente: " + p.getNomeCliente());
             System.out.println("Endereço: " + p.getEndereco());
-            System.out.println("Valor: R$ " + String.format("%.2f", p.getValorTotal()));
+            //System.out.println("Valor: R$ " + String.format("%.2f", p.getValorTotal()));
 
             if (entregador != null) {
                 System.out.println("Entregador: " + entregador.getNomeEntregador());

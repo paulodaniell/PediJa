@@ -1,5 +1,7 @@
 package br.com.pedija.superadm.model;
 
+import java.util.List;
+
 public class Pedido {
     private int id;
     private String nomeCliente;
@@ -11,6 +13,11 @@ public class Pedido {
     private String formaPagamento;
     private int idParceiro;
 
+    private List<Produto> itens;
+    private int usuarioId;
+
+    public Pedido(){}
+
     public int getId() {
         return id;
     }
@@ -19,21 +26,13 @@ public class Pedido {
         this.id = id;
     }
 
-    public String getNomeCliente() {
-        return nomeCliente;
-    }
+    public String getNomeCliente() {return nomeCliente;}
 
-    public void setNomeCliente(String nomeCliente) {
-        this.nomeCliente = nomeCliente;
-    }
+    public void setNomeCliente(String nomeCliente) {this.nomeCliente = nomeCliente;}
 
-    public int getIdClienteitens() {
-        return idClienteitens;
-    }
+    public int getIdClienteitens() {return idClienteitens;}
 
-    public void setIdClienteitens(int idClienteitens) {
-        this.idClienteitens = idClienteitens;
-    }
+    public void setIdClienteitens(int idClienteitens) {this.idClienteitens = idClienteitens;}
 
     public double getValoTotal() {
         return valoTotal;
@@ -82,4 +81,15 @@ public class Pedido {
     public void setIdParceiro(int idParceiro) {
         this.idParceiro = idParceiro;
     }
+
+
+
+    public List<Produto> getItens() {return itens;}
+
+    public void setItens(List<Produto> itens) {this.itens = itens;}
+
+    public int getUsuarioId() {return usuarioId;}
+
+    public void setUsuarioId(int usuarioId) {this.usuarioId = usuarioId;}
+
 }

@@ -1,19 +1,24 @@
 package br.com.pedija.consumidor.view;
 
 import br.com.pedija.consumidor.controller.CarrinhoController;
+import br.com.pedija.consumidor.controller.UsuarioController;
 import br.com.pedija.consumidor.view.perfil.TelaPerfil;
+import br.com.pedija.superadm.model.Usuario;
 
 import java.util.Scanner;
 
 public class MenuPrincipalConsumidorView {
     private Scanner sc;
 
-    CarrinhoController carrinho = new CarrinhoController();
+    private final UsuarioController usuarioController = new UsuarioController();
+    private final CarrinhoController carrinho = new CarrinhoController();
+    private Usuario usuarioLogado;
     BuscaProdutoConsumidor buscaProdutoConsumidor = new BuscaProdutoConsumidor(carrinho);
-    TelaVerCarrinho telaCarrinho = new TelaVerCarrinho(carrinho);
+    TelaVerCarrinho telaCarrinho = new TelaVerCarrinho(carrinho, usuarioLogado, usuarioController);
     TelaPedidos telaPedidos = new TelaPedidos();
     TelaPerfil telaPerfil = new TelaPerfil();
     TelaPromocoes telaPromocoes = new TelaPromocoes();
+
 
     public MenuPrincipalConsumidorView() {
         this.sc = new Scanner(System.in);

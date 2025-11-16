@@ -3,7 +3,7 @@ package br.com.pedija.parceiro.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.pedija.superadm.model.ItemPedido;
+//import br.com.pedija.superadm.model.ItemPedido;
 import br.com.pedija.superadm.model.Pedido;
 
 public class PedidoController {
@@ -55,11 +55,11 @@ public class PedidoController {
     }
     public double calcularFaturamentoTotal(int idParceiro) {
         double soma = 0.0;
-        for (Pedido p : pedidos) {
-            if (p.getIdParceiro() == idParceiro && "ENTREGUE".equalsIgnoreCase(p.getStatus())) {
-                soma += p.getValorTotal();
-            }
-        }
+        //for (Pedido p : pedidos) {
+        //    if (p.getIdParceiro() == idParceiro && "ENTREGUE".equalsIgnoreCase(p.getStatus())) {
+        //        soma += p.getValorTotal();
+        //    }
+        //}
         return soma;
     }
 

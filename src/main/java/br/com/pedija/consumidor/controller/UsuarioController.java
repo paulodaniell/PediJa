@@ -45,4 +45,19 @@ public class UsuarioController {
         u.setId(id++);
         base.add(u);
     }
+
+
+    public void atualizarUsuario(Usuario u) {
+        if (u == null) return;
+        for (int i = 0; i < base.size(); i++) {
+            if (base.get(i).getId() == u.getId()) {
+                base.set(i, u);
+                return;
+            }
+        }
+        // se não existir, adicionar (opcional)
+        u.setId(id++);
+        base.add(u);
+    }
+
 }
