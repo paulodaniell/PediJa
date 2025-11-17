@@ -3,7 +3,6 @@ package br.com.pedija.parceiro.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-//import br.com.pedija.superadm.model.ItemPedido;
 import br.com.pedija.superadm.model.Pedido;
 import br.com.pedija.superadm.dao.PedidoDAO;
 import br.com.pedija.parceiro.view.TelaPedidosParceiro;
@@ -77,6 +76,32 @@ public class PedidoController {
         return null;
     }
 
+    public List<Pedido> listarAguardandoEntregador(int idParceiro) {
+        List<Pedido> resultado = new ArrayList<>();
+
+        for (Pedido p : resultado)
+
+            if (p.getIdParceiro() == idParceiro &&
+                    p.getStatus().equals("PRONTO") &&
+                    p.getIdEntregador() == 0) {
+                resultado.add(p);
+            }
+
+        return resultado;
+    }
+
+    public List<Pedido> listarEmEntrega() {
+        try {
+            return pedidoDAO.buscarPorStatus("Em ENTREGA");
+
+        } catch (Exception e) {
+            view.exibirErro(e.getMessage());
+        }
+        return null;
+
+    }
+
+
     public List<Pedido> listarProntos() {
         try {
             return pedidoDAO.buscarPorStatus("PRONTO");
@@ -86,6 +111,24 @@ public class PedidoController {
         }
         return null;
     }
+
+
+
+
+    public boolean atribuirEntregador(int idPedido, int idEntregador) {
+        Pedido p = buscarPorId(idPedido);
+
+        if (p != null) {
+            p.setIdEntregador(idEntregador);
+            p.setStatus("EM_ENTREGA");
+            return true;
+        }
+
+        return false;
+    }
+
+
+
 
     public int contarPedidosPendentes() {
         int contador = 0;
@@ -108,7 +151,6 @@ public class PedidoController {
         }
         return contador;
     }
-
 
 
     public int contarPedidosProntos() {
@@ -135,34 +177,6 @@ public class PedidoController {
 }
         return soma;
     }
-
-
-    public boolean atribuirEntregador(int idPedido, int idEntregador) {
-        Pedido p = buscarPorId(idPedido);
-
-        if (p != null) {
-            p.setIdEntregador(idEntregador);
-            p.setStatus("EM_ENTREGA");
-            return true;
-        }
-
-        return false;
-    }
-
-
-    public List<Pedido> listarAguardandoEntregador(int idParceiro) {
-        List<Pedido> resultado = new ArrayList<>();
-
-        for (Pedido p : resultado)
-            if (p.getIdParceiro() == idParceiro &&
-                    p.getStatus().equals("PRONTO") &&
-                    p.getIdEntregador() == 0) {
-                resultado.add(p);
-            }
-
-        return resultado;
-    }
-
 
 }
 
