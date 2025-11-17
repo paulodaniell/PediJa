@@ -2,6 +2,7 @@ package br.com.pedija.parceiro.view;
 
 import br.com.pedija.parceiro.controller.ParceiroController;
 import br.com.pedija.superadm.model.Parceiro;
+import br.com.pedija.superadm.dao.ParceiroDAO;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,15 +12,42 @@ public class TelaLoginParceiro {
 
     private Scanner sc;
     private ParceiroController controller;
+    private Parceiro parceiro;
+    private ParceiroDAO parceiroDAO;
 
     public TelaLoginParceiro() {
         this.sc = new Scanner(System.in);
         this.controller = new ParceiroController();
+        this.parceiroDAO = new ParceiroDAO();
     }
 
     public void exibir() {
+        int opcao = 0;
+        do {
+            System.out.println("\nPEDIJA - PARCEIRO");
+            System.out.println("1 - Login");
+            System.out.println("2 - Cadastrar");
+            System.out.println("0 Sair");
+            opcao = sc.nextInt();
+            sc.nextLine(); // limpar buffer
 
-        System.out.println("          PEDIJA - PARCEIRO");
+            switch (opcao) {
+                case 1:
+                    entrar();
+                    break;
+                case 2:
+                    cadastrar();
+                    break;
+                case 0:
+                    return;
+                default:
+                    System.out.println("Opção inválida!");
+            }
+
+        } while (opcao != 0);
+    }
+
+    private void cadastrar() {
         System.out.println("\n-----------------------------------");
         System.out.println("||     CADASTRO NOVO PARCEIRO    ||");
         System.out.println("-----------------------------------");
@@ -69,7 +97,7 @@ public class TelaLoginParceiro {
 
             System.out.print(" Numero: ");
             novoParceiro.setNumero(sc.nextInt());
-            sc.nextLine();
+            sc.nextLine(); // limpar buffer
 
             System.out.println(" Categoria da sua loja ");
             System.out.println("[1] Pizzaria");
@@ -92,13 +120,9 @@ public class TelaLoginParceiro {
 
             System.out.println("═══ FORMAS DE PAGAMENTO ═══");
             System.out.print("Digite as formas de pagamento (separadas por vírgula ex:pix,debito,credito): ");
-
-
             String formasInput = sc.nextLine();
             List<String> formas = Arrays.asList(formasInput.split(","));
-
             novoParceiro.setFormasPagamento(formas);
-
 
             System.out.println("\n-----------------------------------");
             System.out.println("||      CONFIRMAR CADASTRO?      ||");
@@ -114,11 +138,9 @@ public class TelaLoginParceiro {
             String confirma = sc.nextLine();
 
             if (confirma.equalsIgnoreCase("S")) {
-
                 if (controller.cadastrar(novoParceiro)) {
                     System.out.println("\n Parceiro cadastrado com sucesso!");
                     System.out.println(" Bem-vindo ao Pedija, " + novoParceiro.getNome() + "!");
-
 
                     Parceiro parceiroLogado = controller.login(novoParceiro.getEmail(), novoParceiro.getSenha());
                     if (parceiroLogado != null) {
@@ -138,6 +160,23 @@ public class TelaLoginParceiro {
         }
     }
 
+    private void entrar() {
+        System.out.println("Digite seu Email: ");
+        String email = sc.nextLine();
+
+        System.out.println("Digite sua Senha: ");
+        String senha = sc.nextLine();
+
+        Parceiro parceiroLogado = parceiroDAO.login(email, senha);
+
+        if (parceiroLogado != null) {
+            System.out.println("Login realizado com sucesso! Bem-vindo " + parceiroLogado.getNome());
+            MenuPrincipalParceiro menu = new MenuPrincipalParceiro(parceiroLogado);
+            menu.exibirMenuParceiro();
+        } else {
+            System.out.println("Email ou senha inválidos!");
+        }
+    }
 
     private String exibirTipoRestaurante(int opcao) {
         switch (opcao) {

@@ -1,8 +1,6 @@
 package br.com.pedija.superadm.dao;
 
 import br.com.pedija.superadm.database.DatabaseConnection;
-import br.com.pedija.superadm.model.Categoria;
-import br.com.pedija.superadm.model.Pedido;
 import br.com.pedija.superadm.model.Produto;
 
 import java.sql.*;
@@ -11,16 +9,14 @@ import java.util.List;
 
 public class ProdutoDAO {
 
-    /**
-     * CREATE
-     * Salva um novo produto no banco.
-     */
+    // CREATE
     public void criar(Produto produto) {
 
         String sql = """
-            INSERT INTO produtos (nome, descricao, preco, quantidade, idParceiro)
-            VALUES (?, ?, ?, ?, ?)
-            """;
+            INSERT INTO produtos 
+            (nome, descricao, preco, quantidade, categoria_id, idParceiro, disponivel)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        """;
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -29,7 +25,9 @@ public class ProdutoDAO {
             stmt.setString(2, produto.getDescricao());
             stmt.setDouble(3, produto.getPreco());
             stmt.setInt(4, produto.getQuantidade());
-            stmt.setInt(5, produto.getIdParceiro());
+            stmt.setObject(5, produto.getCategoria_id(), Types.INTEGER);
+            stmt.setInt(6, produto.getIdParceiro());
+            stmt.setBoolean(7, produto.isDisponivel());
 
             stmt.executeUpdate();
 
@@ -42,46 +40,18 @@ public class ProdutoDAO {
             throw new RuntimeException("Erro ao adicionar produto: " + e.getMessage(), e);
         }
     }
+
+    // READ - todos
     public List<Produto> buscarTodos() {
         List<Produto> produtos = new ArrayList<>();
-        String sql = "SELECT * FROM produto ORDER BY id";
+        String sql = "SELECT * FROM produtos ORDER BY id";
 
         try (Connection conn = DatabaseConnection.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
-
-                Produto p = new Produto();
-
-                // CAMPOS BÁSICOS
-                p.setId(rs.getInt("id"));
-                p.setNome(rs.getString("nome"));
-                p.setDescricao(rs.getString("descricao"));
-                p.setPreco(rs.getDouble("preco"));
-
-                // PARCEIRO
-                p.setIdParceiro(rs.getInt("idParceiro"));
-                p.setDisponivel(rs.getBoolean("disponivel"));
-                p.setQuantidade(rs.getInt("quantidade"));
-                p.setTempoPreparo(rs.getInt("tempoPreparo"));
-
-                // EXTRA
-                p.setLoja(rs.getString("loja"));
-
-                // CATEGORIA (se existir)
-                int categoriaId = rs.getInt("categoriaId");
-
-                // se categoriaId > 0, busca categoria e preenche
-                if (categoriaId != 0) {
-                    Categoria categoria = new Categoria();
-                    categoria.setId(categoriaId);
-                    categoria.setNome(rs.getString("categoriaNome"));
-                    // se a categoriaNome não estiver na tabela produto, ajustar depois
-                    p.setCategoriaNome(categoria.getNome());
-                }
-
-                produtos.add(p);
+                produtos.add(mapProduto(rs));
             }
 
         } catch (SQLException e) {
@@ -91,13 +61,9 @@ public class ProdutoDAO {
         return produtos;
     }
 
-
-
-    /**
-     * READ
-     * Lista todos os produtos que pertencem a um parceiro específico.
-     */
+    // READ - por parceiro
     public List<Produto> buscarPorParceiro(int idParceiro) {
+
         List<Produto> produtos = new ArrayList<>();
         String sql = "SELECT * FROM produtos WHERE idParceiro = ? ORDER BY id";
 
@@ -110,38 +76,44 @@ public class ProdutoDAO {
             while (rs.next()) {
                 produtos.add(mapProduto(rs));
             }
+
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao buscar produtos: " + e.getMessage(), e);
         }
+
         return produtos;
     }
 
-    /**
-     * READ
-     * Busca um produto único pelo seu ID.
-     */
+    // READ - por ID
     public Produto buscarPorId(int id) {
+
         String sql = "SELECT * FROM produtos WHERE id = ?";
+
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
+
             if (rs.next()) {
                 return mapProduto(rs);
             }
+
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao buscar produto: " + e.getMessage(), e);
         }
+
         return null;
     }
 
-    /**
-     * UPDATE
-     * Atualiza os dados principais de um produto.
-     */
+    // UPDATE
     public void atualizar(Produto produto) {
-        String sql = "UPDATE produtos SET nome = ?, descricao = ?, preco = ?, quantidade = ? WHERE id = ?";
+
+        String sql = """
+            UPDATE produtos 
+            SET nome = ?, descricao = ?, preco = ?, quantidade = ?, categoria_id = ? 
+            WHERE id = ?
+        """;
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -150,14 +122,82 @@ public class ProdutoDAO {
             stmt.setString(2, produto.getDescricao());
             stmt.setDouble(3, produto.getPreco());
             stmt.setInt(4, produto.getQuantidade());
-            stmt.setInt(5, produto.getId());
+            stmt.setObject(5, produto.getCategoria_id());
+            stmt.setInt(6, produto.getId());
 
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            // LINHA 117 CORRIGIDA
             throw new RuntimeException("Erro ao atualizar produto: " + e.getMessage(), e);
         }
+    }
+
+    // UPDATE - disponibilidade
+    public boolean alterarDisponibilidade(int id, boolean disponivel) {
+
+        String sql = "UPDATE produtos SET disponivel = ? WHERE id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setBoolean(1, disponivel);
+            stmt.setInt(2, id);
+
+            return stmt.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao atualizar disponibilidade: " + e.getMessage(), e);
+        }
+    }
+
+    // DELETE
+    public void deletar(int id) {
+
+        String sql = "DELETE FROM produtos WHERE id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao remover produto: " + e.getMessage(), e);
+        }
+    }
+
+
+    private Produto mapProduto(ResultSet rs) throws SQLException {
+
+        Produto p = new Produto();
+
+        p.setId(rs.getInt("id"));
+        p.setNome(rs.getString("nome"));
+        p.setDescricao(rs.getString("descricao"));
+        p.setPreco(rs.getDouble("preco"));
+        p.setQuantidade(rs.getInt("quantidade"));
+        p.setCategoria_id(rs.getInt("categoria_id"));
+        p.setIdParceiro(rs.getInt("idParceiro"));
+        p.setDisponivel(rs.getBoolean("disponivel"));
+
+        return p;
+    }
+
+    public int contarPorParceiro(int idParceiro) {
+
+            String sql = "SELECT COUNT(*) AS total FROM produtos WHERE idParceiro = ?";
+            try (Connection conn = DatabaseConnection.getConnection();
+                 PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+                stmt.setInt(1, idParceiro);
+                ResultSet rs = stmt.executeQuery();
+                if (rs.next()) {
+                    return rs.getInt("total");
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException("Erro ao contar produtos: " + e.getMessage(), e);
+            }
+            return 0;
     }
 
     public List<Produto> listarMaisVendidos(int idParceiro) {
@@ -190,59 +230,4 @@ public class ProdutoDAO {
         return produtos;
     }
 
-    public boolean alterarDisponibilidade(int id, boolean disponivel) {
-        String sql = "UPDATE produtos SET disponivel = ? WHERE id = ?";
-
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setBoolean(1, disponivel);
-            stmt.setInt(2, id);
-            return stmt.executeUpdate() > 0;
-
-        } catch (SQLException e) {
-            throw new RuntimeException("Erro ao atualizar disponibilidade: " + e.getMessage(), e);
-        }
-    }
-
-
-    public void deletar(int id) {
-        String sql = "DELETE FROM produtos WHERE id = ?";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException("Erro ao remover produto: " + e.getMessage(), e);
-        }
-    }
-
-    public int contarPorParceiro(int idParceiro) {
-        String sql = "SELECT COUNT(*) AS total FROM produtos WHERE idParceiro = ?";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setInt(1, idParceiro);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                return rs.getInt("total");
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("Erro ao contar produtos: " + e.getMessage(), e);
-        }
-        return 0;
-    }
-
-
-    private Produto mapProduto(ResultSet rs) throws SQLException {
-        Produto p = new Produto();
-        p.setId(rs.getInt("id"));
-        p.setNome(rs.getString("nome"));
-        p.setDescricao(rs.getString("descricao"));
-        p.setPreco(rs.getDouble("preco"));
-        p.setQuantidade(rs.getInt("quantidade"));
-        p.setIdParceiro(rs.getInt("idParceiro"));
-        // p.setDisponivel(rs.getBoolean("disponivel")); // Descomente quando adicionar a coluna
-        return p;
-    }
 }

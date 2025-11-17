@@ -1,53 +1,22 @@
 package br.com.pedija.superadm.model;
-import br.com.pedija.superadm.model.Categoria;
 
 public class Produto {
-    Categoria categoria;
 
-    String descricao;
     private int id;
     private String nome;
+    private String descricao;
     private double preco;
-
-
-
-    // CAMPOS PARA PARCEIROS
+    private int quantidade;
+    private Integer categoria_id;
     private int idParceiro;
     private boolean disponivel;
-    private int quantidade;
-    private int tempoPreparo; // em minutos
 
-    // CAMPOS PARA CATEGORIA
-    private Integer categoriaId;   // COMEÇA NULO
-    private String categoriaNome;
-    // EXTRA
-    private String loja;
+    public Produto() {}
 
-    public Produto() {
-
+    public Produto(int i, String pizzaCalabresa, String pizzaGrandeComCalabresa, double v, String moema) {
     }
 
-
-    public Produto(int id, String nome, String descricao, double preco, String loja) {
-        this.id = id;
-        this.nome = nome;
-        this.descricao = descricao;
-        this.preco = preco;
-        this.loja = loja;
-    }
-
-    // CONSTRUTOR QUE ALGUMAS TELAS AINDA USAM
-    public Produto(int id, String nome, double preco, int idParceiro) {
-        this.id = id;
-        this.nome = nome;
-        this.preco = preco;
-        this.idParceiro = idParceiro;
-        this.disponivel = true;
-        this.quantidade = 0;
-    }
-
-
-
+    // GETTERS E SETTERS CORRETOS
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
@@ -61,24 +30,15 @@ public class Produto {
     public double getPreco() { return preco; }
     public void setPreco(double preco) { this.preco = preco; }
 
+    public int getQuantidade() { return quantidade; }
+    public void setQuantidade(int quantidade) { this.quantidade = quantidade; }
+
+    public Integer getCategoria_id() { return categoria_id; }
+    public void setCategoria_id(Integer categoria_id) { this.categoria_id = categoria_id; }
+
     public int getIdParceiro() { return idParceiro; }
     public void setIdParceiro(int idParceiro) { this.idParceiro = idParceiro; }
 
     public boolean isDisponivel() { return disponivel; }
     public void setDisponivel(boolean disponivel) { this.disponivel = disponivel; }
-
-    public int getQuantidade() { return quantidade; }
-    public void setQuantidade(int quantidade) { this.quantidade = quantidade; }
-
-    public int getTempoPreparo() { return tempoPreparo; }
-    public void setTempoPreparo(int tempoPreparo) { this.tempoPreparo = tempoPreparo; }
-
-    public Integer getCategoriaId() { return categoriaId; }
-    public void setCategoriaId(Integer categoriaId) { this.categoriaId = categoriaId; }
-
-    public String getCategoriaNome() { return categoriaNome; }
-    public void setCategoriaNome(String categoriaNome) { this.categoriaNome = categoriaNome; }
-
-    public String getLoja() { return loja; }
-    public void setLoja(String loja) { this.loja = loja; }
 }

@@ -33,10 +33,11 @@ public class DatabaseConnection {
             preco DECIMAL(10, 2) NOT NULL,
             quantidade INT NOT NULL,
             categoria_id INT,
-           idParceiro INT,
+            idParceiro INT,
             disponivel BOOLEAN DEFAULT TRUE,
             FOREIGN KEY (categoria_id) REFERENCES categorias(id)
-        )
+        );
+
     """;
 
         String createUsuarioSQL = """

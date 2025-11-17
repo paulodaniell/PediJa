@@ -35,7 +35,6 @@ public class TelaProdutosParceiro {
 
             List<Produto> produtos = produtoController.listarPorParceiros(parceiro.getId());
 
-
             exibirProdutos(produtos);
             exibirMenu();
 
@@ -44,7 +43,6 @@ public class TelaProdutosParceiro {
                 System.out.print("Escolha uma opção: ");
                 opcao = sc.nextInt();
                 sc.nextLine();
-
 
                 Opcao(opcao);
 
@@ -150,17 +148,17 @@ public class TelaProdutosParceiro {
             novo.setPreco(sc.nextDouble());
             sc.nextLine();
 
-            System.out.print(" Categoria: ");
-            novo.setCategoriaNome(sc.nextLine());
+            System.out.print(" Quantidade: ");
+            novo.setQuantidade(sc.nextInt());
+            sc.nextLine();
 
-            System.out.print(" Tempo de preparo (min): ");
-            novo.setTempoPreparo(sc.nextInt());
+            System.out.print(" ID da Categoria: ");
+            novo.setCategoria_id(sc.nextInt());
             sc.nextLine();
 
             novo.setDisponivel(true);
-            novo.setIdParceiro(parceiro.getId()); // IMPORTANTE!!!
+            novo.setIdParceiro(parceiro.getId());
 
-            // CHAMA APENAS UMA VEZ
             boolean sucesso = produtoController.adicionarProduto(novo);
 
             if (sucesso) {
@@ -177,7 +175,6 @@ public class TelaProdutosParceiro {
     }
 
 
-
     private void editarProduto() {
 
 
@@ -189,10 +186,8 @@ public class TelaProdutosParceiro {
         try {
             System.out.print("ID do produto: ");
 
-
             int id = sc.nextInt();
             sc.nextLine();
-
 
             Produto produto = produtoController.buscarPorId(id);
 
@@ -200,27 +195,16 @@ public class TelaProdutosParceiro {
             if (produto == null) {
                 System.out.println("\n Produto não encontrado!");
 
-
-                return;
-            }
-
-
-
-
-            if (produto.getIdParceiro() != parceiro.getId()) {
-                System.out.println("\n Este produto não pertence ao seu restaurante!");
-
-
                 return;
             }
 
 
             System.out.println("\nEditando: " + produto.getNome());
+
             System.out.println("\n[1] Editar Nome");
             System.out.println("[2] Editar Descrição");
             System.out.println("[3] Editar Preço");
             System.out.println("[4] Editar Categoria");
-            System.out.println("[5] Editar Tempo de Preparo");
             System.out.println("[0] Cancelar");
 
 
@@ -248,14 +232,8 @@ public class TelaProdutosParceiro {
                     break;
                 case 4:
                     System.out.print("Nova categoria: ");
-                    produto.setCategoriaNome(sc.nextLine());
+                    produto.setCategoria_id(sc.nextInt());
                     System.out.println(" Categoria atualizada!");
-                    break;
-                case 5:
-                    System.out.print("Novo tempo (min): ");
-                    produto.setTempoPreparo(sc.nextInt());
-                    sc.nextLine();
-                    System.out.println(" Tempo atualizado!");
                     break;
                 case 0:
                     System.out.println(" Edição cancelada!");
@@ -271,10 +249,7 @@ public class TelaProdutosParceiro {
         }
 
 
-
-
     }
-
 
 
 

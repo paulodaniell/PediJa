@@ -44,7 +44,6 @@ public class BuscaProdutoConsumidor {
                 System.out.println("Produto: " + produto.getNome());
                 System.out.println("Descrição: " + produto.getDescricao());
                 System.out.printf("Preço: R$ %.2f%n", produto.getPreco());
-                System.out.println("Loja: " + produto.getLoja());
                 System.out.println();
 
                 System.out.println("[1] Adicionar ao carrinho");
