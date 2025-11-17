@@ -4,7 +4,6 @@ package br.com.pedija.consumidor.view;
 import br.com.pedija.consumidor.controller.CarrinhoController;
 import br.com.pedija.consumidor.controller.PedidoController;
 import br.com.pedija.consumidor.controller.UsuarioController;
-import br.com.pedija.superadm.model.ItemPedido;
 import br.com.pedija.superadm.model.Pedido;
 import br.com.pedija.superadm.model.Produto;
 import br.com.pedija.superadm.model.Usuario;
@@ -178,11 +177,11 @@ public class TelaVerCarrinho {
 
                     int j = 1;
 
-                    List<ItemPedido> itensPedido = revisaopedido.getItens();
+                    List<Produto> itensPedido = revisaopedido.getItens();
+
                     if (itensPedido == null || itensPedido.isEmpty()) {
                         System.out.println("O pedido está vazio!");
                     } else {
-                        int j = 1;
                         for (Produto it : itensPedido) {
                             System.out.printf("%d - %s (R$ %.2f)%n", j++, it.getNome(), it.getPreco());
                         }
@@ -212,7 +211,7 @@ public class TelaVerCarrinho {
 
                     if (conf == 1) {
                         // criar o pedido real, limpar carrinho e informar usuário
-                       pedidoController.cadastrarPedido(revisaopedido);
+                        pedidoController.criarPedido(revisaopedido);
                         carrinho.limpar();
                         System.out.println("Pedido confirmado!");
                         return;

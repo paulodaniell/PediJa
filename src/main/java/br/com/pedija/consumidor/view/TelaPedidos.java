@@ -8,7 +8,6 @@ import br.com.pedija.superadm.model.Pedido;
 
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -19,6 +18,7 @@ public class TelaPedidos {
     private final PedidoController pedidoController;
     private final Scanner sc;
     private final Usuario usuarioLogado;
+    Pedido pedido;
 
 
     public TelaPedidos(PedidoController pedidoController, Usuario usuarioLogado) {
@@ -63,7 +63,6 @@ public class TelaPedidos {
 
 
         switch (op) {
-
 
             case 1:
                 pedidoscaminho();
@@ -112,7 +111,7 @@ public class TelaPedidos {
 
             if (resposta.equals("S")) {
                 // Chama o Controller para mudar o status
-                pedidoController.concluirPedido(pedidoSelecionado.getId());
+                pedido.setStatus("PRONTO");
                 System.out.printf("\nPedido recebido e CONCLUÍDO!");
                 return; // Volta para o menu 'pedidoscaminho'
 
@@ -134,7 +133,7 @@ public class TelaPedidos {
     private void pedidoscaminho() {
 
 
-        List<Pedido> emAndamento = pedidoController.listarEmAndamentoPorUsuario(usuarioLogado.getId());
+        List<Pedido> emAndamento = pedidoController.listarEmEntrega();
 
 
         System.out.println("\n===PEDIDOS Á CAMINHO===\n");
@@ -142,17 +141,21 @@ public class TelaPedidos {
 
         // 2. Lógica de Exibição e Seleção na View
         int indiceExibicao = 0;
-        for (Pedido p : emAndamento) { // Itera APENAS sobre a lista filtrada
-            // AQUI ESTÁ SOMENTE A APRESENTAÇÃO (System.out.printf)
+
+        for (Pedido p : emAndamento) {
+
             indiceExibicao++;
             System.out.printf(" [%d] Pedido #%d | Total: R$ %.2f%n", indiceExibicao, p.getId(), p.getValorTotal());
 
 
-            // Exibe o nome do primeiro produto (resumo)
             if (!p.getItens().isEmpty()) {
-                System.out.printf("     Itens: %s e mais...%n", p.getItens().get(0).getNomeProduto());
-            } else {
-                System.out.println("    Itens: Sem itens registrados.");
+
+                System.out.printf("Itens: %s e mais...", p.getItens().get(0));
+
+            }
+
+            else {
+                System.out.println("Itens: Sem itens registrados.");
             }
         }
 
@@ -167,27 +170,27 @@ public class TelaPedidos {
                 System.out.println("\n------------------------------------");
                 System.out.println("Digite o NÚMERO do pedido para ver detalhes.");
             }
-            System.out.println("[0] Voltar");
-            System.out.print("Escolha: ");
 
+            System.out.println("[0] Voltar");
+
+            System.out.print("Escolha: ");
 
             try {
                 String line = sc.nextLine().trim();
                 int escolha = line.isEmpty() ? -1 : Integer.parseInt(line);
 
-
                 if (escolha == 0) {
                     return; // Volta para o submenu (verPedidos)
                 }
                 // Opção de detalhamento do pedido
+
                 if (escolha > 0 && escolha <= emAndamento.size()) {
                     Pedido pedidoSelecionado = emAndamento.get(escolha - 1); // Indice da lista é (escolha - 1)
 
 
-                    // Chama o método para exibir detalhes e perguntar sobre a conclusão
+//                     Chama o método para exibir detalhes e perguntar sobre a conclusão
+
                     exibirDetalhesEConfirmar(pedidoSelecionado);
-
-
                     // Depois de ver os detalhes, volta ao menu de pedidos à caminho (break)
                     break;
 
@@ -223,8 +226,13 @@ public class TelaPedidos {
 
                 // Exibe o nome do primeiro produto (resumo)
                 if (!p.getItens().isEmpty()) {
-                    System.out.printf("     Itens: %s e mais...%n", p.getItens().get(0).getNomeProduto());
-                } else {
+
+                    System.out.printf("     Itens: %s e mais...", p.getItens());
+
+                }
+
+                else {
+
                     System.out.println("     Itens: Sem itens registrados.");
                 }
             }
@@ -245,17 +253,15 @@ public class TelaPedidos {
         System.out.println("\n===PEDIDOS CONCLUIDOS===\n");
 
 
-
-
-        List<Pedido> pedidosDoUsuario = pedidoController.listarPorUsuario(usuarioLogado.getId());
+        List<Pedido> pedidosDoUsuario = pedidoController.listarProntos();
 
 
         // Chamada do método auxiliar para exibir apenas os concluídos
+
         listarPedidosPorStatus(pedidosDoUsuario, "Concluído");
 
 
         while(true) {
-
 
             System.out.print("Digite 0 para voltar: ");
 
@@ -276,10 +282,7 @@ public class TelaPedidos {
                 System.out.println("Entrada inválida. Digite apenas 0.");
             }
 
-
         }
-
-
     }
 }
 

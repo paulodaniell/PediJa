@@ -14,7 +14,7 @@ public class Promocao {
  //teste erro
  public double getPercentualDesconto() {
      if (precoOriginal == 0) {
-         return 0; // Evita divisão por zero
+         return 0;
      }
      return ((precoOriginal - precoPromocional) / precoOriginal) * 100;
  }

@@ -12,19 +12,18 @@ public class UsuarioDAO {
     // CREATE
     public void criar(Usuario usuario) {
 
-        String sql = "INSERT INTO usuario (id, email, telefone, cpf, nome, endereco, formadepagamento) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO usuario (email, telefone, cpf, nome, endereco, formadepagamento) " +
+                "VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, usuario.getId());
-            stmt.setString(2, usuario.getEmail());
-            stmt.setString(3, usuario.getTelefone());
-            stmt.setString(4, usuario.getcpf());
-            stmt.setString(5, usuario.getNome());
-            stmt.setString(6, usuario.getEndereco());
-            stmt.setString(7, usuario.getFormadepagamento());
+            stmt.setString(1, usuario.getEmail());
+            stmt.setString(2, usuario.getTelefone());
+            stmt.setString(3, usuario.getCpf());
+            stmt.setString(4, usuario.getNome());
+            stmt.setString(5, usuario.getEndereco());
+            stmt.setString(6, usuario.getFormadepagamento());
 
             stmt.executeUpdate();
 
@@ -48,7 +47,7 @@ public class UsuarioDAO {
                 u.setId(rs.getInt("id"));
                 u.setEmail(rs.getString("email"));
                 u.setTelefone(rs.getString("telefone"));
-                u.setcpf(rs.getString("cpf"));
+                u.setCpf(rs.getString("cpf"));
                 u.setNome(rs.getString("nome"));
                 u.setEndereco(rs.getString("endereco"));
                 u.setFormadepagamento(rs.getString("formadepagamento"));
@@ -112,7 +111,7 @@ public class UsuarioDAO {
                 u.setId(rs.getInt("id"));
                 u.setEmail(rs.getString("email"));
                 u.setTelefone(rs.getString("telefone"));
-                u.setcpf(rs.getString("cpf"));
+                u.setCpf(rs.getString("cpf"));
                 u.setNome(rs.getString("nome"));
                 u.setEndereco(rs.getString("endereco"));
                 u.setFormadepagamento(rs.getString("formadepagamento"));
@@ -140,7 +139,7 @@ public class UsuarioDAO {
 
             stmt.setString(1, usuario.getEmail());
             stmt.setString(2, usuario.getTelefone());
-            stmt.setString(3, usuario.getcpf());
+            stmt.setString(3, usuario.getCpf());
             stmt.setString(4, usuario.getNome());
             stmt.setString(5, usuario.getEndereco());
             stmt.setString(6, usuario.getFormadepagamento());

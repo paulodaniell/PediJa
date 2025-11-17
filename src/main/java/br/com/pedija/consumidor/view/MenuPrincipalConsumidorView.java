@@ -20,7 +20,6 @@ public class MenuPrincipalConsumidorView {
     private final PedidoController pedidoController = new PedidoController();
     private Usuario usuarioLogado;
     BuscaProdutoConsumidor buscaProdutoConsumidor = new BuscaProdutoConsumidor(carrinho);
-    TelaPerfil telaPerfil = new TelaPerfil();
     TelaPromocoes telaPromocoes = new TelaPromocoes();
 
 
@@ -108,7 +107,9 @@ public class MenuPrincipalConsumidorView {
 
 
             case 5:
-                System.out.println("Ver Perfil");
+
+                // CORREÇÃO: Instancie a TelaPerfil aqui, passando as dependências
+                TelaPerfil telaPerfil = new TelaPerfil(this.usuarioLogado, this.usuarioController);
                 telaPerfil.verPerfil();
                 break;
 

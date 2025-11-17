@@ -16,36 +16,39 @@ public class PedidoDAO {
     // CREATE
     public void criar(Pedido pedido) {
         String sql = """
-           INSERT INTO pedido
-           (id, nomeCliente, idClienteitens, valorTotal, idEntregador, status, endereco, formaPagamento, idParceiro)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-       """;
-
+       INSERT INTO Pedido
+       (idUsuario, nomeCliente, valorTotal, idEntregador, status, endereco, formaPagamento, idParceiro)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    """;
 
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-
-            stmt.setInt(1, pedido.getId());
+            stmt.setInt(1, pedido.getIdUsuario());
             stmt.setString(2, pedido.getNomeCliente());
-            stmt.setInt(3, pedido.getIdClienteitens());
-            stmt.setDouble(4, pedido.getValorTotal());
-            stmt.setInt(5, pedido.getIdEntregador());
-            stmt.setString(6, pedido.getStatus());
-            stmt.setString(7, pedido.getEndereco());
-            stmt.setString(8, pedido.getFormaPagamento());
-            stmt.setInt(9, pedido.getIdParceiro());
-
+            stmt.setDouble(3, pedido.getValorTotal());
+            stmt.setInt(4, pedido.getIdEntregador()); // pode ser 0 ou NULL se não tiver
+            stmt.setString(5, pedido.getStatus());
+            stmt.setString(6, pedido.getEndereco());
+            stmt.setString(7, pedido.getFormaPagamento());
+            stmt.setInt(8, pedido.getIdParceiro()); // pode ser 0 ou NULL
 
             stmt.executeUpdate();
 
+            // Recuperar ID gerado automaticamente
+            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    pedido.setId(generatedKeys.getInt(1));
+                }
+            }
 
         } catch (SQLException e) {
+            e.printStackTrace(); // ajuda a identificar problemas
             throw new RuntimeException("Erro ao cadastrar pedido: " + e.getMessage(), e);
         }
     }
 
-    public List<Pedido> buscarTodos() {
+    public List<Pedido> listarTodos() {
         List<Pedido> pedidos = new ArrayList<>();
         String sql = "SELECT * FROM pedido ORDER BY id";
 

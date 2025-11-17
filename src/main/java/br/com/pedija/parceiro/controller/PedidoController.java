@@ -15,13 +15,6 @@ public class PedidoController {
     Pedido pedido =  new Pedido();
 
 
-    //Para o conumidor
-    public void cadastrarPedido() {
-
-    }
-
-
-
     public List<Pedido> listarPedidos() {
 
             List<Pedido> pedidos = pedidoDAO.buscarTodos();
@@ -33,9 +26,7 @@ public class PedidoController {
 
     public Pedido buscarPorId(int id) {
 
-
         return pedidoDAO.buscarPorId(id);
-
 
     }
 
@@ -43,23 +34,15 @@ public class PedidoController {
     public boolean atualizarStaus(int id, String novoStatus) {
         Pedido p = buscarPorId(id);
 
-
         if (p != null) {
-
 
             pedidoDAO.atualizar(p);
 
-
-
             return true;
-
-
         }
 
         return false;
     }
-
-
 
 
     public List<Pedido> listarPendentes() {

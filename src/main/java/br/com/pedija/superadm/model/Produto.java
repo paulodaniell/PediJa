@@ -1,6 +1,9 @@
 package br.com.pedija.superadm.model;
+import br.com.pedija.superadm.model.Parceiro;
 
 public class Produto {
+
+    Parceiro parceiro;
 
     private int id;
     private String nome;
@@ -9,9 +12,18 @@ public class Produto {
     private int quantidade;
     private Integer categoria_id;
     private int idParceiro;
+    private String NomeParceiro = parceiro.getNome();
     private boolean disponivel;
 
     public Produto() {}
+
+    public String getNomeParceiro() {
+        return NomeParceiro;
+    }
+
+    public void setNomeParceiro(String nomeParceiro) {
+        NomeParceiro = nomeParceiro;
+    }
 
     public Produto(int i, String pizzaCalabresa, String pizzaGrandeComCalabresa, double v, String moema) {
     }
@@ -41,4 +53,5 @@ public class Produto {
 
     public boolean isDisponivel() { return disponivel; }
     public void setDisponivel(boolean disponivel) { this.disponivel = disponivel; }
+
 }

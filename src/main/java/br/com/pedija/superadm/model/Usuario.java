@@ -10,13 +10,13 @@ public class Usuario {
     private String formadepagamento;
 
 
-
-
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {this.id = id;}
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getEmail() {
         return email;
@@ -34,11 +34,11 @@ public class Usuario {
         this.telefone = telefone;
     }
 
-    public String getcpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setcpf(String CPF) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
@@ -64,12 +64,5 @@ public class Usuario {
 
     public void setFormadepagamento(String formadepagamento) {
         this.formadepagamento = formadepagamento;
-    }
-
-    public void setCpf(String cpf) {
-    }
-
-    public String getCpf() {
-        return cpf;
     }
 }

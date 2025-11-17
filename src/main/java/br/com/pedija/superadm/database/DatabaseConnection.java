@@ -35,6 +35,8 @@ public class DatabaseConnection {
             categoria_id INT,
             idParceiro INT,
             disponivel BOOLEAN DEFAULT TRUE,
+            
+            FOREIGN KEY (id_parceiro) REFERENCES parceiro(id),
             FOREIGN KEY (categoria_id) REFERENCES categorias(id)
         );
     """;
@@ -94,19 +96,20 @@ public class DatabaseConnection {
     """;
 
         String createPedidoSQL = """
-        CREATE TABLE IF NOT EXISTS Pedido (
-            id INT PRIMARY KEY AUTO_INCREMENT,
-            nomeCliente VARCHAR(150) NOT NULL,
-            idClienteitens INT NOT NULL,
-            valorTotal DECIMAL(10,2) NOT NULL,
-            idEntregador INT,
-            status VARCHAR(50),
-            endereco VARCHAR(200),
-            formaPagamento VARCHAR(50),
-            idParceiro INT,
-            FOREIGN KEY (idEntregador) REFERENCES Entregador(id),
-            FOREIGN KEY (idParceiro) REFERENCES Parceiro(id)
-        )
+                CREATE TABLE IF NOT EXISTS Pedido(
+                    id INT PRIMARY KEY AUTO_INCREMENT,
+                    idUsuario INT NOT NULL,
+                    nomeCliente VARCHAR(150) NOT NULL,
+                    valorTotal DECIMAL(10,2) NOT NULL,
+                    idEntregador INT NULL,
+                    status VARCHAR(50),
+                    endereco VARCHAR(200),
+                    formaPagamento VARCHAR(50),
+                    idParceiro INT NULL,
+                    
+                    FOREIGN KEY (idEntregador) REFERENCES Entregador(id),
+                    FOREIGN KEY (idParceiro) REFERENCES Parceiro(id)
+                );
     """;
 
         String createItemPedidoSQL = """

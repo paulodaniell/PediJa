@@ -1,6 +1,7 @@
 package br.com.pedija.consumidor.controller;
 
 
+import br.com.pedija.superadm.model.Parceiro;
 import br.com.pedija.superadm.model.Usuario;
 import br.com.pedija.superadm.dao.UsuarioDAO;
 
@@ -22,16 +23,33 @@ public class UsuarioController {
     }
 
 
-    public boolean criarUsuario(Usuario usuario) {
-        try {
-            usuarioDAO.criar(usuario);
-            return true;
+    public boolean cadastrar(Usuario  usuario) {
 
-        } catch (Exception e) {
+        if (usuario.getNome() == null || usuario.getNome().trim().isEmpty()) {
+            System.out.println("Nome é obrigatório!");
             return false;
         }
-    }
 
+        if (usuario.getEmail() == null || !usuario.getEmail().contains("@")) {
+            System.out.println("Email inválido!");
+            return false;
+        }
+
+        if (usuario.getCpf() == null || usuario.getCpf().trim().isEmpty()) {
+            System.out.println("CPF é obrigatório!");
+            return false;
+        }
+
+        if (usuario.getEndereco() == null || usuario.getEndereco().isEmpty()) {
+            System.out.println("Endereço é obrigatórias!");
+            return false;
+        }
+
+        usuarioDAO.criar(usuario);
+
+        System.out.println("Parceiro cadastrado no banco!");
+        return true;
+    }
 
     public boolean atualizarUsuario(Usuario usuario) {
         try {

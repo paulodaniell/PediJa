@@ -3,7 +3,6 @@ package br.com.pedija.consumidor.view;
 
 import br.com.pedija.consumidor.controller.UsuarioController;
 import br.com.pedija.parceiro.view.MenuPrincipalParceiro;
-import br.com.pedija.superadm.model.Parceiro;
 import br.com.pedija.superadm.model.Usuario;
 import java.util.Scanner;
 import br.com.pedija.superadm.dao.UsuarioDAO;
@@ -48,14 +47,17 @@ public class TelaLoginConsumidor {
                 if (opcao == 1) {
 
                     entrar();
+                    break;
                 }
 
-                else if (opcao == 2) {
+                if (opcao == 2) {
                     cadastrar();
+                    break;
                 }
 
-                else if (opcao != 0) {
+                if (opcao != 0) {
                     System.out.println("Opção inválida!");
+                    break;
                 }
 
 
@@ -102,7 +104,7 @@ public class TelaLoginConsumidor {
 
 
         System.out.print("CPF: ");
-        novoConsumidor.setcpf(sc.nextLine());
+        novoConsumidor.setCpf(sc.nextLine());
 
 
         System.out.print("Nome: ");
@@ -113,7 +115,7 @@ public class TelaLoginConsumidor {
         novoConsumidor.setEndereco(sc.nextLine());
 
 
-        boolean resposta = controller.cadastrarUsuario(novoConsumidor);
+        boolean resposta = controller.cadastrar(novoConsumidor);
 
 
         if(resposta){
@@ -123,11 +125,6 @@ public class TelaLoginConsumidor {
             menu.setUsuarioLogado(novoConsumidor);
             menu.exibirMenuCliente();
         }
-        else{
-            System.out.println("\nEmail inválido!\n");
-            return;
-        }
-
 
         this.opcao = 0;
     }

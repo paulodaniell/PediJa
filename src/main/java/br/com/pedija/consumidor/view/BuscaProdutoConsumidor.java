@@ -43,7 +43,7 @@ public class BuscaProdutoConsumidor {
                 continue;
             }
 
-            produtoDAO.buscarPorNome(entrada);
+            produtoController.buscarPorNome(entrada);
 
             Produto produto = produtoController.buscarPorNome(entrada);
 
@@ -53,7 +53,7 @@ public class BuscaProdutoConsumidor {
                 System.out.println("Produto: " + produto.getNome());
                 System.out.println("Descrição: " + produto.getDescricao());
                 System.out.printf("Preço: R$ %.2f%n", produto.getPreco());
-                System.out.println("Loja: " + produto.getIdParceiro());
+                System.out.println("Loja: " + produto.getNomeParceiro());
                 System.out.println();
 
 

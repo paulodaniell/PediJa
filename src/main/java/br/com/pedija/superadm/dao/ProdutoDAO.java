@@ -114,7 +114,8 @@ public class ProdutoDAO {
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, nome.length());
+            stmt.setString(1, nome);
+
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
@@ -127,6 +128,7 @@ public class ProdutoDAO {
 
         return null;
     }
+
 
     // UPDATE
     public void atualizar(Produto produto) {
