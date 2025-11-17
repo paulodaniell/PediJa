@@ -27,13 +27,9 @@ public class TelaPedidosParceiro {
             System.out.println("\nPedidos " + parceiro.getNome());
             System.out.println("------------------------------");
 
-            int pendentes = pedidoController.contarPorStatus(parceiro.getId(), "PENDENTE");
-            int emPreparo = pedidoController.contarPorStatus(parceiro.getId(), "EM_PREPARO");
-            int prontos = pedidoController.contarPorStatus(parceiro.getId(), "PRONTO");
-
-            System.out.println("1- Pedidos Pendentes: (" + pendentes + ")");
-            System.out.println("2- Pedidos em Preparo: (" + emPreparo + ")");
-            System.out.println("3- Pedidos Prontos: (" + prontos + ")");
+            System.out.println("1- Pedidos Pendentes: (" + pedidoController.contarPedidosPendentes() + ")");
+            System.out.println("2- Pedidos em Preparo: (" + pedidoController.contarPedidosEmPreparo() + ")");
+            System.out.println("3- Pedidos Prontos: (" + pedidoController.contarPedidosProntos() + ")");
             System.out.println("4- Histórico.");
             System.out.println("0- Voltar");
 
@@ -70,7 +66,7 @@ public class TelaPedidosParceiro {
         System.out.println("PEDIDOS PENDENTES:");
         System.out.println("---------------------");
 
-        List<Pedido> pedidos = pedidoController.listarPorParceiroEStatus(parceiro.getId(), "PENDENTE");
+        List<Pedido> pedidos = pedidoController.listarPendentes();
 
         if (pedidos.isEmpty()) {
             System.out.println("\nNenhum pedido pendente");
@@ -83,12 +79,13 @@ public class TelaPedidosParceiro {
             System.out.printf("Pagamento: %s%n", p.getFormaPagamento());
             System.out.println("Itens:");
 
-            for (var item : p.getItens()) {
-                System.out.printf(" • %dx %s - R$ %.2f%n",
-                        item.getQuantidade(),
-                        item.getNomeProduto(),
-                        item.getSubTotal());
-            }
+
+//            for (Pedido p : p.getItens()) {
+//                System.out.printf(" • %dx %s - R$ %.2f%n",
+//                        item.getQuantidade(),
+//                        item.getNomeProduto(),
+//                        item.getSubTotal());
+//            }
         }
 
         System.out.println("\n[1] Aceitar Pedido");
@@ -117,7 +114,7 @@ public class TelaPedidosParceiro {
         System.out.println("PEDIDOS EM PREPARO:");
         System.out.println("---------------------");
 
-        List<Pedido> pedidos = pedidoController.listarPorParceiroEStatus(parceiro.getId(), "EM_PREPARO");
+        List<Pedido> pedidos = pedidoController.listarEmPreparo();
 
         if (pedidos.isEmpty()) {
             System.out.println("\nNenhum pedido em preparo");
@@ -150,7 +147,7 @@ public class TelaPedidosParceiro {
         System.out.println("PEDIDOS PRONTOS:");
         System.out.println("---------------------");
 
-        List<Pedido> pedidos = pedidoController.listarPorParceiroEStatus(parceiro.getId(), "PRONTO");
+        List<Pedido> pedidos = pedidoController.listarProntos();
 
         if (pedidos.isEmpty()) {
             System.out.println("\nNenhum pedido pronto no momento");
@@ -169,11 +166,16 @@ public class TelaPedidosParceiro {
         System.out.println("HISTÓRICO DE PEDIDOS");
         System.out.println("---------------------");
 
-        List<Pedido> entregues = pedidoController.listarPorParceiroEStatus(parceiro.getId(), "ENTREGUE");
-        System.out.println("\nTotal de pedidos entregues: " + entregues.size());
+        List<Pedido> entregues = pedidoController.listarProntos();
+
+        System.out.println("\nTotal de pedidos entregues: " + entregues.size())
+        ;
         if (!entregues.isEmpty()) {
-            int limite = Math.min(10, entregues.size());
+
+            int limite = Math.min(10, entregues.size())
+                    ;
             for (int i = 0; i < limite; i++) {
+
                 Pedido p = entregues.get(i);
                 System.out.printf("#%d - %s - R$ %.2f%n",
                         p.getId(),
@@ -228,5 +230,11 @@ public class TelaPedidosParceiro {
         } else {
             System.out.println("\nErro ao atualizar pedido!");
         }
+    }
+
+    public void exibirMensagemSucesso(String s) {
+    }
+
+    public void exibirErro(String message) {
     }
 }

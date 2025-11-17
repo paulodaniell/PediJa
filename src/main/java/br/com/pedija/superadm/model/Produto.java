@@ -58,4 +58,5 @@ public class Produto {
     public void setLoja(String loja) {
         this.loja = loja;
     }
+
 }

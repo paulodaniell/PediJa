@@ -6,17 +6,16 @@ public class Pedido {
     private int id;
     private String nomeCliente;
     private int idClienteitens;
-    private double valoTotal;
+    private double valorTotal;
     private int idEntregador;
     private String status;
     private String endereco;
     private String formaPagamento;
     private int idParceiro;
 
+
     private List<Produto> itens;
     private int usuarioId;
-
-    public Pedido(){}
 
     public int getId() {
         return id;
@@ -26,20 +25,28 @@ public class Pedido {
         this.id = id;
     }
 
-    public String getNomeCliente() {return nomeCliente;}
-
-    public void setNomeCliente(String nomeCliente) {this.nomeCliente = nomeCliente;}
-
-    public int getIdClienteitens() {return idClienteitens;}
-
-    public void setIdClienteitens(int idClienteitens) {this.idClienteitens = idClienteitens;}
-
-    public double getValoTotal() {
-        return valoTotal;
+    public String getNomeCliente() {
+        return nomeCliente;
     }
 
-    public void setValoTotal(double valoTotal) {
-        this.valoTotal = valoTotal;
+    public void setNomeCliente(String nomeCliente) {
+        this.nomeCliente = nomeCliente;
+    }
+
+    public int getIdClienteitens() {
+        return idClienteitens;
+    }
+
+    public void setIdClienteitens(int idClienteitens) {
+        this.idClienteitens = idClienteitens;
+    }
+
+    public double getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(double valorTotal) {
+        this.valorTotal = valorTotal;
     }
 
     public int getIdEntregador() {
@@ -82,14 +89,19 @@ public class Pedido {
         this.idParceiro = idParceiro;
     }
 
+    public List<Produto> getItens() {
+        return itens;
+    }
 
+    public void setItens(List<Produto> itens) {
+        this.itens = itens;
+    }
 
-    public List<Produto> getItens() {return itens;}
+    public int getUsuarioId() {
+        return usuarioId;
+    }
 
-    public void setItens(List<Produto> itens) {this.itens = itens;}
-
-    public int getUsuarioId() {return usuarioId;}
-
-    public void setUsuarioId(int usuarioId) {this.usuarioId = usuarioId;}
-
+    public void setUsuarioId(int usuarioId) {
+        this.usuarioId = usuarioId;
+    }
 }

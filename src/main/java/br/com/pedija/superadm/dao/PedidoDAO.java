@@ -23,7 +23,7 @@ public class PedidoDAO {
             stmt.setInt(1, pedido.getId());
             stmt.setString(2, pedido.getNomeCliente());
             stmt.setInt(3, pedido.getIdClienteitens());
-            stmt.setDouble(4, pedido.getValoTotal());
+            stmt.setDouble(4, pedido.getValorTotal());
             stmt.setInt(5, pedido.getIdEntregador());
             stmt.setString(6, pedido.getStatus());
             stmt.setString(7, pedido.getEndereco());
@@ -52,7 +52,7 @@ public class PedidoDAO {
                 p.setId(rs.getInt("id"));
                 p.setNomeCliente(rs.getString("nomeCliente"));
                 p.setIdClienteitens(rs.getInt("idClienteitens"));
-                p.setValoTotal(rs.getDouble("valorTotal"));
+                p.setValorTotal(rs.getDouble("valorTotal"));
                 p.setIdEntregador(rs.getInt("idEntregador"));
                 p.setStatus(rs.getString("status"));
                 p.setEndereco(rs.getString("endereco"));
@@ -85,7 +85,7 @@ public class PedidoDAO {
                 p.setId(rs.getInt("id"));
                 p.setNomeCliente(rs.getString("nomeCliente"));
                 p.setIdClienteitens(rs.getInt("idClienteitens"));
-                p.setValoTotal(rs.getDouble("valorTotal"));
+                p.setValorTotal(rs.getDouble("valorTotal"));
                 p.setIdEntregador(rs.getInt("idEntregador"));
                 p.setStatus(rs.getString("status"));
                 p.setEndereco(rs.getString("endereco"));
@@ -116,7 +116,7 @@ public class PedidoDAO {
 
             stmt.setString(1, pedido.getNomeCliente());
             stmt.setInt(2, pedido.getIdClienteitens());
-            stmt.setDouble(3, pedido.getValoTotal());
+            stmt.setDouble(3, pedido.getValorTotal());
             stmt.setInt(4, pedido.getIdEntregador());
             stmt.setString(5, pedido.getStatus());
             stmt.setString(6, pedido.getEndereco());
@@ -153,4 +153,43 @@ public class PedidoDAO {
             throw new RuntimeException("Erro ao remover pedido: " + e.getMessage(), e);
         }
     }
+
+    //Por status
+
+    public List<Pedido> buscarPorStatus(String status) {
+        String sql = "SELECT * FROM pedido WHERE status = ? ORDER BY id";
+        List<Pedido> pedidos = new ArrayList<>();
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, status);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Pedido p = new Pedido();
+                p.setId(rs.getInt("id"));
+                p.setNomeCliente(rs.getString("nomeCliente"));
+                p.setIdClienteitens(rs.getInt("idClienteitens"));
+                p.setValorTotal(rs.getDouble("valorTotal"));
+                p.setIdEntregador(rs.getInt("idEntregador"));
+                p.setStatus(rs.getString("status"));
+                p.setEndereco(rs.getString("endereco"));
+                p.setFormaPagamento(rs.getString("formaPagamento"));
+                p.setIdParceiro(rs.getInt("idParceiro"));
+
+                pedidos.add(p);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar pedidos por status: " + e.getMessage(), e);
+        }
+
+        return pedidos;
+    }
+
+
+
+
 }
+

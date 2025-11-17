@@ -6,16 +6,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProdutoController {
+
+
     private static List<Produto> produtos = new ArrayList<>();
     private static int proximoId = 1;
 
     //Produtos para teste sem banco de dados
-    static{
-        produtos.add(new Produto(1,"Combo 1 - sashimi de peixe branco - 24 peças",55.90,1));
-        produtos.add(new Produto(2,"Combo Prime - 108 peças",249.40,1));
-        produtos.add(new Produto(3,"Combo Show - 100 peças",199.90,1));
-    }
+    static {
+        produtos.add(new Produto(
+                1,
+                "Combo 1",
+                "Sashimi de peixe branco - 24 peças",
+                55.90,
+                "Sushi Company"
+        ));
 
+        produtos.add(new Produto(
+                2,
+                "Combo Prime",
+                "Combo completo com 108 peças",
+                249.40,
+                "Sushi Company"
+        ));
+
+        produtos.add(new Produto(
+                3,
+                "Combo Show",
+                "Combo variado com 100 peças",
+                199.90,
+                "Sushi Company"
+        ));
+    }
     public List<Produto> listarPorParceiros(int idParceiro){
         List<Produto> resultado = new ArrayList<>();
         for(Produto p : produtos){
