@@ -37,7 +37,6 @@ public class DatabaseConnection {
             disponivel BOOLEAN DEFAULT TRUE,
             FOREIGN KEY (categoria_id) REFERENCES categorias(id)
         );
-
     """;
 
         String createUsuarioSQL = """
@@ -112,20 +111,16 @@ public class DatabaseConnection {
 
         String createItemPedidoSQL = """
         CREATE TABLE IF NOT EXISTS ItemPedido (
-                id INT AUTO_INCREMENT PRIMARY KEY,
-        pedidoId INT NOT NULL,
-        produtoId INT NOT NULL,
-        quantidade INT NOT NULL,
-        precoUnitario DECIMAL(10,2) NOT NULL,
-        nomeProduto VARCHAR(150),
-                subTotal DECIMAL(10,2),
-                FOREIGN KEY (pedidoId) REFERENCES Pedido(id)
-                        )
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            pedidoId INT NOT NULL,
+            produtoId INT NOT NULL,
+            quantidade INT NOT NULL,
+            precoUnitario DECIMAL(10,2) NOT NULL,
+            nomeProduto VARCHAR(150),
+            subTotal DECIMAL(10,2),
+            FOREIGN KEY (pedidoId) REFERENCES Pedido(id)
+        )
     """;
-
-
-
-
 
         String createPromocaoSQL = """
         CREATE TABLE IF NOT EXISTS Promocao (
@@ -145,6 +140,15 @@ public class DatabaseConnection {
             Statement stmt = conn.createStatement();
 
             stmt.execute(createCategoriasSQL);
+
+
+            String insertCategoriaPadraoSQL = """
+                INSERT INTO categorias (nome, descricao)
+                SELECT 'Geral', 'Categoria padrão'
+                WHERE NOT EXISTS (SELECT 1 FROM categorias)
+            """;
+            stmt.execute(insertCategoriaPadraoSQL);
+
             stmt.execute(createProdutosSQL);
             stmt.execute(createUsuarioSQL);
             stmt.execute(createPagamentoSQL);

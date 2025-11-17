@@ -20,15 +20,16 @@ public class ProdutoController {
         }
     }
 
-    public List<Produto> atualizarProduto(Produto produto) {
+    public boolean atualizarProduto(Produto produto) {
         try {
-            produtoDAO.atualizar(produto); // apenas atualiza
-            return produtoDAO.buscarTodos(); // retorna a lista atualizada
+            produtoDAO.atualizar(produto);
+            return true;
         } catch (Exception e) {
-            System.out.println("Erro ao listar produtos: " + e.getMessage());
-            return new ArrayList<>();
+            System.out.println("Erro ao atualizar produto: " + e.getMessage());
+            return false;
         }
     }
+
 
 
     public List<Produto> listarProdutos() {

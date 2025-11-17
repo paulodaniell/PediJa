@@ -152,9 +152,8 @@ public class TelaProdutosParceiro {
             novo.setQuantidade(sc.nextInt());
             sc.nextLine();
 
-            System.out.print(" ID da Categoria: ");
-            novo.setCategoria_id(sc.nextInt());
-            sc.nextLine();
+            novo.setCategoria_id(1);
+
 
             novo.setDisponivel(true);
             novo.setIdParceiro(parceiro.getId());
@@ -177,79 +176,95 @@ public class TelaProdutosParceiro {
 
     private void editarProduto() {
 
-
         System.out.println("\n==================================");
-        System.out.println("          EDITAR PRODUTO             ");
-        System.out.println("\n==================================");
-
+        System.out.println("          EDITAR PRODUTO");
+        System.out.println("==================================\n");
 
         try {
             System.out.print("ID do produto: ");
-
             int id = sc.nextInt();
             sc.nextLine();
 
             Produto produto = produtoController.buscarPorId(id);
 
-
             if (produto == null) {
                 System.out.println("\n Produto não encontrado!");
-
                 return;
             }
 
+            if (produto.getIdParceiro() != parceiro.getId()) {
+                System.out.println("\n Este produto não pertence ao seu restaurante!");
+                return;
+            }
 
             System.out.println("\nEditando: " + produto.getNome());
 
             System.out.println("\n[1] Editar Nome");
             System.out.println("[2] Editar Descrição");
             System.out.println("[3] Editar Preço");
-            System.out.println("[4] Editar Categoria");
+            System.out.println("[4] Editar Quantidade");
             System.out.println("[0] Cancelar");
-
 
             System.out.print("\nEscolha o que editar: ");
             int opcao = sc.nextInt();
             sc.nextLine();
 
+            boolean mudou = false;
 
             switch (opcao) {
                 case 1:
                     System.out.print("Novo nome: ");
                     produto.setNome(sc.nextLine());
-                    System.out.println(" Nome atualizado!");
+                    mudou = true;
                     break;
+
                 case 2:
                     System.out.print("Nova descrição: ");
                     produto.setDescricao(sc.nextLine());
-                    System.out.println(" Descrição atualizada!");
+                    mudou = true;
                     break;
+
                 case 3:
                     System.out.print("Novo preço (R$): ");
                     produto.setPreco(sc.nextDouble());
                     sc.nextLine();
-                    System.out.println("Preço atualizado!");
+                    mudou = true;
                     break;
+
                 case 4:
-                    System.out.print("Nova categoria: ");
-                    produto.setCategoria_id(sc.nextInt());
-                    System.out.println(" Categoria atualizada!");
+                    System.out.print("Nova quantidade: ");
+                    produto.setQuantidade(sc.nextInt());
+                    sc.nextLine();
+                    mudou = true;
                     break;
+
                 case 0:
-                    System.out.println(" Edição cancelada!");
-                    break;
+                    System.out.println("Edição cancelada!");
+                    return;
+
                 default:
-                    System.out.println(" Opção inválida!");
+                    System.out.println("Opção inválida!");
+                    return;
             }
 
+            if (mudou) {
+                produto.setCategoria_id(1);
+
+                if (produtoController.atualizarProduto(produto)) {
+                    System.out.println("\n  Produto atualizado com sucesso!");
+                } else {
+                    System.out.println("\n  Erro ao atualizar produto!");
+                }
+            }
 
         } catch (Exception e) {
             System.out.println("\n Erro: " + e.getMessage());
             sc.nextLine();
         }
-
-
     }
+
+
+
 
 
 
