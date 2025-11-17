@@ -1,27 +1,33 @@
 package br.com.pedija.consumidor.view;
 
+
 import br.com.pedija.consumidor.controller.CarrinhoController;
-import br.com.pedija.consumidor.controller.PagamentoController;
 import br.com.pedija.consumidor.controller.PedidoController;
 import br.com.pedija.consumidor.controller.UsuarioController;
 import br.com.pedija.superadm.model.Pedido;
 import br.com.pedija.superadm.model.Produto;
 import br.com.pedija.superadm.model.Usuario;
 
+
 import java.util.Scanner;
+
+
 
 
 public class TelaVerCarrinho {
 
-    private final PagamentoController pedirpagamento = new PagamentoController();
+
     private final UsuarioController usuarioController;
-    private PedidoController pedidoController = new PedidoController();
-    private Usuario usuario;
+    private final PedidoController pedidoController = new PedidoController();
+    private final Usuario usuario;
     private final CarrinhoController carrinho;
     private final Scanner sc;
 
 
+
+
     public TelaVerCarrinho(CarrinhoController carrinho,  Usuario usuario, UsuarioController usuarioController) {
+
 
         this.carrinho = carrinho;
         this.usuario = usuario;
@@ -30,7 +36,10 @@ public class TelaVerCarrinho {
     }
 
 
+
+
     public void vercarrinho(){
+
 
         if (carrinho.Vazio()) {
             System.out.println("\n====MEU CARRINHO====\n ");
@@ -38,9 +47,11 @@ public class TelaVerCarrinho {
             return;
         }
 
+
         while (true)
         {
             System.out.println("\n====MEU CARRINHO====\n ");
+
 
             int i = 1;
             for (Produto p : carrinho.listar()) {
@@ -48,11 +59,14 @@ public class TelaVerCarrinho {
             }
             System.out.printf("\nTotal: R$ %.2f\n\n", carrinho.precoTotal());
 
-            int op;
+
+            int op = -1;
             System.out.println("[1] Remover item");
             System.out.println("[2] Finalizar pedido");
             System.out.println("[0] Voltar");
             System.out.print("Escolha: ");
+
+
 
 
             try {
@@ -63,7 +77,9 @@ public class TelaVerCarrinho {
                 continue;
             }
 
+
             switch (op) {
+
 
                 case 1:
                     System.out.print("Digite o número do item a remover: ");
@@ -79,7 +95,9 @@ public class TelaVerCarrinho {
                         break;
                     }
 
+
                     int indice = numero - 1;
+
 
                     if (indice < 0 || indice >= carrinho.listar().size())
                     {
@@ -92,23 +110,75 @@ public class TelaVerCarrinho {
                     }
                     break;
 
+
                 case 2:
-                    String formapagamento = pedirpagamento.pagamento(sc);
-                    if (formapagamento == null) {
+
+
+                    String forma = null;
+                    while (true) {
+                        System.out.println("\nQual a forma de pagamento?");
+                        System.out.println("[1] PIX");
+                        System.out.println("[2] CARTÃO DE CRÉDITO");
+                        System.out.println("[3] CARTÃO DE DÉBITO");
+                        System.out.println("[4] DINHEIRO");
+                        System.out.println("[0] Voltar");
+                        System.out.print("\nEscolha: ");
+
+
+                        String line = sc.nextLine().trim();
+                        int escolha;
+
+
+                        // CORREÇÃO: Lógica de parsing robusta
+                        try {
+                            escolha = Integer.parseInt(line);
+                        } catch (NumberFormatException e) {
+                            System.out.println("Opção inválida! Digite apenas o número.\n");
+                            continue;
+                        }
+                        // Fim da CORREÇÃO
+
+
+                        switch (escolha) {
+                            case 1: forma = "PIX"; break;
+                            case 2: forma = "Cartão de Crédito"; break;
+                            case 3: forma = "Cartão de Débito"; break;
+                            case 4: forma = "Dinheiro"; break;
+                            case 0: forma = null; break;
+                            default:
+                                System.out.println("Opção inválida!\n");
+                                forma = null;
+                        }
+
+
+                        // Se escolheu '0' (Voltar) ou uma forma válida (1-4), sai do loop de pagamento
+                        if (escolha == 0 || forma != null) {
+                            break;
+                        }
+                        // Senão, a opção foi inválida (default), o loop continua.
+                    }
+
+
+                    if (forma == null) {
+                        // usuário cancelou/voltou -> volta ao carrinho
                         break;
                     }
 
-                    usuario.setFormadepagamento(formapagamento);
+
+                    usuario.setFormadepagamento(forma);
                     usuarioController.atualizarUsuario(usuario);;
 
+
                     // cria preview do pedido
-                    Pedido revisaopedido = pedidoController.revisaopedido(carrinho.listar(), usuario.getId(), usuario.getNome(), usuario.getEndereco(), formapagamento);
+                    Pedido revisaopedido = pedidoController.revisaopedido(carrinho.listar(), usuario.getId(), usuario.getNome(), usuario.getEndereco(), forma);
+
 
                     System.out.println("\n=== RESUMO DO PEDIDO ===");
-                    i = 1;
-                    //for (Produto it : revisaopedido.getItens())
+                    int j = 1;
+                    for (Produto it : revisaopedido.getItens())
                     {
-                      //  System.out.printf("%d - %s (R$ %.2f)%n", i++, it.getNome(), it.getPreco());
+                        // CORREÇÃO: Usando o índice local 'j' para o resumo
+                        System.out.printf("%d - %s (R$ %.2f)%n", j++, it.getNome(), it.getPreco());
                     }
                     System.out.printf("Total: R$ %.2f%n", revisaopedido.getValorTotal());
                     System.out.println("Nome: " + revisaopedido.getNomeCliente());
@@ -119,6 +189,7 @@ public class TelaVerCarrinho {
                     System.out.print("Escolha: ");
                     int conf;
 
+
                     try {
                         String line = sc.nextLine().trim();
                         conf = line.isEmpty() ? -1 : Integer.parseInt(line);
@@ -127,9 +198,10 @@ public class TelaVerCarrinho {
                         break;
                     }
 
+
                     if (conf == 1) {
                         // criar o pedido real, limpar carrinho e informar usuário
-                        pedidoController.criarPedido(carrinho.listar(), usuario.getId(), usuario.getNome(), usuario.getEndereco(), formapagamento);
+                        pedidoController.criarPedido(carrinho.listar(), usuario.getId(), usuario.getNome(), usuario.getEndereco(), forma);
                         carrinho.limpar();
                         System.out.println("Pedido confirmado!");
                         return;
@@ -139,15 +211,16 @@ public class TelaVerCarrinho {
                         break;
                     }
 
+
                 case 0:
                     return;
+
 
                 default:
                     System.out.println("Opção inválida!\n");
                     break;
-
             }
         }
     }
-
 }
+

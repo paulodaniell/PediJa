@@ -1,21 +1,25 @@
 package br.com.pedija.consumidor.view;
 
+
 import br.com.pedija.consumidor.controller.CarrinhoController;
+import br.com.pedija.consumidor.controller.PedidoController;
 import br.com.pedija.consumidor.controller.UsuarioController;
 import br.com.pedija.consumidor.view.perfil.TelaPerfil;
 import br.com.pedija.superadm.model.Usuario;
 
+
 import java.util.Scanner;
 
+
 public class MenuPrincipalConsumidorView {
-    private Scanner sc;
+    private final Scanner sc;
+
 
     private final UsuarioController usuarioController = new UsuarioController();
     private final CarrinhoController carrinho = new CarrinhoController();
+    private final PedidoController pedidoController = new PedidoController();
     private Usuario usuarioLogado;
     BuscaProdutoConsumidor buscaProdutoConsumidor = new BuscaProdutoConsumidor(carrinho);
-    TelaVerCarrinho telaCarrinho = new TelaVerCarrinho(carrinho, usuarioLogado, usuarioController);
-    TelaPedidos telaPedidos = new TelaPedidos();
     TelaPerfil telaPerfil = new TelaPerfil();
     TelaPromocoes telaPromocoes = new TelaPromocoes();
 
@@ -24,8 +28,15 @@ public class MenuPrincipalConsumidorView {
         this.sc = new Scanner(System.in);
     }
 
+
+    public void setUsuarioLogado(Usuario usuario) {
+        this.usuarioLogado = usuario;
+    }
+
+
     public void exibirMenuCliente() {
         int opcao = -1;
+
 
         do {
             System.out.println("------------------------------");
@@ -37,21 +48,29 @@ public class MenuPrincipalConsumidorView {
             System.out.println(" 0 - Sair                     ");
             System.out.println("------------------------------");
 
+
             System.out.print("\nEscolha uma opção: ");
 
-            try {
-                opcao = sc.nextInt();
 
-                resultadoOpcao(opcao);
-            } catch (Exception erro) {
-                System.out.println("Opção inválida!");
-                sc.nextLine();
+            try {
+                String line = sc.nextLine().trim();
+                opcao = line.isEmpty() ? -1 : Integer.parseInt(line);
+
+
+                if (opcao != -1) {
+                    resultadoOpcao(opcao);
+                }
+            } catch (NumberFormatException erro) {
+                System.out.println("Opção inválida! Digite apenas números.");
             }
+
 
         } while (opcao != 0);
 
+
     }
-    //So opção 1 com metodo
+
+
     private void resultadoOpcao(int opcao) {
         switch (opcao) {
             case 1:
@@ -59,34 +78,50 @@ public class MenuPrincipalConsumidorView {
                 buscaProdutoConsumidor.exibirbuscarProdutos();
                 break;
 
+
             case 2:
                 System.out.println("Ver Carrinho");
+
+
+                if (this.usuarioLogado == null) {
+                    System.out.println("Erro: Não foi possível acessar o carrinho. Usuário não logado ou erro de fluxo.");
+                    break;
+                }
+
+
+                TelaVerCarrinho telaCarrinho = new TelaVerCarrinho(carrinho, this.usuarioLogado, usuarioController);
                 telaCarrinho.vercarrinho();
                 break;
+
 
             case 3:
                 System.out.println("Promoções");
                 telaPromocoes.verPromocoes();
                 break;
 
+
             case 4:
                 System.out.println("Ver Pedidos");
+                TelaPedidos telaPedidos = new TelaPedidos(this.pedidoController, this.usuarioLogado);
                 telaPedidos.verPedidos();
                 break;
+
 
             case 5:
                 System.out.println("Ver Perfil");
                 telaPerfil.verPerfil();
                 break;
 
+
             case 0:
                 System.out.println("Saindo..");
                 break;
 
+
             default:System.out.println("Opção inválida!");
                 break;
-
 
         }
     }
 }
+
