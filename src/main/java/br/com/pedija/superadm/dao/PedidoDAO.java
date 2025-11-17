@@ -23,7 +23,14 @@ public class PedidoDAO {
             stmt.setInt(1, pedido.getIdUsuario());
             stmt.setString(2, pedido.getNomeCliente());
             stmt.setDouble(3, pedido.getValorTotal());
-            stmt.setObject(4, pedido.getIdEntregador(), Types.INTEGER);
+            
+            // Se idEntregador for 0, insere NULL no banco (ainda não tem entregador)
+            if (pedido.getIdEntregador() == 0) {
+                stmt.setNull(4, Types.INTEGER);
+            } else {
+                stmt.setInt(4, pedido.getIdEntregador());
+            }
+            
             stmt.setString(5, pedido.getStatus());
             stmt.setString(6, pedido.getEndereco());
             stmt.setString(7, pedido.getFormaPagamento());
@@ -132,11 +139,19 @@ public class PedidoDAO {
         p.setIdUsuario(rs.getInt("idusuario"));
         p.setNomeCliente(rs.getString("nomeCliente"));
         p.setValorTotal(rs.getDouble("valorTotal"));
-        p.setIdEntregador((Integer) rs.getObject("idEntregador"));
+        
+        // Se idEntregador for NULL no banco, converte para 0
+        Integer idEntregador = (Integer) rs.getObject("idEntregador");
+        p.setIdEntregador(idEntregador == null ? 0 : idEntregador);
+        
         p.setStatus(rs.getString("status"));
         p.setEndereco(rs.getString("endereco"));
         p.setFormaPagamento(rs.getString("formaPagamento"));
-        p.setIdParceiro((Integer) rs.getObject("idParceiro"));
+        
+        // Se idParceiro for NULL no banco, converte para 0
+        Integer idParceiro = (Integer) rs.getObject("idParceiro");
+        p.setIdParceiro(idParceiro == null ? 0 : idParceiro);
+        
         return p;
     }
 }
