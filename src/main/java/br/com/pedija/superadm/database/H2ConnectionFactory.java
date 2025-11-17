@@ -5,15 +5,18 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class H2ConnectionFactory implements ConnectionFactory {
-    private static final String URL = "jdbc:h2:./lojinha";
+
+    // 💾 Caminho e nome do banco — agora em uma pasta "data" e com nome "pedija"
+    private static final String URL = "jdbc:h2:./data/pedija";
     private static final String USER = "sa";
     private static final String PASSWORD = "";
 
     private static H2ConnectionFactory instance;
 
-    // Singleton para garantir uma única instância da factory
+    // 🔒 Construtor privado (padrão Singleton)
     private H2ConnectionFactory() {}
 
+    // ✅ Garante uma única instância da factory
     public static H2ConnectionFactory getInstance() {
         if (instance == null) {
             synchronized (H2ConnectionFactory.class) {
@@ -28,22 +31,26 @@ public class H2ConnectionFactory implements ConnectionFactory {
     @Override
     public Connection getConnection() throws SQLException {
         try {
-            // Opcional para H2 moderno, boa prática em manter
+            // Carrega o driver H2 (boa prática, mesmo que moderno)
             Class.forName("org.h2.Driver");
         } catch (ClassNotFoundException e) {
-            throw new SQLException("Driver H2 não encontrado", e);
+            throw new SQLException("❌ Driver H2 não encontrado!", e);
         }
-        return DriverManager.getConnection(URL, USER, PASSWORD);
+
+        Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+        System.out.println("✅ Conexão H2 aberta: " + URL);
+        return conn;
     }
 
     @Override
     public void closeConnection(Connection connection) throws SQLException {
         if (connection != null && !connection.isClosed()) {
             connection.close();
+            System.out.println("🔒 Conexão H2 fechada com sucesso!");
         }
     }
 
-    // Útil para logs
+    // Métodos auxiliares para log/debug
     public String getUrl() {
         return URL;
     }

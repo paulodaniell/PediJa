@@ -23,11 +23,19 @@ public class PedidoDAO {
             stmt.setInt(1, pedido.getIdUsuario());
             stmt.setString(2, pedido.getNomeCliente());
             stmt.setDouble(3, pedido.getValorTotal());
-            stmt.setObject(4, pedido.getIdEntregador(), Types.INTEGER);
+            if (pedido.getIdEntregador() > 0) {
+                stmt.setInt(4, pedido.getIdEntregador());
+            } else {
+                stmt.setNull(4, java.sql.Types.INTEGER);
+            }
             stmt.setString(5, pedido.getStatus());
             stmt.setString(6, pedido.getEndereco());
             stmt.setString(7, pedido.getFormaPagamento());
-            stmt.setObject(8, pedido.getIdParceiro(), Types.INTEGER);
+            if (pedido.getIdParceiro() > 0) {
+                stmt.setInt(8, pedido.getIdParceiro());
+            } else {
+                stmt.setNull(8, java.sql.Types.INTEGER);
+            }
 
             stmt.executeUpdate();
 
