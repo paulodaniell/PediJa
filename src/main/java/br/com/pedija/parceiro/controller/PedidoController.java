@@ -1,81 +1,233 @@
 package br.com.pedija.parceiro.controller;
-import br.com.pedija.superadm.dao.PedidoDAO;
-import br.com.pedija.superadm.model.Pedido;
 
+
+import java.util.ArrayList;
 import java.util.List;
+
+
+import br.com.pedija.superadm.model.Pedido;
+import br.com.pedija.superadm.dao.PedidoDAO;
+import br.com.pedija.parceiro.view.TelaPedidosParceiro;
+
 
 public class PedidoController {
 
-    private PedidoDAO pedidoDAO = new PedidoDAO();
+
+    PedidoDAO pedidoDAO = new PedidoDAO();
+    Pedido pedido =  new Pedido();
+    TelaPedidosParceiro view;
 
 
-    public boolean criarPedido(Pedido pedido) {
-
+    //Para o conumidor
+    public void cadastrarPedido() {
         try {
-            int idGerado = pedidoDAO.adicionar(pedido);
-
-            if (idGerado > 0) {
-                System.out.println("Pedido criado com sucesso! ID: " + idGerado);
-                return true;
-            } else {
-                throw new Exception("ID do pedido não foi gerado.");
-            }
-
+            pedidoDAO.criar(pedido);
+            view.exibirMensagemSucesso("Pedido Cadastrado com sucesso!");
         } catch (Exception e) {
-            System.out.println("Erro ao criar pedido: " + e.getMessage());
-            return false;
+            view.exibirErro(e.getMessage());
         }
     }
 
-    public List<Pedido> listarPorParceiroEStatus(int idParceiro, String status) {
-        return pedidoDAO.listarPorParceiroEStatus(idParceiro, status);
+
+
+
+    public List<Pedido> listarPedidos() {
+        try {
+            List<Pedido> pedidos = pedidoDAO.buscarTodos();
+
+
+        } catch (Exception e) {
+            view.exibirErro(e.getMessage());
+        }
+        return null;
     }
+
 
     public Pedido buscarPorId(int id) {
 
+
         return pedidoDAO.buscarPorId(id);
+
+
     }
 
-    public int contarPorStatus(int idParceiro, String status) {
-        return pedidoDAO.contarPorStatus(idParceiro, status);
-    }
 
-    public boolean atualizarStatus(int idPedido, String novoStatus) {
-        try {
-            pedidoDAO.atualizarStatus(idPedido, novoStatus);
+    public boolean atualizarStaus(int id, String novoStatus) {
+        Pedido p = buscarPorId(id);
+
+
+        if (p != null) {
+
+
+            pedidoDAO.atualizar(p);
+
+
+            view.exibirMensagemSucesso("Pedido Atualizado com sucesso!");
             return true;
-        } catch (Exception e) {
-            System.out.println("Erro ao atualizar status: " + e.getMessage());
-            return false;
+
+
         }
+        view.exibirErro("Pedido Vazio!");
+        return false;
     }
 
-    public boolean atribuirEntregador(int idPedido, int idEntregador) {
 
-        Pedido p = pedidoDAO.buscarPorId(idPedido);
-        if (p == null) {
-            System.out.println("Pedido não encontrado!");
-            return false;
-        }
 
+
+    public List<Pedido> listarPendentes() {
         try {
-            pedidoDAO.atribuirEntregador(idPedido, idEntregador);
-            return true;
+            return pedidoDAO.buscarPorStatus("PENDENTE");
+
+
         } catch (Exception e) {
-            System.out.println("Erro ao atribuir entregador: " + e.getMessage());
-            return false;
+            view.exibirErro(e.getMessage());
         }
+        return null;
     }
+
+
+    public List<Pedido> listarEmPreparo() {
+        try {
+            return pedidoDAO.buscarPorStatus("EM PREPARO");
+
+
+        } catch (Exception e) {
+            view.exibirErro(e.getMessage());
+        }
+        return null;
+    }
+
 
     public List<Pedido> listarAguardandoEntregador(int idParceiro) {
-        return pedidoDAO.listarAguardandoEntregador(idParceiro);
+        List<Pedido> resultado = new ArrayList<>();
+
+
+        for (Pedido p : resultado)
+
+
+            if (p.getIdParceiro() == idParceiro &&
+                    p.getStatus().equals("PRONTO") &&
+                    p.getIdEntregador() == 0) {
+                resultado.add(p);
+            }
+
+
+        return resultado;
     }
 
+
+    public List<Pedido> listarEmEntrega() {
+        try {
+            return pedidoDAO.buscarPorStatus("Em ENTREGA");
+
+
+        } catch (Exception e) {
+            view.exibirErro(e.getMessage());
+        }
+        return null;
+
+
+    }
+
+
+    public List<Pedido> listarProntos() {
+        try {
+            return pedidoDAO.buscarPorStatus("PRONTO");
+
+
+        } catch (Exception e) {
+            view.exibirErro(e.getMessage());
+        }
+        return null;
+    }
+
+
+
+
+
+
+
+
+    public boolean atribuirEntregador(int idPedido, int idEntregador) {
+        Pedido p = buscarPorId(idPedido);
+
+
+        if (p != null) {
+            p.setIdEntregador(idEntregador);
+            p.setStatus("EM_ENTREGA");
+            return true;
+        }
+
+
+        return false;
+    }
+
+
+
+
+
+
+
+
+    public int contarPedidosPendentes() {
+        int contador = 0;
+
+
+        List<Pedido> prontos = listarPendentes();
+
+
+        for (Pedido p : prontos) {
+            contador++;
+        }
+        return contador;
+    }
+
+
+    public int contarPedidosEmPreparo() {
+        int contador = 0;
+
+
+        List<Pedido> prontos = listarEmPreparo();
+
+
+        for (Pedido p : prontos) {
+            contador++;
+        }
+        return contador;
+    }
+
+
+
+
+    public int contarPedidosProntos() {
+        int contador = 0;
+
+
+        List<Pedido> prontos = listarProntos();
+
+
+        for (Pedido p : prontos) {
+            contador++;
+        }
+        return contador;
+    }
     public double calcularFaturamentoTotal(int idParceiro) {
-        return pedidoDAO.calcularFaturamentoTotal(idParceiro);
+
+
+        double soma = 0.0;
+
+
+        List<Pedido> prontos = listarProntos();
+
+
+        for (Pedido p : prontos) {
+            soma += p.getValorTotal();
+        }
+        return soma;
     }
 
-    public int contarPedidosEntregues(int idParceiro) {
-        return pedidoDAO.contarPedidosEntregues(idParceiro);
-    }
+
 }
+
+
+

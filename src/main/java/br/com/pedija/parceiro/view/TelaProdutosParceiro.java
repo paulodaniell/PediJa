@@ -1,15 +1,18 @@
 package br.com.pedija.parceiro.view;
 
+
 import br.com.pedija.parceiro.controller.ProdutoController;
 import br.com.pedija.superadm.model.Parceiro;
 import br.com.pedija.superadm.model.Produto;
 import java.util.List;
 import java.util.Scanner;
 
+
 public class TelaProdutosParceiro {
     private Scanner sc;
     private Parceiro parceiro;
     private ProdutoController produtoController;
+
 
     public TelaProdutosParceiro(Parceiro parceiro) {
         this.sc = new Scanner(System.in);
@@ -17,33 +20,42 @@ public class TelaProdutosParceiro {
         this.produtoController = new ProdutoController();
     }
 
+
     public void exibirProdutos() {
         int opcao = -1;
 
+
         do {
+
 
             System.out.println("------------------------------");
             System.out.println("GERENCIAR PRODUTOS - " + parceiro.getNome());
             System.out.println("------------------------------");
 
 
-            List<Produto> produtos = produtoController.listarPorParceiro(parceiro.getId());
+            List<Produto> produtos = produtoController.listarPorParceiros(parceiro.getId());
+
 
             exibirProdutos(produtos);
             exibirMenu();
+
 
             try {
                 System.out.print("Escolha uma opção: ");
                 opcao = sc.nextInt();
                 sc.nextLine();
 
+
                 Opcao(opcao);
+
 
             } catch (Exception e) {
                 System.out.println(" Entrada inválida!");
                 sc.nextLine();
 
+
             }
+
 
         } while (opcao != 0);
     }
@@ -52,11 +64,13 @@ public class TelaProdutosParceiro {
         System.out.println("  PRODUTOS CADASTRADOS (" + produtos.size() + ")");
         System.out.println("-------------------------------------------------");
 
+
         if (produtos.isEmpty()) {
             System.out.println("| Nenhum produto cadastrado");
         } else {
             for (Produto p : produtos) {
                 String status = p.isDisponivel() ? "Disponível" : " Indisponível";
+
 
                 System.out.println("|");
                 System.out.println("|  ID: " + p.getId() + " | " + status);
@@ -64,13 +78,18 @@ public class TelaProdutosParceiro {
                 System.out.printf("|  R$ %.2f%n", p.getPreco());
 
 
+
+
                 if (p.getDescricao() != null && !p.getDescricao().isEmpty()) {
                     System.out.println("|  " + p.getDescricao());
                 }
 
+
                 System.out.println(" ------------------------------------------");
             }
         }
+
+
 
 
     }
@@ -81,6 +100,8 @@ public class TelaProdutosParceiro {
         System.out.println("4 -Alterar Disponibilidade");
         System.out.println("0 -Voltar");
     }
+
+
 
 
     private void Opcao(int opcao) {
@@ -103,43 +124,56 @@ public class TelaProdutosParceiro {
             default:
                 System.out.println(" Opção inválida!");
 
+
         }
     }
 
 
+
+
     private void adicionarProduto() {
+
 
         System.out.println("\n-----------------------------------");
         System.out.println("|        ADICIONAR NOVO PRODUTO            |");
         System.out.println("-------------------------------------\n");
 
+
         Produto novo = new Produto();
-        novo.setIdParceiro(parceiro.getId());
+        produtoController.adicionarProduto(novo);
+
 
         try {
             System.out.print(" Nome do Produto: ");
             String nome = sc.nextLine();
             novo.setNome(nome);
 
+
             System.out.print(" Descrição: ");
             String descricao = sc.nextLine();
             novo.setDescricao(descricao);
+
 
             System.out.print(" Preço (R$): ");
             double preco = sc.nextDouble();
             sc.nextLine();
             novo.setPreco(preco);
 
+
             System.out.print(" Categoria: ");
             String categoria = sc.nextLine();
-            novo.setCategoriaNome(categoria);
+            novo.setCategoria(categoria);
+
 
             System.out.print(" Tempo de preparo (min): ");
             int tempo = sc.nextInt();
             sc.nextLine();
             novo.setTempoPreparo(tempo);
 
+
             novo.setDisponivel(true);
+
+
 
 
             if (produtoController.adicionar(novo)) {
@@ -149,40 +183,54 @@ public class TelaProdutosParceiro {
                 System.out.println("\n Erro ao adicionar produto!");
             }
 
+
         } catch (Exception e) {
             System.out.println("\n Erro ao cadastrar: " + e.getMessage());
             sc.nextLine();
         }
 
 
+
+
     }
 
+
     private void editarProduto() {
+
 
         System.out.println("\n==================================");
         System.out.println("          EDITAR PRODUTO             ");
         System.out.println("\n==================================");
 
+
         try {
             System.out.print("ID do produto: ");
+
 
             int id = sc.nextInt();
             sc.nextLine();
 
+
             Produto produto = produtoController.buscarPorId(id);
+
 
             if (produto == null) {
                 System.out.println("\n Produto não encontrado!");
 
+
                 return;
             }
+
+
 
 
             if (produto.getIdParceiro() != parceiro.getId()) {
                 System.out.println("\n Este produto não pertence ao seu restaurante!");
 
+
                 return;
             }
+
 
             System.out.println("\nEditando: " + produto.getNome());
             System.out.println("\n[1] Editar Nome");
@@ -192,9 +240,11 @@ public class TelaProdutosParceiro {
             System.out.println("[5] Editar Tempo de Preparo");
             System.out.println("[0] Cancelar");
 
+
             System.out.print("\nEscolha o que editar: ");
             int opcao = sc.nextInt();
             sc.nextLine();
+
 
             switch (opcao) {
                 case 1:
@@ -215,7 +265,7 @@ public class TelaProdutosParceiro {
                     break;
                 case 4:
                     System.out.print("Nova categoria: ");
-                    produto.setCategoriaNome(sc.nextLine());
+                    produto.setCategoria(sc.nextLine());
                     System.out.println(" Categoria atualizada!");
                     break;
                 case 5:
@@ -231,45 +281,60 @@ public class TelaProdutosParceiro {
                     System.out.println(" Opção inválida!");
             }
 
+
         } catch (Exception e) {
             System.out.println("\n Erro: " + e.getMessage());
             sc.nextLine();
         }
 
 
+
+
     }
+
+
 
 
     private void removerProduto() {
 
+
         System.out.println("\n===========================================");
         System.out.println("         REMOVER PRODUTO                 ");
         System.out.println("\n===========================================\n");
+
 
         try {
             System.out.print("ID do produto: ");
             int id = sc.nextInt();
             sc.nextLine();
 
+
             Produto produto = produtoController.buscarPorId(id);
+
 
             if (produto == null) {
                 System.out.println("\n Produto não encontrado!");
 
+
                 return;
             }
+
+
 
 
             if (produto.getIdParceiro() != parceiro.getId()) {
                 System.out.println("\n Este produto não pertence ao seu restaurante!");
 
+
                 return;
             }
+
 
             System.out.println("\nRemover: " + produto.getNome());
             System.out.printf("Preço: R$ %.2f%n", produto.getPreco());
             System.out.print("\n Confirma remoção? (S/N): ");
             String confirma = sc.nextLine();
+
 
             if (confirma.equalsIgnoreCase("S")) {
                 if (produtoController.remover(id)) {
@@ -281,52 +346,69 @@ public class TelaProdutosParceiro {
                 System.out.println("\n Remoção cancelada!");
             }
 
+
         } catch (Exception e) {
             System.out.println("\n Erro: " + e.getMessage());
             sc.nextLine();
         }
 
 
+
+
     }
+
+
+
 
 
 
     private void alterarDisponibilidade() {
 
+
         System.out.println("\n===========================================");
         System.out.println("     ALTERAR DISPONIBILIDADE             ");
         System.out.println("===========================================\n");
+
 
         try {
             System.out.print("ID do produto: ");
             int id = sc.nextInt();
             sc.nextLine();
 
+
             Produto produto = produtoController.buscarPorId(id);
+
 
             if (produto == null) {
                 System.out.println("\n Produto não encontrado!");
 
+
                 return;
             }
+
 
             if (produto.getIdParceiro() != parceiro.getId()) {
                 System.out.println("\n Este produto não pertence ao seu restaurante!");
 
+
                 return;
             }
+
 
             String statusAtual = produto.isDisponivel() ? "Disponível " : "Indisponível ";
             System.out.println("\nProduto: " + produto.getNome());
             System.out.println("Status atual: " + statusAtual);
 
+
             System.out.println("\n[1] Marcar como Disponível");
             System.out.println("[2] Marcar como Indisponível");
             System.out.println("[0] Cancelar");
 
+
             System.out.print("\nEscolha: ");
             int opcao = sc.nextInt();
             sc.nextLine();
+
 
             if (opcao == 1) {
                 if (produtoController.alterarDisponibilidade(id, true)) {
@@ -342,11 +424,17 @@ public class TelaProdutosParceiro {
                 System.out.println("\n Opção inválida!");
             }
 
+
         } catch (Exception e) {
             System.out.println("\n Erro: " + e.getMessage());
             sc.nextLine();
         }
 
+
     }
 
+
 }
+
+
+
