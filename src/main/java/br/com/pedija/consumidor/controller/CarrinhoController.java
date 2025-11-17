@@ -33,4 +33,8 @@ public class CarrinhoController {
         return total;
     }
 
+    public void limpar() {
+        itens.clear();
+    }
+
 }

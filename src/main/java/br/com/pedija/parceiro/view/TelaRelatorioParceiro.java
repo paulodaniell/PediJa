@@ -76,11 +76,10 @@ public class TelaRelatorioParceiro {
     }
 
 
-
     private void relatorioDia() {
         System.out.println("\n RELATÓRIO - VENDAS DO DIA\n");
 
-        int totalPedidos = pedidoController.contarPedidosEntregues(parceiro.getId());
+        int totalPedidos = pedidoController.contarPedidosProntos();
         double faturamento = pedidoController.calcularFaturamentoTotal(parceiro.getId());
 
 
@@ -92,7 +91,7 @@ public class TelaRelatorioParceiro {
     private void relatorioMes() {
         System.out.println("\n RELATÓRIO - VENDAS DO MÊS\n");
 
-        int totalPedidos = pedidoController.contarPedidosEntregues(parceiro.getId());
+        int totalPedidos = pedidoController.contarPedidosProntos();
         double faturamento = pedidoController.calcularFaturamentoTotal(parceiro.getId());
 
         System.out.println("Total de Pedidos Entregues: " + totalPedidos);
@@ -120,8 +119,8 @@ public class TelaRelatorioParceiro {
         System.out.println("\n RESUMO GERAL\n");
 
         System.out.println("Total de Produtos:   " + produtoController.contarPorParceiro(parceiro.getId()));
-        System.out.println("Pedidos Pendentes:   " + pedidoController.contarPorStatus(parceiro.getId(), "PENDENTE"));
-        System.out.println("Pedidos Entregues:   " + pedidoController.contarPorStatus(parceiro.getId(), "ENTREGUE"));
+        System.out.println("Pedidos Pendentes:   " + pedidoController.contarPedidosPendentes());
+        System.out.println("Pedidos Entregues:   " + pedidoController.contarPedidosProntos());
 
         double faturamento = pedidoController.calcularFaturamentoTotal(parceiro.getId());
         System.out.printf("Faturamento Total:   R$ %.2f%n", faturamento);
