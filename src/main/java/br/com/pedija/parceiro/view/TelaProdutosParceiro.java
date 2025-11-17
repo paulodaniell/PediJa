@@ -91,8 +91,7 @@ public class TelaProdutosParceiro {
             novo.setPreco(Double.parseDouble(sc.nextLine()));
             System.out.print("Quantidade: ");
             novo.setQuantidade(Integer.parseInt(sc.nextLine()));
-            System.out.print("ID da Categoria: ");
-            novo.setCategoria_id(Integer.parseInt(sc.nextLine()));
+            novo.setCategoria_id(1);
             novo.setDisponivel(true);
             novo.setIdParceiro(parceiro.getId());
 

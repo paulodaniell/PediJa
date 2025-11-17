@@ -139,11 +139,11 @@ public class DatabaseConnection {
             """;
             stmt.execute(insertCategoriaPadraoSQL);
 
-            stmt.execute(createProdutosSQL);
             stmt.execute(createUsuarioSQL);
             stmt.execute(createPagamentoSQL);
             stmt.execute(createEntregadorSQL);
             stmt.execute(createParceiroSQL);
+            stmt.execute(createProdutosSQL);
             stmt.execute(createPedidoSQL);
             stmt.execute(createPromocaoSQL);
 
