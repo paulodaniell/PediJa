@@ -1,8 +1,9 @@
 package br.com.pedija.parceiro.view;
 
+import br.com.pedija.parceiro.controller.ParceiroController;
 import br.com.pedija.parceiro.controller.ProdutoController;
 import br.com.pedija.superadm.model.Parceiro;
-import br.com.pedija.superadm.model.Produto;
+
 
 import java.util.List;
 import java.util.Scanner;
@@ -11,11 +12,13 @@ public class TelaPerfilParceiro {
     private Scanner sc;
     private Parceiro parceiro;
     private ProdutoController produtoController;
+    private ParceiroController parceiroController;
 
     public TelaPerfilParceiro(Parceiro parceiro) {
         this.sc = new Scanner(System.in);
         this.parceiro = parceiro;
         this.produtoController = new ProdutoController();
+        this.parceiroController = new ParceiroController();
     }
 
     public void exibirPerfilParceiro() {
@@ -34,7 +37,7 @@ public class TelaPerfilParceiro {
             System.out.print("Escolha uma opção: ");
 
             try {
-                System.out.print("Escolha uma opção: ");
+
                 opcao = sc.nextInt();
                 sc.nextLine();
 
@@ -82,56 +85,71 @@ public class TelaPerfilParceiro {
         System.out.println("Telefone: " + parceiro.getTelefone());
         System.out.println("Endereço Completo:\n Cidade: " + parceiro.getCidade() + " CEP: " + parceiro.getCep() + " Estado: " + parceiro.getEstado() + " Bairro: " + parceiro.getBairro() + " Numero: " + parceiro.getNumero());
         System.out.println("Categoria: " + parceiro.getCategoria());
-        System.out.println(" Taxa e tempo: " + parceiro.getTaxaEntrega());
+        System.out.println(" Taxa e tempo: " + parceiro.getTaxaEntrega());//adicionar login
     }
 
     public void horarioFuncionamento() {
         System.out.println("Horário de Funcionamento " + parceiro.getNome());
-        System.out.println("Aberto de segunda a sexta.");
-        System.out.println("Horário: ");
-        System.out.println("Sábado e domingo.");
-        System.out.println("Horário: ");
+        System.out.println("Segunda a sexta: " + parceiro.getHorarioSemana());
+        System.out.println("Sábado e domingo: " + parceiro.getHorarioFimSemana());
+
         System.out.println("\nDeseja editar o horário de funcionamento? (S/N)");
         String resposta = sc.nextLine();
-        if (resposta.equalsIgnoreCase("S")) {
-            System.out.println("[1] Editar horário de segunda a sexta");
-            System.out.println("[2] Editar horário de sábado e domingo");
-            System.out.print("Escolha uma opção: ");
 
-            int opcao = sc.nextInt();
-            sc.nextLine();
+        if (!resposta.equalsIgnoreCase("S")) {
+            return;
+        }
 
-            switch (opcao) {
-                case 1:
-                    System.out.println("Horário atual: " );
-                    System.out.print("Digite o novo horário (ex: 08:00 às 17:00): ");
-                    String novoHorarioSemana = sc.nextLine();
+        System.out.println("[1] Editar horário de segunda a sexta");
+        System.out.println("[2] Editar horário de sábado e domingo");
+        System.out.print("Escolha uma opção: ");
 
-                    System.out.println("Novo horário definido!");
-                    break;
-                case 2:
-                    System.out.println("Horário atual: ");
-                    System.out.print("Digite o novo horário (ex: 09:00 às 15:00): ");
-                    String novoHorarioFimSemana = sc.nextLine();
+        int opcao = sc.nextInt();
+        sc.nextLine();
 
+        switch (opcao) {
 
-                    System.out.println("Novo horário definido!");
-                    break;
+            case 1:
+                System.out.println("Horário atual: " + parceiro.getHorarioSemana());
+                System.out.print("Digite o novo horário (ex: 08:00 às 17:00): ");
+                String novoSemana = sc.nextLine();
 
-                default:
-                    System.out.println("Opção inválida!");
-            }
-        } else if (resposta.equalsIgnoreCase("N")) {
-            exibirPerfilParceiro();
+                parceiro.setHorarioSemana(novoSemana);
+                parceiroController.atualizar(parceiro);
+
+                System.out.println("Novo horário de semana definido!");
+                break;
+
+            case 2:
+                System.out.println("Horário atual: " + parceiro.getHorarioFimSemana());
+                System.out.print("Digite o novo horário (ex: 08:00 às 15:00): ");
+                String novoFim = sc.nextLine();
+
+                parceiro.setHorarioFimSemana(novoFim);
+                parceiroController.atualizar(parceiro);
+
+                System.out.println("Novo horário de fim de semana definido!");
+                break;
+
+            default:
+                System.out.println("Opção inválida!");
         }
     }
+
     public void exibirFormasPagamento() {
+
         System.out.println("\n FORMAS DE PAGAMENTO ACEITAS:");
-        System.out.println("─────────────────────────────");
+        System.out.println("-------------------------");
 
+        List<String> formas = parceiro.getFormasPagamento();
 
+        if (formas == null || formas.isEmpty()) {
+            System.out.println("Nenhuma forma de pagamento cadastrada.");
+        } else {
+            System.out.println(String.join(", ", formas));
+        }
+
+        System.out.println("---------------------");
     }
+
 }
-
-
-

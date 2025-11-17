@@ -4,11 +4,13 @@ package br.com.pedija.consumidor.view;
 import br.com.pedija.consumidor.controller.CarrinhoController;
 import br.com.pedija.consumidor.controller.PedidoController;
 import br.com.pedija.consumidor.controller.UsuarioController;
+import br.com.pedija.superadm.model.ItemPedido;
 import br.com.pedija.superadm.model.Pedido;
 import br.com.pedija.superadm.model.Produto;
 import br.com.pedija.superadm.model.Usuario;
 
 
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -168,18 +170,27 @@ public class TelaVerCarrinho {
                     usuario.setFormadepagamento(forma);
                     usuarioController.atualizarUsuario(usuario);;
 
-
                     // cria preview do pedido
                     Pedido revisaopedido = pedidoController.revisaopedido(carrinho.listar(), usuario.getId(), usuario.getNome(), usuario.getEndereco(), forma);
 
 
                     System.out.println("\n=== RESUMO DO PEDIDO ===");
+
                     int j = 1;
-                    for (Produto it : revisaopedido.getItens())
-                    {
-                        // CORREÇÃO: Usando o índice local 'j' para o resumo
-                        System.out.printf("%d - %s (R$ %.2f)%n", j++, it.getNome(), it.getPreco());
+
+                    List<ItemPedido> itensPedido = revisaopedido.getItens();
+                    if (itensPedido == null || itensPedido.isEmpty()) {
+                        System.out.println("O pedido está vazio!");
+                    } else {
+                        int j = 1;
+                        for (Produto it : itensPedido) {
+                            System.out.printf("%d - %s (R$ %.2f)%n", j++, it.getNome(), it.getPreco());
+                        }
                     }
+
+
+
+
                     System.out.printf("Total: R$ %.2f%n", revisaopedido.getValorTotal());
                     System.out.println("Nome: " + revisaopedido.getNomeCliente());
                     System.out.println("Endereço: " + revisaopedido.getEndereco());
@@ -201,7 +212,7 @@ public class TelaVerCarrinho {
 
                     if (conf == 1) {
                         // criar o pedido real, limpar carrinho e informar usuário
-                        pedidoController.criarPedido(carrinho.listar(), usuario.getId(), usuario.getNome(), usuario.getEndereco(), forma);
+                       pedidoController.cadastrarPedido(revisaopedido);
                         carrinho.limpar();
                         System.out.println("Pedido confirmado!");
                         return;
