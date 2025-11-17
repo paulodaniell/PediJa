@@ -2,8 +2,13 @@ package br.com.pedija.consumidor.view;
 
 
 import br.com.pedija.consumidor.controller.PedidoController;
+import br.com.pedija.superadm.model.Produto;
 import br.com.pedija.superadm.model.Usuario;
 import br.com.pedija.superadm.model.Pedido;
+
+
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -75,24 +80,134 @@ public class TelaPedidos {
     }
 
 
-    private void pedidoscaminho() {
+    private void exibirDetalhesEConfirmar(Pedido pedidoSelecionado){
 
 
-        char resposta;
-        System.out.println("\n===PEDIDOS Á CAMINHO===\n");
+        System.out.println("\n=== DETALHES DO PEDIDO #" + pedidoSelecionado.getId() + " ===");
 
 
-       /*Aqui é para aparecer os pedidos listados por ordem
-       aparecendo o valor total do pedido e o nome dos produtos pedidos inicialmente.
-       Depois que clicar no pedido. É para a aparecer as mesmas informações que a apareceram
-       lá no carrinho (do mesmo jeito). Daí vai aparecer essa mensagem abaixo
-        */
+        int i = 1;
+        for (Produto it : pedidoSelecionado.getItens())
+        {
+            System.out.printf("%d - %s (R$ %.2f)%n", i++, it.getNome(), it.getPreco());
+        }
+
+
+        System.out.printf("Total: R$ %.2f%n", pedidoSelecionado.getValorTotal());
+        System.out.println("Nome: " + pedidoSelecionado.getNomeCliente());
+        System.out.println("Endereço: " + pedidoSelecionado.getEndereco());
+        System.out.println("Forma de pagamento: " + pedidoSelecionado.getFormaPagamento());
+        System.out.println("------------------------------------");
 
 
         System.out.println("Caso tenha recebido seu pedido, confirme:");
         System.out.println("[S]");
         System.out.println("[N]");
+
+
+        while(true) {
+            System.out.print("Escolha: ");
+            String resposta = sc.nextLine().trim().toUpperCase();
+
+
+            if (resposta.equals("S")) {
+                // Chama o Controller para mudar o status
+                pedidoController.concluirPedido(pedidoSelecionado.getId());
+                System.out.printf("\nPedido recebido e CONCLUÍDO!");
+                return; // Volta para o menu 'pedidoscaminho'
+
+
+            } else if (resposta.equals("N")) {
+                System.out.println("\nVoltando à lista de pedidos...");
+                return; // Volta para o menu 'pedidoscaminho'
+
+
+            } else {
+                System.out.println("Opção inválida. Digite 'S' ou 'N'.");
+            }
+        }
+
+
     }
+
+
+    private void pedidoscaminho() {
+
+
+        List<Pedido> emAndamento = pedidoController.listarEmAndamentoPorUsuario(usuarioLogado.getId());
+
+
+        System.out.println("\n===PEDIDOS Á CAMINHO===\n");
+
+
+        // 2. Lógica de Exibição e Seleção na View
+        int indiceExibicao = 0;
+        for (Pedido p : emAndamento) { // Itera APENAS sobre a lista filtrada
+            // AQUI ESTÁ SOMENTE A APRESENTAÇÃO (System.out.printf)
+            indiceExibicao++;
+            System.out.printf(" [%d] Pedido #%d | Total: R$ %.2f%n", indiceExibicao, p.getId(), p.getValorTotal());
+
+
+            // Exibe o nome do primeiro produto (resumo)
+            if (!p.getItens().isEmpty()) {
+                System.out.printf("     Itens: %s e mais...%n", p.getItens().get(0).getNomeProduto());
+            } else {
+                System.out.println("    Itens: Sem itens registrados.");
+            }
+        }
+
+
+        if (emAndamento.isEmpty()) {
+            System.out.println("Nenhum pedido em andamento.\n");
+        }
+
+
+        while (true) {
+            if (!emAndamento.isEmpty()) {
+                System.out.println("\n------------------------------------");
+                System.out.println("Digite o NÚMERO do pedido para ver detalhes.");
+            }
+            System.out.println("[0] Voltar");
+            System.out.print("Escolha: ");
+
+
+            try {
+                String line = sc.nextLine().trim();
+                int escolha = line.isEmpty() ? -1 : Integer.parseInt(line);
+
+
+                if (escolha == 0) {
+                    return; // Volta para o submenu (verPedidos)
+                }
+                // Opção de detalhamento do pedido
+                if (escolha > 0 && escolha <= emAndamento.size()) {
+                    Pedido pedidoSelecionado = emAndamento.get(escolha - 1); // Indice da lista é (escolha - 1)
+
+
+                    // Chama o método para exibir detalhes e perguntar sobre a conclusão
+                    exibirDetalhesEConfirmar(pedidoSelecionado);
+
+
+                    // Depois de ver os detalhes, volta ao menu de pedidos à caminho (break)
+                    break;
+
+
+                } else if (escolha != -1) {
+                    System.out.println("Opção inválida. Digite um número da lista ou 0 para voltar.");
+                }
+
+
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida. Digite apenas números.");
+            }
+        }
+
+
+    }
+
+
+
+
 
 
     private void listarPedidosPorStatus(List<Pedido> pedidos, String statusFiltro) {
@@ -108,7 +223,7 @@ public class TelaPedidos {
 
                 // Exibe o nome do primeiro produto (resumo)
                 if (!p.getItens().isEmpty()) {
-                    System.out.printf("     Itens: %s e mais...%n", p.getItens().get(0).getNome());
+                    System.out.printf("     Itens: %s e mais...%n", p.getItens().get(0).getNomeProduto());
                 } else {
                     System.out.println("     Itens: Sem itens registrados.");
                 }
@@ -133,10 +248,10 @@ public class TelaPedidos {
 
 
         List<Pedido> pedidosDoUsuario = pedidoController.listarPorUsuario(usuarioLogado.getId());
-       /*Aqui é para aparecer os pedidos finalizados listados por ordem
-       aparecendo o valor total do pedido e o nome dos produtos pedidos.
-       Apenas isso.
-        */
+
+
+        // Chamada do método auxiliar para exibir apenas os concluídos
+        listarPedidosPorStatus(pedidosDoUsuario, "Concluído");
 
 
         while(true) {
@@ -167,4 +282,6 @@ public class TelaPedidos {
 
     }
 }
+
+
 

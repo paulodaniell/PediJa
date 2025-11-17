@@ -52,7 +52,7 @@ public class PedidoController {
 
 
     // cria o pedido (retorna o pedido salvo com id)
-    public void cadastrarPedido(Pedido revisaopedido) {
+    public void criarPedido(Pedido revisaopedido) {
 
         pedidoDAO.criar(revisaopedido);
 
@@ -73,13 +73,27 @@ public class PedidoController {
     // listar pedidos por usuário (para TelaPedidos)
     public List<Pedido> listarPorUsuario(int usuarioId) {
 
-        
-
-
 
 
     }
 
+    public List<Pedido> listarEmAndamentoPorUsuario(int usuarioId) {
+
+
+        List<Pedido> todosPedidos = listarPorUsuario(usuarioId);
+
+
+        List<Pedido> emAndamento = new ArrayList<>();
+
+
+        for (Pedido p : todosPedidos) {
+            if (p.getStatus() != null && p.getStatus().equalsIgnoreCase("Em Andamento")) {
+                emAndamento.add(p);
+            }
+        }
+        return emAndamento;
+    }
 
 }
+
 

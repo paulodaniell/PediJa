@@ -45,13 +45,17 @@ public class UsuarioController {
     }
 
 
-    public void cadastrarUsuario(Usuario u) {
-        u.setId(id++);
-        base.add(u);
+
+    public boolean cadastrarUsuario(Usuario u) {
+        if (u.getEmail() == null || !u.getEmail().contains("@")) {
+            return false;
+        }
+        else {
+            u.setId(id++);
+            base.add(u);
+            return true;
+        }
     }
-
-
-
 
     public void atualizarUsuario(Usuario u) {
         if (u == null) return;

@@ -113,16 +113,20 @@ public class TelaLoginConsumidor {
         novoConsumidor.setEndereco(sc.nextLine());
 
 
-        controller.cadastrarUsuario(novoConsumidor);
+        boolean resposta = controller.cadastrarUsuario(novoConsumidor);
 
 
-        System.out.println("CADASTRO REALIZADO COM SUCESSO!");
-        System.out.println("BEM-VINDO AO PEDIJÁ!");
-
-
-        MenuPrincipalConsumidorView menu = new MenuPrincipalConsumidorView();
-        menu.setUsuarioLogado(novoConsumidor);
-        menu.exibirMenuCliente();
+        if(resposta){
+            System.out.println("CADASTRO REALIZADO COM SUCESSO!");
+            System.out.println("BEM-VINDO AO PEDIJÁ!");
+            MenuPrincipalConsumidorView menu = new MenuPrincipalConsumidorView();
+            menu.setUsuarioLogado(novoConsumidor);
+            menu.exibirMenuCliente();
+        }
+        else{
+            System.out.println("\nEmail inválido!\n");
+            return;
+        }
 
 
         this.opcao = 0;
