@@ -114,7 +114,7 @@ public class TelaProdutosParceiro {
         System.out.println("-------------------------------------\n");
 
         Produto novo = new Produto();
-        novo.setIdParceiro(parceiro.getId());
+        produtoController.adicionarProduto(novo);
 
         try {
             System.out.print(" Nome do Produto: ");

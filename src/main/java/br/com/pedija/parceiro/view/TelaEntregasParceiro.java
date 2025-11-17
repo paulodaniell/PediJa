@@ -83,7 +83,7 @@ public class TelaEntregasParceiro {
             System.out.println("\n PEDIDO #" + p.getId());
             System.out.println("Cliente: " + p.getNomeCliente());
             System.out.println("Endereço: " + p.getEndereco());
-            //System.out.println("Valor: R$ " + String.format("%.2f", p.getValorTotal()));
+            System.out.println("Valor: R$ " + String.format("%.2f", p.getValorTotal()));
             System.out.println("─────────────────────────────");
         }
 
@@ -147,7 +147,7 @@ public class TelaEntregasParceiro {
         System.out.println("\n PEDIDOS EM ROTA");
         System.out.println("------------------------------");
 
-        List<Pedido> pedidos = pedidoController.listarPorParceiroEStatus(parceiro.getId(), "EM_ENTREGA");
+        List<Pedido> pedidos = pedidoController.listarEmEntrega();
 
         if (pedidos.isEmpty()) {
             System.out.println("\n Nenhum pedido em entrega");
