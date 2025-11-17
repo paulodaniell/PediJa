@@ -16,7 +16,7 @@ public class Pedido {
     private String endereco;
     private String formaPagamento;
     private int idParceiro;
-    private int idUsuario;
+    private int idusuario;
 
     private List<Produto> itens = new ArrayList<>();
 
@@ -37,11 +37,11 @@ public class Pedido {
 //teste erro
 
     public int getIdUsuario() {
-        return idUsuario;
+        return idusuario;
     }
 
     public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
+        this.idusuario = idUsuario;
     }
 
 

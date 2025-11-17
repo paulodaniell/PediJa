@@ -83,7 +83,7 @@ public class MenuPrincipalConsumidorView {
                     return;
                 }
                 TelaVerCarrinho telaCarrinho = new TelaVerCarrinho(carrinho, this.usuarioLogado, usuarioController);
-                telaCarrinho.vercarrinho();
+                telaCarrinho.verCarrinho();
             }
             case 3 -> {
                 System.out.println("Promoções");

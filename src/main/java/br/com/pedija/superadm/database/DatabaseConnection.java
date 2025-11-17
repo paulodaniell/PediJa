@@ -18,26 +18,26 @@ public class DatabaseConnection {
     public static void initDatabase() {
 
         String createCategoriasSQL = """
-        CREATE TABLE IF NOT EXISTS categorias (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            nome VARCHAR(100) NOT NULL,
-            descricao VARCHAR(255)
-        );
+            CREATE TABLE IF NOT EXISTS categorias (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                nome VARCHAR(100) NOT NULL,
+                descricao VARCHAR(255)
+            );
         """;
 
         String createProdutosSQL = """
-        CREATE TABLE IF NOT EXISTS produtos (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            nome VARCHAR(100) NOT NULL,
-            descricao VARCHAR(255),
-            preco DECIMAL(10, 2) NOT NULL,
-            quantidade INT NOT NULL,
-            categoria_id INT,
-            idParceiro INT,
-            disponivel BOOLEAN DEFAULT TRUE,
-            FOREIGN KEY (idParceiro) REFERENCES Parceiro(id),
-            FOREIGN KEY (categoria_id) REFERENCES categorias(id)
-        );
+            CREATE TABLE IF NOT EXISTS produtos (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                nome VARCHAR(100) NOT NULL,
+                descricao VARCHAR(255),
+                preco DECIMAL(10, 2) NOT NULL,
+                quantidade INT NOT NULL,
+                categoria_id INT,
+                idParceiro INT,
+                disponivel BOOLEAN DEFAULT TRUE,
+                FOREIGN KEY (idParceiro) REFERENCES Parceiro(id),
+                FOREIGN KEY (categoria_id) REFERENCES categorias(id)
+            );
         """;
 
         String createUsuarioSQL = """
@@ -97,7 +97,7 @@ public class DatabaseConnection {
         String createPedidoSQL = """
                 CREATE TABLE IF NOT EXISTS Pedido(
                     id INT PRIMARY KEY AUTO_INCREMENT,
-                    idUsuario INT NOT NULL,
+                    idusuario INT NOT NULL,
                     nomeCliente VARCHAR(150) NOT NULL,
                     valorTotal DECIMAL(10,2) NOT NULL,
                     idEntregador INT NULL,
