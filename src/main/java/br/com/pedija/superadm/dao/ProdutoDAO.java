@@ -1,6 +1,8 @@
 package br.com.pedija.superadm.dao;
 
 import br.com.pedija.superadm.database.DatabaseConnection;
+import br.com.pedija.superadm.model.Categoria;
+import br.com.pedija.superadm.model.Pedido;
 import br.com.pedija.superadm.model.Produto;
 
 import java.sql.*;
@@ -40,6 +42,56 @@ public class ProdutoDAO {
             throw new RuntimeException("Erro ao adicionar produto: " + e.getMessage(), e);
         }
     }
+    public List<Produto> buscarTodos() {
+        List<Produto> produtos = new ArrayList<>();
+        String sql = "SELECT * FROM produto ORDER BY id";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+
+                Produto p = new Produto();
+
+                // CAMPOS BÁSICOS
+                p.setId(rs.getInt("id"));
+                p.setNome(rs.getString("nome"));
+                p.setDescricao(rs.getString("descricao"));
+                p.setPreco(rs.getDouble("preco"));
+
+                // PARCEIRO
+                p.setIdParceiro(rs.getInt("idParceiro"));
+                p.setDisponivel(rs.getBoolean("disponivel"));
+                p.setQuantidade(rs.getInt("quantidade"));
+                p.setTempoPreparo(rs.getInt("tempoPreparo"));
+
+                // EXTRA
+                p.setLoja(rs.getString("loja"));
+
+                // CATEGORIA (se existir)
+                int categoriaId = rs.getInt("categoriaId");
+
+                // se categoriaId > 0, busca categoria e preenche
+                if (categoriaId != 0) {
+                    Categoria categoria = new Categoria();
+                    categoria.setId(categoriaId);
+                    categoria.setNome(rs.getString("categoriaNome"));
+                    // se a categoriaNome não estiver na tabela produto, ajustar depois
+                    p.setCategoriaNome(categoria.getNome());
+                }
+
+                produtos.add(p);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao listar produtos: " + e.getMessage(), e);
+        }
+
+        return produtos;
+    }
+
+
 
     /**
      * READ

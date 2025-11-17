@@ -7,40 +7,28 @@ import java.util.List;
 
 import br.com.pedija.superadm.model.Pedido;
 import br.com.pedija.superadm.dao.PedidoDAO;
-import br.com.pedija.parceiro.view.TelaPedidosParceiro;
-
 
 public class PedidoController {
 
 
     PedidoDAO pedidoDAO = new PedidoDAO();
     Pedido pedido =  new Pedido();
-    TelaPedidosParceiro view;
 
 
     //Para o conumidor
     public void cadastrarPedido() {
-        try {
-            pedidoDAO.criar(pedido);
-            view.exibirMensagemSucesso("Pedido Cadastrado com sucesso!");
-        } catch (Exception e) {
-            view.exibirErro(e.getMessage());
-        }
-    }
 
+    }
 
 
 
     public List<Pedido> listarPedidos() {
-        try {
+
             List<Pedido> pedidos = pedidoDAO.buscarTodos();
 
-
-        } catch (Exception e) {
-            view.exibirErro(e.getMessage());
-        }
-        return null;
+    return pedidos;
     }
+
 
 
     public Pedido buscarPorId(int id) {
@@ -62,12 +50,12 @@ public class PedidoController {
             pedidoDAO.atualizar(p);
 
 
-            view.exibirMensagemSucesso("Pedido Atualizado com sucesso!");
+
             return true;
 
 
         }
-        view.exibirErro("Pedido Vazio!");
+
         return false;
     }
 
@@ -75,26 +63,18 @@ public class PedidoController {
 
 
     public List<Pedido> listarPendentes() {
-        try {
+
             return pedidoDAO.buscarPorStatus("PENDENTE");
 
 
-        } catch (Exception e) {
-            view.exibirErro(e.getMessage());
-        }
-        return null;
     }
 
 
     public List<Pedido> listarEmPreparo() {
-        try {
+
             return pedidoDAO.buscarPorStatus("EM PREPARO");
 
 
-        } catch (Exception e) {
-            view.exibirErro(e.getMessage());
-        }
-        return null;
     }
 
 
@@ -117,31 +97,17 @@ public class PedidoController {
 
 
     public List<Pedido> listarEmEntrega() {
-        try {
+
             return pedidoDAO.buscarPorStatus("Em ENTREGA");
-
-
-        } catch (Exception e) {
-            view.exibirErro(e.getMessage());
-        }
-        return null;
-
 
     }
 
 
     public List<Pedido> listarProntos() {
-        try {
+
             return pedidoDAO.buscarPorStatus("PRONTO");
 
-
-        } catch (Exception e) {
-            view.exibirErro(e.getMessage());
-        }
-        return null;
     }
-
-
 
 
 

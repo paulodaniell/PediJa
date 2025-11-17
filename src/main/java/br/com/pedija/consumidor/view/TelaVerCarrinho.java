@@ -106,11 +106,11 @@ public class TelaVerCarrinho {
 
                     System.out.println("\n=== RESUMO DO PEDIDO ===");
                     i = 1;
-                    for (Produto it : revisaopedido.getItens())
+                    //for (Produto it : revisaopedido.getItens())
                     {
-                        System.out.printf("%d - %s (R$ %.2f)%n", i++, it.getNome(), it.getPreco());
+                      //  System.out.printf("%d - %s (R$ %.2f)%n", i++, it.getNome(), it.getPreco());
                     }
-                    System.out.printf("Total: R$ %.2f%n", revisaopedido.getValoTotal());
+                    System.out.printf("Total: R$ %.2f%n", revisaopedido.getValorTotal());
                     System.out.println("Nome: " + revisaopedido.getNomeCliente());
                     System.out.println("Endereço: " + revisaopedido.getEndereco());
                     System.out.println("Forma de pagamento: " + revisaopedido.getFormaPagamento());

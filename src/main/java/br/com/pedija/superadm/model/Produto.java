@@ -1,11 +1,15 @@
 package br.com.pedija.superadm.model;
+import br.com.pedija.superadm.model.Categoria;
 
 public class Produto {
+    Categoria categoria;
 
+    String descricao;
     private int id;
     private String nome;
-    private String descricao;
     private double preco;
+
+
 
     // CAMPOS PARA PARCEIROS
     private int idParceiro;
@@ -14,10 +18,8 @@ public class Produto {
     private int tempoPreparo; // em minutos
 
     // CAMPOS PARA CATEGORIA
-    private Integer categoriaId;
-
+    private Integer categoriaId;   // COMEÇA NULO
     private String categoriaNome;
-
     // EXTRA
     private String loja;
 
@@ -44,7 +46,9 @@ public class Produto {
         this.quantidade = 0;
     }
 
-    // GETTERS & SETTERS
+
+
+
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 

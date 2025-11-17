@@ -16,13 +16,13 @@ public class PedidoController {
     public Pedido revisaopedido(List<Produto> itens, int usuarioId, String nome, String endereco, String formaPagamento) {
         Pedido p = new Pedido();
         p.setId(0); // preview sem id
-        p.setItens(new ArrayList<>(itens));
+       // p.setItens(new ArrayList<>(itens));
         double total = itens.stream().mapToDouble(Produto::getPreco).sum();
-        p.setValoTotal(total);
+        p.setValorTotal(total);
         p.setNomeCliente(nome);
         p.setEndereco(endereco);
         p.setFormaPagamento(formaPagamento);
-        p.setUsuarioId(usuarioId);
+        p.setIdUsuario(usuarioId);
         return p;
     }
 
@@ -31,13 +31,13 @@ public class PedidoController {
     public Pedido criarPedido(List<Produto> itens, int usuarioId, String nome, String endereco, String formaPagamento) {
         Pedido p = new Pedido();
         p.setId(nextId++);
-        p.setItens(new ArrayList<>(itens));
+       // p.setItens(new ArrayList<>(itens));
         double total = itens.stream().mapToDouble(Produto::getPreco).sum();
-        p.setValoTotal(total);
+        p.setValorTotal(total);
         p.setNomeCliente(nome);
         p.setEndereco(endereco);
         p.setFormaPagamento(formaPagamento);
-        p.setUsuarioId(usuarioId);
+        p.setIdUsuario(usuarioId);
         pedidos.add(p);
         return p;
     }
@@ -45,7 +45,7 @@ public class PedidoController {
     // listar pedidos por usuário (para TelaPedidos)
     public List<Pedido> listarPorUsuario(int usuarioId) {
         List<Pedido> out = new ArrayList<>();
-        for (Pedido p : pedidos) if (p.getUsuarioId() == usuarioId) out.add(p);
+        for (Pedido p : pedidos) if (p.getIdUsuario() == usuarioId) out.add(p);
         return out;
     }
 

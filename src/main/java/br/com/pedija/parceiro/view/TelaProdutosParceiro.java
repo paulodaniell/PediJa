@@ -133,66 +133,49 @@ public class TelaProdutosParceiro {
 
     private void adicionarProduto() {
 
-
         System.out.println("\n-----------------------------------");
-        System.out.println("|        ADICIONAR NOVO PRODUTO            |");
-        System.out.println("-------------------------------------\n");
-
+        System.out.println("|      ADICIONAR NOVO PRODUTO     |");
+        System.out.println("-----------------------------------\n");
 
         Produto novo = new Produto();
-        produtoController.adicionarProduto(novo);
-
 
         try {
             System.out.print(" Nome do Produto: ");
-            String nome = sc.nextLine();
-            novo.setNome(nome);
-
+            novo.setNome(sc.nextLine());
 
             System.out.print(" Descrição: ");
-            String descricao = sc.nextLine();
-            novo.setDescricao(descricao);
-
+            novo.setDescricao(sc.nextLine());
 
             System.out.print(" Preço (R$): ");
-            double preco = sc.nextDouble();
+            novo.setPreco(sc.nextDouble());
             sc.nextLine();
-            novo.setPreco(preco);
-
 
             System.out.print(" Categoria: ");
-            String categoria = sc.nextLine();
-            novo.setCategoria(categoria);
-
+            novo.setCategoriaNome(sc.nextLine());
 
             System.out.print(" Tempo de preparo (min): ");
-            int tempo = sc.nextInt();
+            novo.setTempoPreparo(sc.nextInt());
             sc.nextLine();
-            novo.setTempoPreparo(tempo);
-
 
             novo.setDisponivel(true);
+            novo.setIdParceiro(parceiro.getId()); // IMPORTANTE!!!
 
+            // CHAMA APENAS UMA VEZ
+            boolean sucesso = produtoController.adicionarProduto(novo);
 
-
-
-            if (produtoController.adicionar(novo)) {
+            if (sucesso) {
                 System.out.println("\n Produto adicionado com sucesso!");
                 System.out.println("ID gerado: " + novo.getId());
             } else {
                 System.out.println("\n Erro ao adicionar produto!");
             }
 
-
         } catch (Exception e) {
             System.out.println("\n Erro ao cadastrar: " + e.getMessage());
             sc.nextLine();
         }
-
-
-
-
     }
+
 
 
     private void editarProduto() {
@@ -265,7 +248,7 @@ public class TelaProdutosParceiro {
                     break;
                 case 4:
                     System.out.print("Nova categoria: ");
-                    produto.setCategoria(sc.nextLine());
+                    produto.setCategoriaNome(sc.nextLine());
                     System.out.println(" Categoria atualizada!");
                     break;
                 case 5:

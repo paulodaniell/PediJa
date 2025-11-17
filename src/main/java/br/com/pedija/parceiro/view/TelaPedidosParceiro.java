@@ -18,6 +18,7 @@ public class TelaPedidosParceiro {
     private PedidoController pedidoController;
 
 
+
     public TelaPedidosParceiro(Parceiro parceiro) {
         this.sc = new Scanner(System.in);
         this.parceiro = parceiro;
@@ -94,12 +95,12 @@ public class TelaPedidosParceiro {
             System.out.println("Itens:");
 
 
-           for (Pedido p : p.getItens()) {
-                System.out.printf(" • %dx %s - R$ %.2f%n",
-                       item.getQuantidade(),
-                       item.getNomeProduto(),
-                       item.getSubTotal());
-           }
+         //  for (Pedido p : p.getItens()) {
+         //       System.out.printf(" • %dx %s - R$ %.2f%n",
+         //              item.getQuantidade(),
+         //              item.getNomeProduto(),
+          //             item.getSubTotal());
+       //    }
         }
 
 

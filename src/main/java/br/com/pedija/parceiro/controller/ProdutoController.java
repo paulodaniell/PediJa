@@ -2,10 +2,8 @@ package br.com.pedija.parceiro.controller;
 
 
 import br.com.pedija.parceiro.view.TelaPedidosParceiro;
-import br.com.pedija.superadm.model.Pedido;
 import br.com.pedija.superadm.model.Produto;
 import br.com.pedija.superadm.dao.ProdutoDAO;
-import br.com.pedija.parceiro.view.TelaProdutosParceiro;
 
 
 import java.util.ArrayList;
@@ -16,7 +14,7 @@ public class ProdutoController {
 
 
     ProdutoDAO produtoDAO = new ProdutoDAO();
-    TelaPedidosParceiro view;
+
 
 
     private static List<Produto> produtos = new ArrayList<>();
@@ -24,14 +22,16 @@ public class ProdutoController {
 
 
 
-    public void adicionarProduto(Produto produto) {
+    public boolean adicionarProduto(Produto produto) {
         try {
-            produtoDAO.criar(produto);
-            view.exibirMensagemSucesso("Pedido Cadastrado com sucesso!");
 
+            produtoDAO.criar(produto);
+
+            return true;
 
         } catch (Exception e) {
-            view.exibirErro(e.getMessage());
+
+            return false;
         }
     }
 
@@ -42,7 +42,7 @@ public class ProdutoController {
 
 
         } catch (Exception e) {
-            view.exibirErro(e.getMessage());
+
         }
         return null;
     }
@@ -86,13 +86,13 @@ public class ProdutoController {
         }
         return false;
     }
-    public void listarMaisVendidos(int idParceiro) {
+    public List<Produto> listarMaisVendidos(int idParceiro) {
         List<Produto> produtosDoParceiro = listarPorParceiros(idParceiro);
 
 
         if (produtosDoParceiro.isEmpty()) {
             System.out.println("Nenhum produto cadastrado para este parceiro.");
-            return;
+            return produtosDoParceiro;
         }
 
 
@@ -110,6 +110,8 @@ public class ProdutoController {
             System.out.println("Vendas: (colocar contador!!!!!!!!!!!!)");
             System.out.println();
         }
+
+        return produtosDoParceiro;
     }
     public int contarPorParceiro(int idParceiro) {
         int contador = 0;

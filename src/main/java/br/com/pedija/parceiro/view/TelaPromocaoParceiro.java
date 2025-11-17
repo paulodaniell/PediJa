@@ -76,7 +76,7 @@ public class TelaPromocaoParceiro {
         System.out.println("================================\n");
 
 
-        List<Produto> produtos = produtoController.listarPorParceiro(parceiro.getId());
+        List<Produto> produtos = produtoController.listarPorParceiros(parceiro.getId());
 
         if (produtos.isEmpty()) {
             System.out.println(" Você não tem produtos cadastrados!");
