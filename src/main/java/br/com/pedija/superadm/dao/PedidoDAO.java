@@ -13,8 +13,8 @@ public class PedidoDAO {
     public void criar(Pedido pedido) {
         String sql = """
             INSERT INTO Pedido 
-            (idusuario, nomeCliente, valorTotal, idEntregador, status, endereco, formaPagamento, idParceiro)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            (idusuario, nomeCliente, valorTotal, status, endereco, formaPagamento, idParceiro)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
         """;
 
         try (Connection conn = DatabaseConnection.getConnection();
@@ -23,18 +23,10 @@ public class PedidoDAO {
             stmt.setInt(1, pedido.getIdUsuario());
             stmt.setString(2, pedido.getNomeCliente());
             stmt.setDouble(3, pedido.getValorTotal());
-            
-            // Se idEntregador for 0, insere NULL no banco (ainda não tem entregador)
-            if (pedido.getIdEntregador() == 0) {
-                stmt.setNull(4, Types.INTEGER);
-            } else {
-                stmt.setInt(4, pedido.getIdEntregador());
-            }
-            
-            stmt.setString(5, pedido.getStatus());
-            stmt.setString(6, pedido.getEndereco());
-            stmt.setString(7, pedido.getFormaPagamento());
-            stmt.setObject(8, pedido.getIdParceiro(), Types.INTEGER);
+            stmt.setString(4, pedido.getStatus());
+            stmt.setString(5, pedido.getEndereco());
+            stmt.setString(6, pedido.getFormaPagamento());
+            stmt.setObject(7, pedido.getIdParceiro(), Types.INTEGER);
 
             stmt.executeUpdate();
 
@@ -139,11 +131,6 @@ public class PedidoDAO {
         p.setIdUsuario(rs.getInt("idusuario"));
         p.setNomeCliente(rs.getString("nomeCliente"));
         p.setValorTotal(rs.getDouble("valorTotal"));
-        
-        // Se idEntregador for NULL no banco, converte para 0
-        Integer idEntregador = (Integer) rs.getObject("idEntregador");
-        p.setIdEntregador(idEntregador == null ? 0 : idEntregador);
-        
         p.setStatus(rs.getString("status"));
         p.setEndereco(rs.getString("endereco"));
         p.setFormaPagamento(rs.getString("formaPagamento"));

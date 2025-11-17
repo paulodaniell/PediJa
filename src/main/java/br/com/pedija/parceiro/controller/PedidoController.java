@@ -61,17 +61,13 @@ public class PedidoController {
 
     public List<Pedido> listarAguardandoEntregador(int idParceiro) {
         List<Pedido> resultado = new ArrayList<>();
+        List<Pedido> prontos = pedidoDAO.buscarPorStatus("PRONTO");
 
-
-        for (Pedido p : resultado)
-
-
-            if (p.getIdParceiro() == idParceiro &&
-                    p.getStatus().equals("PRONTO") &&
-                    p.getIdEntregador() == 0) {
+        for (Pedido p : prontos) {
+            if (p.getIdParceiro() == idParceiro) {
                 resultado.add(p);
             }
-
+        }
 
         return resultado;
     }
@@ -79,7 +75,7 @@ public class PedidoController {
 
     public List<Pedido> listarEmEntrega() {
 
-            return pedidoDAO.buscarPorStatus("Em ENTREGA");
+            return pedidoDAO.buscarPorStatus("EM_ENTREGA");
 
     }
 
@@ -100,8 +96,8 @@ public class PedidoController {
 
 
         if (p != null) {
-            p.setIdEntregador(idEntregador);
             p.setStatus("EM_ENTREGA");
+            pedidoDAO.atualizar(p);
             return true;
         }
 

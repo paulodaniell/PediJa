@@ -100,13 +100,11 @@ public class DatabaseConnection {
                     idusuario INT NOT NULL,
                     nomeCliente VARCHAR(150) NOT NULL,
                     valorTotal DECIMAL(10,2) NOT NULL,
-                    idEntregador INT NULL,
                     status VARCHAR(50),
                     endereco VARCHAR(200),
                     formaPagamento VARCHAR(50),
                     idParceiro INT NULL,
                     
-                    FOREIGN KEY (idEntregador) REFERENCES Entregador(id),
                     FOREIGN KEY (idParceiro) REFERENCES Parceiro(id)
                 );
     """;

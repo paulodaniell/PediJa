@@ -86,6 +86,10 @@ O banco é inicializado automaticamente na primeira execução.
 - Criado script `run.sh` otimizado que compila apenas na primeira execução
 - Atualizado `.gitignore` para excluir arquivos de banco de dados H2 e artefatos de build
 - Configurado workflow para execução automática no Replit
+- **Removida relação com entregador:** Campo `idEntregador` removido da tabela Pedido e código relacionado simplificado
+- Corrigidos bugs no PedidoController (listarAguardandoEntregador agora busca pedidos PRONTOS corretamente)
+- Ajustada consistência de status de pedidos (padronizado para "EM_ENTREGA")
+- Pedidos agora aparecem nas telas do parceiro filtrados apenas por `idParceiro`
 
 ## Arquitetura
 - **MVC Pattern:** Separação entre Model, View e Controller

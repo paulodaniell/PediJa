@@ -157,18 +157,10 @@ public class TelaEntregasParceiro {
 
         for (Pedido p : pedidos) {
 
-            Entregador entregador = entregadorController.buscarPorId(p.getIdEntregador());
-
             System.out.println("\n PEDIDO #" + p.getId());
             System.out.println("Cliente: " + p.getNomeCliente());
             System.out.println("Endereço: " + p.getEndereco());
             //System.out.println("Valor: R$ " + String.format("%.2f", p.getValorTotal()));
-
-            if (entregador != null) {
-                System.out.println("Entregador: " + entregador.getNomeEntregador());
-                System.out.println("Veículo: " + entregador.getVeiculo());
-                System.out.println("Telefone: " + entregador.getTelefone());
-            }
 
             System.out.println("─────────────────────────────");
         }

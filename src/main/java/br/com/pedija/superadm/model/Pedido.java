@@ -11,7 +11,6 @@ public class Pedido {
     private String nomeCliente;
     private int idClienteitens;
     private double valorTotal;
-    private int idEntregador;
     private String status;
     private String endereco;
     private String formaPagamento;
@@ -75,14 +74,6 @@ public class Pedido {
 
     public void setValorTotal(double valoTotal) {
         this.valorTotal = valoTotal;
-    }
-
-    public int getIdEntregador() {
-        return idEntregador;
-    }
-
-    public void setIdEntregador(int idEntregador) {
-        this.idEntregador = idEntregador;
     }
 
     public String getStatus() {
