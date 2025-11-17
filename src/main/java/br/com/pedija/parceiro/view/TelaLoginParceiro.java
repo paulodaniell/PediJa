@@ -3,6 +3,8 @@ package br.com.pedija.parceiro.view;
 import br.com.pedija.parceiro.controller.ParceiroController;
 import br.com.pedija.superadm.model.Parceiro;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class TelaLoginParceiro {
@@ -87,6 +89,15 @@ public class TelaLoginParceiro {
                 categoria = sc.nextLine();
             }
             novoParceiro.setCategoria(categoria);
+
+            System.out.println("═══ FORMAS DE PAGAMENTO ═══");
+            System.out.print("Digite as formas de pagamento (separadas por vírgula ex:pix,debito,credito): ");
+
+
+            String formasInput = sc.nextLine();
+            List<String> formas = Arrays.asList(formasInput.split(","));
+
+            novoParceiro.setFormasPagamento(formas);
 
 
             System.out.println("\n-----------------------------------");

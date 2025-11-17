@@ -8,6 +8,33 @@ public class Promocao {
     private double precoOriginal;
     private double precoPromocional;
 
+  //teste erro
+    private double percentualDesconto;
+    private boolean ativa;
+ //teste erro
+ public double getPercentualDesconto() {
+     if (precoOriginal == 0) {
+         return 0; // Evita divisão por zero
+     }
+     return ((precoOriginal - precoPromocional) / precoOriginal) * 100;
+ }
+
+
+    public void setPercentualDesconto(double percentualDesconto) {
+        this.percentualDesconto = percentualDesconto;
+    }
+
+    public boolean isAtiva() {
+        return ativa;
+    }
+
+    public void setAtiva(boolean ativa) {
+        this.ativa = ativa;
+    }
+//teste erro
+
+
+
     public int getId() {
         return id;
     }

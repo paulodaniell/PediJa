@@ -3,7 +3,9 @@ package br.com.pedija.parceiro.view;
 import br.com.pedija.parceiro.controller.PedidoController;
 import br.com.pedija.parceiro.controller.ProdutoController;
 import br.com.pedija.superadm.model.Parceiro;
+import br.com.pedija.superadm.model.Produto;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class TelaRelatorioParceiro {
@@ -98,10 +100,21 @@ public class TelaRelatorioParceiro {
 
     }
 
+
     private void produtosMaisVendidos() {
         System.out.println("\n PRODUTOS MAIS VENDIDOS\n");
-        produtoController.listarMaisVendidos(parceiro.getId());
+        List<Produto> maisVendidos = produtoController.listarMaisVendidos(parceiro.getId());
+
+        if (maisVendidos.isEmpty()) {
+            System.out.println("Nenhum produto foi vendido ainda.");
+            return;
+        }
+        for (int i = 0; i < maisVendidos.size(); i++) {
+            Produto p = maisVendidos.get(i);
+            System.out.printf("%dº - %s (ID: %d)\n", (i + 1), p.getNome(), p.getId());
+        }
     }
+
 
     private void resumoGeral() {
         System.out.println("\n RESUMO GERAL\n");

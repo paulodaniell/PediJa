@@ -1,6 +1,8 @@
 package br.com.pedija.superadm.model;
 
 
+import java.util.List;
+
 public class Parceiro {
     private int id;
     private String cnpj;
@@ -16,7 +18,13 @@ public class Parceiro {
     private String cidade;
     private String bairro;
     private int numero;
+    private List<String> formasPagamento;
 
+    private String horarioSemana;
+    private String horarioFimSemana;
+
+    public Parceiro() {
+    }
 
 
     public Parceiro(int id, String nome, String categoria, double taxaEntrega, boolean aberto) {
@@ -26,6 +34,33 @@ public class Parceiro {
         this.taxaEntrega = taxaEntrega;
         this.aberto = aberto;
     }
+
+//teste erro
+    public String getHorarioSemana() {
+        return horarioSemana;
+    }
+
+    public void setHorarioSemana(String horarioSemana) {
+        this.horarioSemana = horarioSemana;
+    }
+
+    public String getHorarioFimSemana() {
+        return horarioFimSemana;
+    }
+
+    public void setHorarioFimSemana(String horarioFimSemana) {
+        this.horarioFimSemana = horarioFimSemana;
+    }
+
+    public List<String> getFormasPagamento() {
+        return formasPagamento;
+    }
+
+    public void setFormasPagamento(List<String> formasPagamento) {
+        this.formasPagamento = formasPagamento;
+    }
+//teste erro
+
     public String getCep() {
         return cep;
     }
@@ -107,11 +142,6 @@ public class Parceiro {
     public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
-
-    public Parceiro() {
-    }
-
-
 
     public int getId() {
         return id;

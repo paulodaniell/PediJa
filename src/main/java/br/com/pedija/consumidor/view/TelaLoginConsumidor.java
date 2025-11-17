@@ -88,7 +88,7 @@ public class TelaLoginConsumidor {
         novoConsumidor.setTelefone(sc.nextLine());
 
         System.out.print("CPF: ");
-        novoConsumidor.setCPF(sc.nextLine());
+       // novoConsumidor.setCPF(sc.nextLine());
 
         System.out.print("Nome: ");
         novoConsumidor.setNome(sc.nextLine());

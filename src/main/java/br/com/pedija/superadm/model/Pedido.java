@@ -1,16 +1,37 @@
 package br.com.pedija.superadm.model;
 
+import java.util.ArrayList;
+import java.util.List;
+import br.com.pedija.superadm.model.ItemPedido;
+
 public class Pedido {
     private int id;
     private String nomeCliente;
     private int idClienteitens;
-    private double valoTotal;
+    private double valorTotal;
     private int idEntregador;
     private String status;
     private String endereco;
     private String formaPagamento;
     private int idParceiro;
 
+    private List<ItemPedido> itens = new ArrayList<>();
+
+    //teste erro
+    // adiciona item e atualiza o total
+    public void addItem(ItemPedido item) {
+        itens.add(item);
+        valorTotal += item.getTotal();
+    }
+//teste erro
+    public List<ItemPedido> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<ItemPedido> itens) {
+        this.itens = itens;
+    }
+//teste erro
     public int getId() {
         return id;
     }
@@ -35,12 +56,12 @@ public class Pedido {
         this.idClienteitens = idClienteitens;
     }
 
-    public double getValoTotal() {
-        return valoTotal;
+    public double getValorTotal() {
+        return valorTotal;
     }
 
-    public void setValoTotal(double valoTotal) {
-        this.valoTotal = valoTotal;
+    public void setValorTotal(double valoTotal) {
+        this.valorTotal = valoTotal;
     }
 
     public int getIdEntregador() {

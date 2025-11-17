@@ -75,7 +75,8 @@ public class TelaPromocaoParceiro {
         System.out.println("     CRIAR NOVA PROMOÇÃO            ");
         System.out.println("================================\n");
 
-        List<Produto> produtos = produtoController.listarPorParceiros(parceiro.getId());
+
+        List<Produto> produtos = produtoController.listarPorParceiro(parceiro.getId());
 
         if (produtos.isEmpty()) {
             System.out.println(" Você não tem produtos cadastrados!");
@@ -153,7 +154,8 @@ public class TelaPromocaoParceiro {
         System.out.println("     REMOVER PROMOÇÃO               ");
         System.out.println("================================\n\n");
 
-        List<Promocao> promocoes = promocaoController.listarPorParceiro(parceiro.getId());
+
+        List<Promocao> promocoes = promocaoController.listarTodasPorParceiro(parceiro.getId());
 
         if (promocoes.isEmpty()) {
             System.out.println(" Você não tem promoções cadastradas!");
@@ -195,7 +197,7 @@ public class TelaPromocaoParceiro {
         System.out.println("     PROMOÇÕES ATIVAS               ");
         System.out.println("================================\n");
 
-        List<Promocao> promocoes = promocaoController.listarPorParceiro(parceiro.getId());
+        List<Promocao> promocoes = promocaoController.listarAtivasPorParceiro(parceiro.getId());
 
         if (promocoes.isEmpty()) {
             System.out.println("Nenhuma promoção cadastrada.");

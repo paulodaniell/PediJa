@@ -1,6 +1,6 @@
 package br.com.pedija.consumidor.view.perfil;
 
-import br.com.pedija.consumidor.model.Usuario;
+
 import java.util.Scanner;
 
 public class DadosConta {

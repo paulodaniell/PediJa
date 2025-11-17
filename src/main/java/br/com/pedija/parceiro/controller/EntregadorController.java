@@ -1,51 +1,39 @@
 package br.com.pedija.parceiro.controller;
 
+import br.com.pedija.superadm.dao.EntregadorDAO;
 import br.com.pedija.superadm.model.Entregador;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class EntregadorController {
 
-    private static List<Entregador> entregadores = new ArrayList<>();
-    private static int proximoId = 1;
-
+    private EntregadorDAO entregadorDAO = new EntregadorDAO();
 
     public List<Entregador> listarTodos() {
-        return new ArrayList<>(entregadores);
+        return entregadorDAO.buscarTodos();
     }
 
     public List<Entregador> listarDisponiveis() {
-        List<Entregador> disponiveis = new ArrayList<>();
-
-        for (Entregador e : entregadores) {
-            if (e.isDisponivel()) {
-                disponiveis.add(e);
-            }
-        }
-
-        return disponiveis;
+        return entregadorDAO.listarDisponiveis();
     }
 
     public Entregador buscarPorId(int id) {
-        for (Entregador e : entregadores) {
-            if (e.getId() == id) {
-                return e;
-            }
-        }
-        return null;
+        return entregadorDAO.buscarPorId(id);
     }
 
 
     public boolean atribuirPedido(int idEntregador) {
-        Entregador e = buscarPorId(idEntregador);
+        Entregador e = entregadorDAO.buscarPorId(idEntregador);
 
         if (e != null && e.isDisponivel()) {
+
             e.setDisponivel(false);
+
+
+            entregadorDAO.atualizar(e);
+
             return true;
         }
-
         return false;
     }
-
 }

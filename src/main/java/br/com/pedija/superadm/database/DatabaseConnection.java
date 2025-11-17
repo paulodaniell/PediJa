@@ -33,6 +33,8 @@ public class DatabaseConnection {
             preco DECIMAL(10, 2) NOT NULL,
             quantidade INT NOT NULL,
             categoria_id INT,
+           idParceiro INT,
+            disponivel BOOLEAN DEFAULT TRUE,
             FOREIGN KEY (categoria_id) REFERENCES categorias(id)
         )
     """;
@@ -86,7 +88,8 @@ public class DatabaseConnection {
             bairro VARCHAR(100),
             numero INT,
             horarioSemana VARCHAR(50) DEFAULT '10:00 às 18:00',
-            horarioFimSemana VARCHAR(50) DEFAULT '10:00 às 14:00'
+            horarioFimSemana VARCHAR(50) DEFAULT '10:00 às 14:00',
+            formasPagamento VARCHAR(255)
         )
     """;
 
@@ -106,6 +109,23 @@ public class DatabaseConnection {
         )
     """;
 
+        String createItemPedidoSQL = """
+        CREATE TABLE IF NOT EXISTS ItemPedido (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+        pedidoId INT NOT NULL,
+        produtoId INT NOT NULL,
+        quantidade INT NOT NULL,
+        precoUnitario DECIMAL(10,2) NOT NULL,
+        nomeProduto VARCHAR(150),
+                subTotal DECIMAL(10,2),
+                FOREIGN KEY (pedidoId) REFERENCES Pedido(id)
+                        )
+    """;
+
+
+
+
+
         String createPromocaoSQL = """
         CREATE TABLE IF NOT EXISTS Promocao (
             id INT PRIMARY KEY AUTO_INCREMENT,
@@ -113,6 +133,7 @@ public class DatabaseConnection {
             idParceiro INT NOT NULL,
             precoOriginal DECIMAL(10,2) NOT NULL,
             precoPromocional DECIMAL(10,2) NOT NULL,
+            ativa BOOLEAN DEFAULT TRUE,
             FOREIGN KEY (idParceiro) REFERENCES Parceiro(id)
         )
     """;
@@ -129,6 +150,7 @@ public class DatabaseConnection {
             stmt.execute(createEntregadorSQL);
             stmt.execute(createParceiroSQL);
             stmt.execute(createPedidoSQL);
+            stmt.execute(createItemPedidoSQL);
             stmt.execute(createPromocaoSQL);
 
             System.out.println("SUCESSO: Banco de dados inicializado com sucesso!");

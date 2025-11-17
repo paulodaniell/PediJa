@@ -27,7 +27,7 @@ public class TelaProdutosParceiro {
             System.out.println("------------------------------");
 
 
-            List<Produto> produtos = produtoController.listarPorParceiros(parceiro.getId());
+            List<Produto> produtos = produtoController.listarPorParceiro(parceiro.getId());
 
             exibirProdutos(produtos);
             exibirMenu();
@@ -132,7 +132,7 @@ public class TelaProdutosParceiro {
 
             System.out.print(" Categoria: ");
             String categoria = sc.nextLine();
-            novo.setCategoria(categoria);
+            novo.setCategoriaNome(categoria);
 
             System.out.print(" Tempo de preparo (min): ");
             int tempo = sc.nextInt();
@@ -215,7 +215,7 @@ public class TelaProdutosParceiro {
                     break;
                 case 4:
                     System.out.print("Nova categoria: ");
-                    produto.setCategoria(sc.nextLine());
+                    produto.setCategoriaNome(sc.nextLine());
                     System.out.println(" Categoria atualizada!");
                     break;
                 case 5:

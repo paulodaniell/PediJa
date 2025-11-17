@@ -15,7 +15,6 @@ public class ProdutoController {
         produtosteste.add(new Produto(id++, "Hamburguer", "Hambúrguer artesanal com cheddar", 25.00, "Giraffas"));
         produtosteste.add(new Produto(id++, "Coca Cola", "Refrigerante Coca-Cola 2 litros", 10.00, "Seu Zé"));
     }
-
     public Produto buscarPorNome(String nome) {
         for (Produto p : produtosteste) {
             if (p.getNome().equalsIgnoreCase(nome.trim())) {
@@ -24,5 +23,5 @@ public class ProdutoController {
         }
         return null;
     }
+    }
 
-}

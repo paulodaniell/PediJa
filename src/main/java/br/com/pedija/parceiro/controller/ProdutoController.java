@@ -1,90 +1,63 @@
 package br.com.pedija.parceiro.controller;
 
+import br.com.pedija.superadm.dao.ProdutoDAO;
 import br.com.pedija.superadm.model.Produto;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProdutoController {
-    private static List<Produto> produtos = new ArrayList<>();
-    private static int proximoId = 1;
 
-    //Produtos para teste sem banco de dados
-    static{
-        produtos.add(new Produto(1,"Combo 1 - sashimi de peixe branco - 24 peças",55.90,1));
-        produtos.add(new Produto(2,"Combo Prime - 108 peças",249.40,1));
-        produtos.add(new Produto(3,"Combo Show - 100 peças",199.90,1));
+    private ProdutoDAO produtoDAO = new ProdutoDAO();
+
+    public List<Produto> listarPorParceiro(int idParceiro) {
+        return produtoDAO.buscarPorParceiro(idParceiro);
     }
 
-    public List<Produto> listarPorParceiros(int idParceiro){
-        List<Produto> resultado = new ArrayList<>();
-        for(Produto p : produtos){
-            if(p.getIdParceiro() == idParceiro){
-                resultado.add(p);
-            }
-        }
-        return resultado;
-    }
 
-    public boolean adicionar(Produto produto){
-        if(produto.getNome() == null){
+    public boolean adicionar(Produto produto) {
+        if (produto.getNome() == null || produto.getNome().trim().isEmpty()) {
+            System.out.println("Nome não pode ser vazio!");
             return false;
         }
-        if(produto.getPreco() <= 0){
+        if (produto.getPreco() <= 0) {
+            System.out.println("Preço deve ser maior que zero!");
             return false;
         }
-        produto.setId(proximoId++);
-        return produtos.add(produto);
-    }
-    public Produto buscarPorId(int id){
-        for(Produto p : produtos){
-            if(p.getId() == id){
-                return p;
-            }
+
+        if (produto.getIdParceiro() <= 0) {
+            System.out.println("ID do Parceiro é obrigatório!");
+            return false;
         }
-        return null;
-    }
-    public boolean remover(int id){
-        return produtos.removeIf(p -> p.getId() == id);
 
+        produtoDAO.criar(produto);
+        System.out.println("Produto salvo no banco!");
+        return true;
     }
 
-    public boolean alterarDisponibilidade(int id,boolean disponivel){
-        Produto p = buscarPorId(id);
-        if(p != null){
-            p.setDisponivel(disponivel);
+
+    public Produto buscarPorId(int id) {
+        return produtoDAO.buscarPorId(id);
+    }
+
+
+    public boolean remover(int id) {
+        try {
+            produtoDAO.deletar(id);
             return true;
+        } catch (Exception e) {
+            System.out.println("Erro ao remover: " + e.getMessage());
+            return false;
         }
-        return false;
     }
-    public void listarMaisVendidos(int idParceiro) {
-        List<Produto> produtosDoParceiro = listarPorParceiros(idParceiro);
 
-        if (produtosDoParceiro.isEmpty()) {
-            System.out.println("Nenhum produto cadastrado para este parceiro.");
-            return;
-        }
+    public boolean alterarDisponibilidade(int id, boolean disponivel) {
+        // (Lembre-se de adicionar a coluna 'disponivel' no seu DatabaseConnection)
+        return produtoDAO.alterarDisponibilidade(id, disponivel);
+    }
 
-        System.out.println("\n TOP 5 PRODUTOS MAIS VENDIDOS ");
-        System.out.println("-----------------------------------");
-
-        int limite = Math.min(5, produtosDoParceiro.size());
-
-        for (int i = 0; i < limite; i++) {
-            Produto p = produtosDoParceiro.get(i);
-            System.out.printf("%dº - %s%n", i + 1, p.getNome());
-            System.out.printf("Preço: R$ %.2f%n", p.getPreco());
-            System.out.println("Vendas: (colocar contador!!!!!!!!!!!!)");
-            System.out.println();
-        }
+    public List<Produto> listarMaisVendidos(int idParceiro) {
+        return produtoDAO.listarMaisVendidos(idParceiro);
     }
     public int contarPorParceiro(int idParceiro) {
-        int contador = 0;
-        for (Produto p : produtos) {
-            if (p.getIdParceiro() == idParceiro) {
-                contador++;
-            }
-        }
-        return contador;
+        return produtoDAO.contarPorParceiro(idParceiro);
     }
 }

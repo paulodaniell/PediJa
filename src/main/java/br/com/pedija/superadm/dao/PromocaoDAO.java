@@ -12,21 +12,25 @@ public class PromocaoDAO {
     // CREATE
     public void criar(Promocao promocao) {
         String sql = """
-            INSERT INTO promocao
-            (id, idProduto, idParceiro, precoOriginal, precoPromocional)
+            INSERT INTO Promocao (idProduto, idParceiro, precoOriginal, precoPromocional, ativa)
             VALUES (?, ?, ?, ?, ?)
         """;
 
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-            stmt.setInt(1, promocao.getId());
-            stmt.setInt(2, promocao.getIdProduto());
-            stmt.setInt(3, promocao.getIdParceiro());
-            stmt.setDouble(4, promocao.getPrecoOriginal());
-            stmt.setDouble(5, promocao.getPrecoPromocional());
+            stmt.setInt(1, promocao.getIdProduto());
+            stmt.setInt(2, promocao.getIdParceiro());
+            stmt.setDouble(3, promocao.getPrecoOriginal());
+            stmt.setDouble(4, promocao.getPrecoPromocional());
+            stmt.setBoolean(5, promocao.isAtiva()); // Salva o status 'ativa'
 
             stmt.executeUpdate();
+
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                promocao.setId(rs.getInt(1));
+            }
 
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao cadastrar promoção: " + e.getMessage(), e);
@@ -34,107 +38,87 @@ public class PromocaoDAO {
     }
 
 
-    // READ ALL
-    public List<Promocao> buscarTodos() {
-        List<Promocao> promocoes = new ArrayList<>();
-        String sql = "SELECT * FROM promocao ORDER BY id";
+    public List<Promocao> listarPorParceiro(int idParceiro) {
+        List<Promocao> lista = new ArrayList<>();
+        String sql = "SELECT * FROM Promocao WHERE idParceiro = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idParceiro);
+            ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Promocao p = new Promocao();
-                p.setId(rs.getInt("id"));
-                p.setIdProduto(rs.getInt("idProduto"));
-                p.setIdParceiro(rs.getInt("idParceiro"));
-                p.setPrecoOriginal(rs.getDouble("precoOriginal"));
-                p.setPrecoPromocional(rs.getDouble("precoPromocional"));
-
-                promocoes.add(p);
+                lista.add(mapPromocao(rs));
             }
 
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao listar promoções: " + e.getMessage(), e);
         }
-
-        return promocoes;
+        return lista;
     }
 
 
-    // READ BY ID
-    public Promocao buscarPorId(int id) {
-        String sql = "SELECT * FROM promocao WHERE id = ?";
+    public List<Promocao> listarAtivasPorParceiro(int idParceiro) {
+        List<Promocao> lista = new ArrayList<>();
+
+        String sql = "SELECT * FROM Promocao WHERE idParceiro = ? AND ativa = TRUE";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, id);
+            stmt.setInt(1, idParceiro);
             ResultSet rs = stmt.executeQuery();
 
-            if (rs.next()) {
-                Promocao p = new Promocao();
-                p.setId(rs.getInt("id"));
-                p.setIdProduto(rs.getInt("idProduto"));
-                p.setIdParceiro(rs.getInt("idParceiro"));
-                p.setPrecoOriginal(rs.getDouble("precoOriginal"));
-                p.setPrecoPromocional(rs.getDouble("precoPromocional"));
-
-                return p;
+            while (rs.next()) {
+                lista.add(mapPromocao(rs));
             }
-
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao buscar promoção: " + e.getMessage(), e);
+            throw new RuntimeException("Erro ao listar promoções ativas: " + e.getMessage(), e);
         }
-
-        return null;
+        return lista;
     }
 
 
-    // UPDATE
-    public void atualizar(Promocao promocao) {
-        String sql = """
-            UPDATE promocao SET
-            idProduto = ?, idParceiro = ?, precoOriginal = ?, precoPromocional = ?
-            WHERE id = ?
-        """;
+    public void atualizarStatus(int idPromocao, boolean ativa) {
+        String sql = "UPDATE Promocao SET ativa = ? WHERE id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, promocao.getIdProduto());
-            stmt.setInt(2, promocao.getIdParceiro());
-            stmt.setDouble(3, promocao.getPrecoOriginal());
-            stmt.setDouble(4, promocao.getPrecoPromocional());
-            stmt.setInt(5, promocao.getId());
-
-            int rowsAffected = stmt.executeUpdate();
-            if (rowsAffected == 0) {
-                throw new RuntimeException("Promoção não encontrada!");
-            }
+            stmt.setBoolean(1, ativa);
+            stmt.setInt(2, idPromocao);
+            stmt.executeUpdate();
 
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao atualizar promoção: " + e.getMessage(), e);
+            throw new RuntimeException("Erro ao atualizar status da promoção: " + e.getMessage(), e);
         }
     }
-
 
     // DELETE
     public void deletar(int id) {
-        String sql = "DELETE FROM promocao WHERE id = ?";
+        String sql = "DELETE FROM Promocao WHERE id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, id);
-
-            int rowsAffected = stmt.executeUpdate();
-            if (rowsAffected == 0) {
-                throw new RuntimeException("Promoção não encontrada!");
-            }
+            stmt.executeUpdate();
 
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao remover promoção: " + e.getMessage(), e);
         }
+    }
+
+
+    private Promocao mapPromocao(ResultSet rs) throws SQLException {
+        Promocao p = new Promocao();
+        p.setId(rs.getInt("id"));
+        p.setIdProduto(rs.getInt("idProduto"));
+        p.setIdParceiro(rs.getInt("idParceiro"));
+        p.setPrecoOriginal(rs.getDouble("precoOriginal"));
+        p.setPrecoPromocional(rs.getDouble("precoPromocional"));
+        p.setAtiva(rs.getBoolean("ativa")); // Lê o campo 'ativa'
+        return p;
     }
 }
