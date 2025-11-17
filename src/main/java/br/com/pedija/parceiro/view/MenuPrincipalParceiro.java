@@ -1,6 +1,7 @@
 package br.com.pedija.parceiro.view;
 
 import br.com.pedija.superadm.model.Parceiro;
+import br.com.pedija.superadm.model.Usuario;
 
 import java.util.Scanner;
 
@@ -11,6 +12,9 @@ public class MenuPrincipalParceiro {
     public MenuPrincipalParceiro(Parceiro parceiro) {
         this.sc = new Scanner(System.in);
         this.parceiro = parceiro;
+    }
+
+    public MenuPrincipalParceiro(Usuario usuariologado) {
     }
 
     public void exibirMenuParceiro() {

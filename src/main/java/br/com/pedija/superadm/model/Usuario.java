@@ -66,4 +66,10 @@ public class Usuario {
         this.formadepagamento = formadepagamento;
     }
 
+    public void setCpf(String cpf) {
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
 }

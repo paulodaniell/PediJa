@@ -63,6 +63,39 @@ public class UsuarioDAO {
         return usuarios;
     }
 
+    public Usuario login(String email, String telefone) {
+        String sql = "SELECT * FROM Usuario WHERE email = ? AND telefone = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, email);
+            stmt.setString(2, telefone);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                // --- Mapeamento feito aqui dentro ---
+                Usuario u = new Usuario();
+                u.setId(rs.getInt("id"));
+                u.setEmail(rs.getString("email"));
+                u.setTelefone(rs.getString("telefone"));
+                u.setCpf(rs.getString("cpf"));
+                u.setNome(rs.getString("nome"));
+                u.setEndereco(rs.getString("endereco"));
+                u.setFormadepagamento(rs.getString("formadepagamento"));
+
+                return u;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao fazer login: " + e.getMessage(), e);
+        }
+
+        return null;
+    }
+
+
 
     // READ BY ID
     public Usuario buscarPorId(int id) {

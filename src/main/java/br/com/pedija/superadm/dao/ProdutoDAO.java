@@ -106,6 +106,28 @@ public class ProdutoDAO {
         return null;
     }
 
+    // READ - por Nome
+    public Produto buscarPorNome(String nome) {
+
+        String sql = "SELECT * FROM produtos WHERE nome = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, nome.length());
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return mapProduto(rs);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar produto: " + e.getMessage(), e);
+        }
+
+        return null;
+    }
+
     // UPDATE
     public void atualizar(Produto produto) {
 

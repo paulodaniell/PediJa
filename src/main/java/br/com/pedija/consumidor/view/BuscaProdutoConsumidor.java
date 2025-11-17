@@ -4,7 +4,7 @@ package br.com.pedija.consumidor.view;
 import br.com.pedija.consumidor.controller.CarrinhoController;
 import br.com.pedija.superadm.model.Produto;
 import br.com.pedija.consumidor.controller.ProdutoController;
-
+import br.com.pedija.superadm.dao.ProdutoDAO;
 
 
 
@@ -17,6 +17,7 @@ public class BuscaProdutoConsumidor {
     private Scanner sc = new Scanner(System.in);;
     private final ProdutoController produtoController = new ProdutoController();
     private CarrinhoController carrinhoController;
+    ProdutoDAO produtoDAO = new ProdutoDAO();
 
 
     public BuscaProdutoConsumidor(CarrinhoController carrinhoController) {
@@ -24,10 +25,7 @@ public class BuscaProdutoConsumidor {
     }
 
 
-
-
     void exibirbuscarProdutos() {
-
 
         while (true) {
 
@@ -45,10 +43,7 @@ public class BuscaProdutoConsumidor {
                 continue;
             }
 
-
-            // AQUI ENTRA O BANCO DE DADOS (FUTURO)
-            // ProdutoController.buscarPorNome(...) que lê da base in-memory.
-
+            produtoDAO.buscarPorNome(entrada);
 
             Produto produto = produtoController.buscarPorNome(entrada);
 
@@ -58,7 +53,7 @@ public class BuscaProdutoConsumidor {
                 System.out.println("Produto: " + produto.getNome());
                 System.out.println("Descrição: " + produto.getDescricao());
                 System.out.printf("Preço: R$ %.2f%n", produto.getPreco());
-                System.out.println("Loja: " + produto.getLoja());
+                System.out.println("Loja: " + produto.getIdParceiro());
                 System.out.println();
 
 
@@ -76,7 +71,6 @@ public class BuscaProdutoConsumidor {
                     // volta para a busca de produtos
                     continue;
                 }
-
 
             } else {
                 System.out.println("\nProduto não encontrado! Tente outro nome.");

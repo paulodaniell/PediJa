@@ -2,13 +2,16 @@ package br.com.pedija.consumidor.view;
 
 
 import br.com.pedija.consumidor.controller.UsuarioController;
+import br.com.pedija.parceiro.view.MenuPrincipalParceiro;
+import br.com.pedija.superadm.model.Parceiro;
 import br.com.pedija.superadm.model.Usuario;
 import java.util.Scanner;
+import br.com.pedija.superadm.dao.UsuarioDAO;
 
 
 public class TelaLoginConsumidor {
 
-
+    UsuarioDAO usuarioDAO = new UsuarioDAO();
     private final Scanner sc;
     private final UsuarioController controller;
     private int opcao = -1;
@@ -18,7 +21,6 @@ public class TelaLoginConsumidor {
         this.sc = new Scanner(System.in);
         this.controller = new UsuarioController();
     }
-
 
     public void exibirLogin() {
 
@@ -32,19 +34,27 @@ public class TelaLoginConsumidor {
 
 
             try {
+
                 String line = sc.nextLine().trim();
+
                 if (line.isEmpty()) {
                     System.out.println("Opção inválida! Digite um número.");
                     continue;
+
                 }
                 opcao = Integer.parseInt(line);
 
 
                 if (opcao == 1) {
+
                     entrar();
-                } else if (opcao == 2) {
+                }
+
+                else if (opcao == 2) {
                     cadastrar();
-                } else if (opcao != 0) {
+                }
+
+                else if (opcao != 0) {
                     System.out.println("Opção inválida!");
                 }
 
@@ -52,46 +62,29 @@ public class TelaLoginConsumidor {
             } catch (NumberFormatException erro) {
                 System.out.println("Opção inválida! Digite apenas números.");
             }
+
         } while (opcao != 0);
     }
 
 
     private void entrar(){
 
-
         System.out.println("Digite seu Email: ");
         String email = sc.nextLine();
-
 
         System.out.println("Digite seu telefone: ");
         String telefone = sc.nextLine();
 
+        Usuario usuariologado = usuarioDAO.login(email, telefone);
 
-        if (email.isBlank() || telefone.isBlank()) {
-            System.out.println("Preencha email e telefone antes de entrar.\n");
-            return;
+
+        if (usuariologado != null) {
+            System.out.println("Login realizado com sucesso! Bem-vindo " + usuariologado.getNome());
+            MenuPrincipalParceiro menu = new MenuPrincipalParceiro(usuariologado);
+            menu.exibirMenuParceiro();
+        } else {
+            System.out.println("Email ou senha inválidos!");
         }
-
-
-        Usuario usuarioLogado = controller.buscarPorEmailETelefone(email, telefone);
-
-
-        if(usuarioLogado != null) {
-            System.out.println("LOGIN REALIZADO COM SUCESSO!");
-
-
-            // CORREÇÃO DE FLUXO E USUÁRIO NULO:
-            MenuPrincipalConsumidorView menu = new MenuPrincipalConsumidorView();
-            menu.setUsuarioLogado(usuarioLogado);
-            menu.exibirMenuCliente();
-
-
-            this.opcao = 0;
-        }   else {
-            System.out.println("Credenciais inválidas!\n");
-        }
-
-
     }
 
 
@@ -99,7 +92,6 @@ public class TelaLoginConsumidor {
 
 
         Usuario novoConsumidor = new Usuario();
-
 
         System.out.print("Email: ");
         novoConsumidor.setEmail(sc.nextLine());
@@ -135,6 +127,5 @@ public class TelaLoginConsumidor {
 
         this.opcao = 0;
     }
-
 
 }
