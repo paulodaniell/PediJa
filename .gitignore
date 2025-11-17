@@ -1,7 +1,12 @@
 target/
+dependency-reduced-pom.xml
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+
+### H2 Database ###
+*.mv.db
+*.trace.db
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
