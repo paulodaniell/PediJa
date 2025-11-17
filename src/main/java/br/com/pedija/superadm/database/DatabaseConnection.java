@@ -22,8 +22,8 @@ public class DatabaseConnection {
             id INT AUTO_INCREMENT PRIMARY KEY,
             nome VARCHAR(100) NOT NULL,
             descricao VARCHAR(255)
-        )
-    """;
+        );
+        """;
 
         String createProdutosSQL = """
         CREATE TABLE IF NOT EXISTS produtos (
@@ -35,11 +35,10 @@ public class DatabaseConnection {
             categoria_id INT,
             idParceiro INT,
             disponivel BOOLEAN DEFAULT TRUE,
-            
-            FOREIGN KEY (id_parceiro) REFERENCES parceiro(id),
+            FOREIGN KEY (idParceiro) REFERENCES Parceiro(id),
             FOREIGN KEY (categoria_id) REFERENCES categorias(id)
         );
-    """;
+        """;
 
         String createUsuarioSQL = """
         CREATE TABLE IF NOT EXISTS Usuario (
@@ -112,18 +111,6 @@ public class DatabaseConnection {
                 );
     """;
 
-        String createItemPedidoSQL = """
-        CREATE TABLE IF NOT EXISTS ItemPedido (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            pedidoId INT NOT NULL,
-            produtoId INT NOT NULL,
-            quantidade INT NOT NULL,
-            precoUnitario DECIMAL(10,2) NOT NULL,
-            nomeProduto VARCHAR(150),
-            subTotal DECIMAL(10,2),
-            FOREIGN KEY (pedidoId) REFERENCES Pedido(id)
-        )
-    """;
 
         String createPromocaoSQL = """
         CREATE TABLE IF NOT EXISTS Promocao (
@@ -158,7 +145,6 @@ public class DatabaseConnection {
             stmt.execute(createEntregadorSQL);
             stmt.execute(createParceiroSQL);
             stmt.execute(createPedidoSQL);
-            stmt.execute(createItemPedidoSQL);
             stmt.execute(createPromocaoSQL);
 
             System.out.println("SUCESSO: Banco de dados inicializado com sucesso!");

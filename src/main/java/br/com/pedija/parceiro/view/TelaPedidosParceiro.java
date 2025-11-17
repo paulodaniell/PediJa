@@ -225,7 +225,7 @@ public class TelaPedidosParceiro {
         sc.nextLine();
 
 
-        if (pedidoController.atualizarStaus(id, "EM_PREPARO")) {
+        if (pedidoController.atualizarStatus(id, "EM_PREPARO")) {
             System.out.println("\nPedido #" + id + " aceito!");
             System.out.println("Tempo de preparo: " + tempo + " minutos");
         } else {
@@ -257,14 +257,14 @@ public class TelaPedidosParceiro {
 
 
         System.out.println("\nMotivo selecionado: " + motivo);
-        if (pedidoController.atualizarStaus(id, "REJEITADO")) {
+        if (pedidoController.atualizarStatus(id, "REJEITADO")) {
             System.out.println("\nPedido #" + id + " rejeitado!");
         }
     }
 
 
     private void marcarComoPronto(int id) {
-        if (pedidoController.atualizarStaus(id, "PRONTO")) {
+        if (pedidoController.atualizarStatus(id, "PRONTO")) {
             System.out.println("\nPedido #" + id + " está PRONTO");
             System.out.println("Aguardando entregador...");
         } else {

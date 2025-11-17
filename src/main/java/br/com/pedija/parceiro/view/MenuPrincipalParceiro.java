@@ -2,98 +2,90 @@ package br.com.pedija.parceiro.view;
 
 import br.com.pedija.superadm.model.Parceiro;
 import br.com.pedija.superadm.model.Usuario;
-
 import java.util.Scanner;
 
 public class MenuPrincipalParceiro {
-    private Scanner sc;
-    private Parceiro parceiro;
 
+    private final Scanner sc;
+    private final Parceiro parceiro;
+
+    // Construtor padrão quando já vem um Parceiro
     public MenuPrincipalParceiro(Parceiro parceiro) {
         this.sc = new Scanner(System.in);
         this.parceiro = parceiro;
     }
 
+    // Construtor usado quando o login retorna um Usuario
     public MenuPrincipalParceiro(Usuario usuariologado) {
+        this.sc = new Scanner(System.in);
+        this.parceiro = new Parceiro();
+        this.parceiro.setId(usuariologado.getId());
+        this.parceiro.setNome(usuariologado.getNome());
     }
 
     public void exibirMenuParceiro() {
         int opcao = -1;
 
-
         do {
-            System.out.println("|Menu Principal |");
-            System.out.println("------------------------------");
-            System.out.println(" 1 - Gerenciar Pedidos        ");
-            System.out.println(" 2 - Acompanhar Entrega       ");
-            System.out.println(" 3 - Gerenciar Cardapio       ");
-            System.out.println(" 4 - Criar promoção           ");
-            System.out.println(" 5 - Relatório e Estatisticas ");
-            System.out.println(" 6 - Configurações da conta   ");
-            System.out.println(" 0 - Sair                     ");
-            System.out.println("------------------------------");
+            System.out.println("\n===== MENU PRINCIPAL PARCEIRO =====");
+            System.out.println(" 1 - Gerenciar Pedidos");
+            System.out.println(" 2 - Acompanhar Entrega");
+            System.out.println(" 3 - Gerenciar Cardápio");
+            System.out.println(" 4 - Criar Promoção");
+            System.out.println(" 5 - Relatório e Estatísticas");
+            System.out.println(" 6 - Configurações da Conta");
+            System.out.println(" 0 - Sair");
+            System.out.println("-----------------------------------");
 
             System.out.print("\nEscolha uma opção: ");
 
             try {
-                opcao = sc.nextInt();
-                sc.nextLine();
-                resultadoOp(opcao);
-            } catch (Exception erro) {
-                System.out.println("Erro  digite apenas numeros!");
-                sc.nextLine();
+                opcao = Integer.parseInt(sc.nextLine());
+                executarOpcao(opcao);
+            } catch (NumberFormatException e) {
+                System.out.println("⚠️  Entrada inválida! Digite apenas números.");
+            } catch (Exception e) {
+                System.out.println("❌ Erro inesperado: " + e.getMessage());
+                e.printStackTrace();
             }
 
-
         } while (opcao != 0);
-
     }
-    private void resultadoOp(int opcao) {
+
+    private void executarOpcao(int opcao) {
         switch (opcao) {
-            case 1:
-                System.out.println("Gerenciar  Pedido");
+            case 1 -> {
+                System.out.println("➡ Gerenciar Pedidos");
                 TelaPedidosParceiro telaPedidos = new TelaPedidosParceiro(parceiro);
                 telaPedidos.exibirPedidos();
-                break;
-
-            case 2:
-                System.out.println("Acompanhar Entrega");
+            }
+            case 2 -> {
+                System.out.println("➡ Acompanhar Entregas");
                 TelaEntregasParceiro telaEntregas = new TelaEntregasParceiro(parceiro);
                 telaEntregas.menuEntregasParceiro();
-                break;
-
-            case 3:
-                System.out.println("Gerenciar  Cardapio");
-                TelaProdutosParceiro telaProdutos = new TelaProdutosParceiro(parceiro);
+            }
+            case 3 -> {
+                System.out.println("➡ Gerenciar Cardápio");
+                TelaProdutosParceiro telaProdutos = new TelaProdutosParceiro(parceiro, sc);
                 telaProdutos.exibirProdutos();
-                break;
-
-
-            case 4:
-                System.out.println("Criar promoção");
+            }
+            case 4 -> {
+                System.out.println("➡ Criar Promoção");
                 TelaPromocaoParceiro telaPromocao = new TelaPromocaoParceiro(parceiro);
                 telaPromocao.menuPromocaoParceiro();
-
-                break;
-
-            case 5:
+            }
+            case 5 -> {
+                System.out.println("➡ Relatório e Estatísticas");
                 TelaRelatorioParceiro telaRelatorio = new TelaRelatorioParceiro(parceiro);
                 telaRelatorio.menuRelatorio();
-                break;
-            case 6:
-                System.out.println("Configurações da conta");
-                TelaPerfilParceiro telaPerfilParceiro = new TelaPerfilParceiro(parceiro);
-                telaPerfilParceiro.exibirPerfilParceiro();
-                break;
-            case 0:
-                System.out.println("Saindo..");
-
-                break;
-
-            default:System.out.println("Opção inválida!");
-                break;
-
-
+            }
+            case 6 -> {
+                System.out.println("➡ Configurações da Conta");
+                TelaPerfilParceiro telaPerfil = new TelaPerfilParceiro(parceiro);
+                telaPerfil.exibirPerfilParceiro();
+            }
+            case 0 -> System.out.println("👋 Saindo...");
+            default -> System.out.println("⚠️  Opção inválida!");
         }
     }
 }

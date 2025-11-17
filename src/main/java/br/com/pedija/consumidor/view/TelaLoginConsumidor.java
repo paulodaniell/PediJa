@@ -81,10 +81,13 @@ public class TelaLoginConsumidor {
 
 
         if (usuariologado != null) {
+
             System.out.println("Login realizado com sucesso! Bem-vindo " + usuariologado.getNome());
-            MenuPrincipalParceiro menu = new MenuPrincipalParceiro(usuariologado);
-            menu.exibirMenuParceiro();
-        } else {
+            MenuPrincipalConsumidorView menu = new MenuPrincipalConsumidorView(usuariologado);
+            menu.exibirMenuCliente();
+
+        }
+        else {
             System.out.println("Email ou senha inválidos!");
         }
     }
@@ -121,9 +124,8 @@ public class TelaLoginConsumidor {
         if(resposta){
             System.out.println("CADASTRO REALIZADO COM SUCESSO!");
             System.out.println("BEM-VINDO AO PEDIJÁ!");
-            MenuPrincipalConsumidorView menu = new MenuPrincipalConsumidorView();
-            menu.setUsuarioLogado(novoConsumidor);
-            menu.exibirMenuCliente();
+            MenuPrincipalConsumidorView view = new MenuPrincipalConsumidorView(novoConsumidor);
+            view.exibirMenuCliente();
         }
 
         this.opcao = 0;

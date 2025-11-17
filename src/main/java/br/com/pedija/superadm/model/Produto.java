@@ -1,21 +1,21 @@
 package br.com.pedija.superadm.model;
 import br.com.pedija.superadm.model.Parceiro;
 
-public class Produto {
 
-    Parceiro parceiro;
+public class Produto {
 
     private int id;
     private String nome;
     private String descricao;
     private double preco;
     private int quantidade;
-    private Integer categoria_id;
+    private int categoria_id;
     private int idParceiro;
-    private String NomeParceiro = parceiro.getNome();
     private boolean disponivel;
+    private String NomeParceiro;
 
-    public Produto() {}
+    public Produto() {
+    }
 
     public String getNomeParceiro() {
         return NomeParceiro;

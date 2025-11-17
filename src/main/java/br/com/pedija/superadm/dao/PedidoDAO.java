@@ -86,45 +86,6 @@ public class PedidoDAO {
 
 
 
-    // READ ALL
-    public List<Pedido> buscarTodos() {
-        List<Pedido> pedidos = new ArrayList<>();
-        String sql = "SELECT * FROM pedido ORDER BY id";
-
-
-        try (Connection conn = DatabaseConnection.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-
-
-            while (rs.next()) {
-                Pedido p = new Pedido();
-                p.setId(rs.getInt("id"));
-                p.setNomeCliente(rs.getString("nomeCliente"));
-                p.setIdClienteitens(rs.getInt("idClienteitens"));
-                p.setValorTotal(rs.getDouble("valorTotal"));
-                p.setIdEntregador(rs.getInt("idEntregador"));
-                p.setStatus(rs.getString("status"));
-                p.setEndereco(rs.getString("endereco"));
-                p.setFormaPagamento(rs.getString("formaPagamento"));
-                p.setIdParceiro(rs.getInt("idParceiro"));
-
-
-                pedidos.add(p);
-            }
-
-
-        } catch (SQLException e) {
-            throw new RuntimeException("Erro ao listar pedidos: " + e.getMessage(), e);
-        }
-
-
-        return pedidos;
-    }
-
-
-
-
     // READ BY ID
     public Pedido buscarPorId(int id) {
         String sql = "SELECT * FROM pedido WHERE id = ?";

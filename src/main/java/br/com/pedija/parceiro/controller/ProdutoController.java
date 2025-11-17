@@ -2,20 +2,18 @@ package br.com.pedija.parceiro.controller;
 
 import br.com.pedija.superadm.dao.ProdutoDAO;
 import br.com.pedija.superadm.model.Produto;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProdutoController {
 
-    private ProdutoDAO produtoDAO = new ProdutoDAO();
+    private final ProdutoDAO produtoDAO = new ProdutoDAO();
 
     public boolean adicionarProduto(Produto produto) {
         try {
             produtoDAO.criar(produto);
             return true;
         } catch (Exception e) {
-            e.printStackTrace(); // <<< adiciona isto para ver o erro
+            System.out.println("Erro ao adicionar produto: " + e.getMessage());
             return false;
         }
     }
@@ -30,23 +28,12 @@ public class ProdutoController {
         }
     }
 
-
-
-    public List<Produto> listarProdutos() {
-        try {
-            return produtoDAO.buscarTodos();
-        } catch (Exception e) {
-            System.out.println("Erro ao listar produtos: " + e.getMessage());
-            return new ArrayList<>();
-        }
+    public Produto buscarPorId(int id) {
+        return produtoDAO.buscarPorId(id);
     }
 
     public List<Produto> listarPorParceiros(int idParceiro) {
         return produtoDAO.buscarPorParceiro(idParceiro);
-    }
-
-    public Produto buscarPorId(int id) {
-        return produtoDAO.buscarPorId(id);
     }
 
     public boolean remover(int id) {
@@ -54,6 +41,7 @@ public class ProdutoController {
             produtoDAO.deletar(id);
             return true;
         } catch (Exception e) {
+            System.out.println("Erro ao remover produto: " + e.getMessage());
             return false;
         }
     }
@@ -62,7 +50,6 @@ public class ProdutoController {
         return produtoDAO.alterarDisponibilidade(id, disponivel);
     }
 
-    // TOP 5 MAIS VENDIDOS
     public List<Produto> listarMaisVendidos(int idParceiro) {
         return produtoDAO.listarMaisVendidos(idParceiro);
     }

@@ -17,7 +17,7 @@ public class PedidoController {
 
     public List<Pedido> listarPedidos() {
 
-            List<Pedido> pedidos = pedidoDAO.buscarTodos();
+            List<Pedido> pedidos = pedidoDAO.listarTodos();
 
     return pedidos;
     }
@@ -31,18 +31,16 @@ public class PedidoController {
     }
 
 
-    public boolean atualizarStaus(int id, String novoStatus) {
+    public boolean atualizarStatus(int id, String novoStatus) {
         Pedido p = buscarPorId(id);
-
         if (p != null) {
-
+            p.setStatus(novoStatus); // faltava isso!
             pedidoDAO.atualizar(p);
-
             return true;
         }
-
         return false;
     }
+
 
 
     public List<Pedido> listarPendentes() {
