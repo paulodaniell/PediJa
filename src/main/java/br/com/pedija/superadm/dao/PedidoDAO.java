@@ -129,7 +129,7 @@ public class PedidoDAO {
     private Pedido mapPedido(ResultSet rs) throws SQLException {
         Pedido p = new Pedido();
         p.setId(rs.getInt("id"));
-        p.setIdUsuario(rs.getInt("idUsuario"));
+        p.setIdUsuario(rs.getInt("idusuario"));
         p.setNomeCliente(rs.getString("nomeCliente"));
         p.setValorTotal(rs.getDouble("valorTotal"));
         p.setIdEntregador((Integer) rs.getObject("idEntregador"));
