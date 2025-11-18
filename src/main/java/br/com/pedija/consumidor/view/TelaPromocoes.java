@@ -1,7 +1,9 @@
 package br.com.pedija.consumidor.view;
 
 import br.com.pedija.superadm.dao.PromocaoDAO;
+import br.com.pedija.superadm.dao.ProdutoDAO;
 import br.com.pedija.superadm.model.Promocao;
+import br.com.pedija.superadm.model.Produto;
 import br.com.pedija.consumidor.controller.CarrinhoController;
 
 import java.util.List;
@@ -11,11 +13,13 @@ public class TelaPromocoes {
 
     private final Scanner sc;
     private final PromocaoDAO promocaoDAO;
+    private final ProdutoDAO produtoDAO;
     private final CarrinhoController carrinhoController;
 
-    public TelaPromocoes(PromocaoDAO promocaoDAO, CarrinhoController carrinhoController) {
-        this.sc = new Scanner(System.in);
-        this.promocaoDAO = promocaoDAO;
+    public TelaPromocoes(CarrinhoController carrinhoController, Scanner sc) {
+        this.sc = sc; // Scanner vindo do menu principal
+        this.promocaoDAO = new PromocaoDAO();
+        this.produtoDAO = new ProdutoDAO();
         this.carrinhoController = carrinhoController;
     }
 
@@ -23,46 +27,52 @@ public class TelaPromocoes {
         List<Promocao> promocoes = promocaoDAO.listarTodas();
 
         if (promocoes.isEmpty()) {
-            System.out.println("Não há promoções disponíveis no momento.");
+            System.out.println("\nNão há promoções disponíveis no momento.");
             return;
         }
 
-        System.out.println("\n====== PROMOÇÕES PEDIJÁ ======= ");
+        System.out.println("\n====== PROMOÇÕES PEDIJÁ =======");
         for (Promocao p : promocoes) {
-            System.out.printf("ID: %d | Produto: %d | Preço Original: R$ %.2f | Preço Promoção: R$ %.2f | Ativa: %s%n",
-                    p.getId(),
-                    p.getIdProduto(),
-                    p.getPrecoOriginal(),
-                    p.getPrecoPromocional(),
-                    p.isAtiva() ? "Sim" : "Não");
-        }
+            Produto produto = produtoDAO.buscarPorId(p.getIdProduto());
+            String nomeProduto = (produto != null) ? produto.getNome() : "Produto não encontrado";
 
+            System.out.printf("ID: %d | Produto: %s | Preço Original: R$ %.2f | Promoção: R$ %.2f%n",
+                    p.getId(),
+                    nomeProduto,
+                    p.getPrecoOriginal(),
+                    p.getPrecoPromocional());
+        }
 
         while (true) {
             System.out.print("\nDigite o ID da promoção para adicionar ao carrinho (0 para voltar): ");
-            String line = sc.nextLine().trim();
+            String entrada = sc.nextLine().trim();
 
             try {
-                int idEscolhido = line.isEmpty() ? -1 : Integer.parseInt(line);
+                int id = Integer.parseInt(entrada);
 
-                if (idEscolhido == 0) {
-                    return; // voltar ao menu principal
-                }
+                if (id == 0) return;
 
-                Promocao promocaoSelecionada = null;
-                for (Promocao p : promocoes) {
-                    if (p.getId() == idEscolhido) {
-                        promocaoSelecionada = p;
-                        break;
-                    }
-                }
+                Promocao promocaoSelecionada = promocoes.stream()
+                        .filter(p -> p.getId() == id)
+                        .findFirst()
+                        .orElse(null);
 
                 if (promocaoSelecionada != null) {
-                    carrinhoController.adicionar(promocaoSelecionada);
-                    System.out.println("Promoção adicionada ao carrinho!");
-                    return;
-                } else {
-                    System.out.println("ID inválido. Escolha um ID da lista.");
+                    Produto produto = produtoDAO.buscarPorId(promocaoSelecionada.getIdProduto());
+
+                    if (produto != null) {
+                        Produto produtoPromocional = new Produto();
+                        produtoPromocional.setId(produto.getId());
+                        produtoPromocional.setNome(produto.getNome());
+                        produtoPromocional.setDescricao(produto.getDescricao());
+                        produtoPromocional.setPreco(promocaoSelecionada.getPrecoPromocional());
+
+                        carrinhoController.adicionar(produtoPromocional);
+                        System.out.println("Produto da promoção adicionado ao carrinho com preço promocional!");
+                        return;
+                    } else {
+                        System.out.println("Produto da promoção não encontrado.");
+                    }
                 }
 
             } catch (NumberFormatException e) {

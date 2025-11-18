@@ -27,7 +27,7 @@ public class MenuPrincipalConsumidorView {
         this.pedidoController = new PedidoController();
         this.usuarioLogado = usuarioLogado;
         this.buscaProdutoConsumidor = new BuscaProdutoConsumidor(carrinho);
-        this.telaPromocoes = new TelaPromocoes(promocaoDAO, carrinho);
+        this.telaPromocoes = new TelaPromocoes(carrinho, sc);
     }
 
     public MenuPrincipalConsumidorView(Usuario usuarioLogado, Scanner sc) {
@@ -37,7 +37,7 @@ public class MenuPrincipalConsumidorView {
         this.pedidoController = new PedidoController();
         this.usuarioLogado = usuarioLogado;
         this.buscaProdutoConsumidor = new BuscaProdutoConsumidor(carrinho);
-        this.telaPromocoes = new TelaPromocoes(promocaoDAO, carrinho);
+        this.telaPromocoes = new TelaPromocoes(carrinho, sc);
     }
 
     public void setUsuarioLogado(Usuario usuario) {
