@@ -73,10 +73,12 @@ public class MenuPrincipalConsumidorView {
 
     private void resultadoOpcao(int opcao) {
         switch (opcao) {
+
             case 1 -> {
                 System.out.println("Buscar Produtos");
                 buscaProdutoConsumidor.exibirbuscarProdutos();
             }
+
             case 2 -> {
                 System.out.println("Ver Carrinho");
                 if (this.usuarioLogado == null) {
@@ -86,18 +88,23 @@ public class MenuPrincipalConsumidorView {
                 TelaVerCarrinho telaCarrinho = new TelaVerCarrinho(carrinho, this.usuarioLogado, usuarioController);
                 telaCarrinho.verCarrinho();
             }
+
             case 3 -> {
                 System.out.println("Promoções");
                 telaPromocoes.verPromocoes();
             }
+
             case 4 -> {
                 System.out.println("Ver Pedidos");
                 TelaPedidos telaPedidos = new TelaPedidos(this.pedidoController, this.usuarioLogado);
                 telaPedidos.verPedidos();
             }
+
             case 5 -> {
-                TelaPerfil telaPerfil = new TelaPerfil(this.usuarioLogado, this.usuarioController);
+                System.out.println("Ver Perfil");
+                TelaPerfil telaPerfil = new TelaPerfil(this.usuarioLogado, this.usuarioController, this.pedidoController);
                 telaPerfil.verPerfil();
+
             }
             case 0 -> System.out.println("Saindo...");
             default -> System.out.println("Opção inválida!");

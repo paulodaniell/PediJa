@@ -107,4 +107,13 @@ public class Pedido {
     public void setIdParceiro(int idParceiro) {
         this.idParceiro = idParceiro;
     }
+
+    @Override
+
+    public String toString() {
+        return String.format("Pedido #%d | Cliente: %s | Total: R$ %.2f",
+                this.getId(),
+                this.getNomeCliente(),
+                this.getValorTotal());
+    }
 }

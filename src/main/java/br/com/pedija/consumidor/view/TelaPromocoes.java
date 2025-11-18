@@ -66,6 +66,7 @@ public class TelaPromocoes {
                         produtoPromocional.setNome(produto.getNome());
                         produtoPromocional.setDescricao(produto.getDescricao());
                         produtoPromocional.setPreco(promocaoSelecionada.getPrecoPromocional());
+                        produtoPromocional.setIdParceiro(produto.getIdParceiro());
 
                         carrinhoController.adicionar(produtoPromocional);
                         System.out.println("Produto da promoção adicionado ao carrinho com preço promocional!");

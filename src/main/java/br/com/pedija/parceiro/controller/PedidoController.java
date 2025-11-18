@@ -34,7 +34,7 @@ public class PedidoController {
     public boolean atualizarStatus(int id, String novoStatus) {
         Pedido p = buscarPorId(id);
         if (p != null) {
-            p.setStatus(novoStatus); // faltava isso!
+            p.setStatus(novoStatus);
             pedidoDAO.atualizar(p);
             return true;
         }
@@ -104,8 +104,6 @@ public class PedidoController {
 
         return false;
     }
-
-
 
 
 

@@ -134,8 +134,7 @@ public class PedidoDAO {
         p.setStatus(rs.getString("status"));
         p.setEndereco(rs.getString("endereco"));
         p.setFormaPagamento(rs.getString("formaPagamento"));
-        
-        // Se idParceiro for NULL no banco, converte para 0
+
         Integer idParceiro = (Integer) rs.getObject("idParceiro");
         p.setIdParceiro(idParceiro == null ? 0 : idParceiro);
         

@@ -99,6 +99,7 @@ public class TelaPedidos {
 
             if (resposta.equals("S")) {
                 pedidoconfirmado.setStatus("PRONTO");
+                pedidoController.atualizarStatus(pedidoconfirmado.getId(), "PRONTO");
                 System.out.printf("\nPedido recebido e CONCLUÍDO!");
                 return;
 
@@ -168,6 +169,8 @@ public class TelaPedidos {
                 System.out.println("Itens: Sem itens registrados.");
             }
         }
+
+
 
         if (emAndamento.isEmpty()) {
             System.out.println("Nenhum pedido em andamento.\n");
@@ -249,12 +252,18 @@ public class TelaPedidos {
 
         System.out.println("\n===PEDIDOS CONCLUÍDOS===\n");
 
-        List<Pedido> pedidosDoUsuario = pedidoController.listarProntos();
+        List<Pedido> pedidosprontos = pedidoController.listarProntos();
 
         while (true) {
-            System.out.print("Digite 0 para voltar: ");
+
+            for (Pedido p : pedidosprontos) {
+                System.out.println(p);
+            }
+
+            System.out.print("\n\nDigite 0 para voltar: ");
 
             try {
+
                 String line = sc.nextLine().trim();
                 int resposta = line.isEmpty() ? -1 : Integer.parseInt(line);
 
@@ -262,7 +271,9 @@ public class TelaPedidos {
 
                 System.out.println("Opção inválida.");
 
-            } catch (NumberFormatException e) {
+            }
+
+            catch (NumberFormatException e) {
                 System.out.println("Entrada inválida. Digite apenas 0.");
             }
         }

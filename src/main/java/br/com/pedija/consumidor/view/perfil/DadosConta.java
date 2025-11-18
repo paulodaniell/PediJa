@@ -1,70 +1,119 @@
 package br.com.pedija.consumidor.view.perfil;
 
-
+import br.com.pedija.consumidor.controller.UsuarioController;
+import br.com.pedija.superadm.model.Usuario;
 import java.util.Scanner;
 
 public class DadosConta {
 
-    private Scanner sc = new Scanner(System.in);
+    private final Usuario usuarioLogado;
+    private final Scanner sc;
+    private final UsuarioController controller;
 
-
-    public DadosConta() {}
+    public DadosConta(Usuario usuarioLogado, Scanner sc, UsuarioController controller) {
+        this.usuarioLogado = usuarioLogado;
+        this.sc = sc;
+        this.controller = controller;
+    }
 
     public void exibirDados() {
 
+
         System.out.println("===== DADOS DA CONTA =====");
 
-//        System.out.println("Nome: " + usuario.getNome());
-//        System.out.println("Idade: " + usuario.getIdade());
-//        System.out.println("Email: " + usuario.getEmail());
-//        System.out.println("Telefone: " + usuario.getTelefone());
+        System.out.println("Nome: " + usuarioLogado.getNome());
+        System.out.println("Email: " + usuarioLogado.getEmail());
+        System.out.println("Telefone: " + usuarioLogado.getTelefone());
+        System.out.println("CPF: " + usuarioLogado.getCpf());
+        System.out.println("Endereço: " + usuarioLogado.getEndereco());
 
-        System.out.println("\n Quer alterar algum dado? (1 - Sim, 2 - Não)");
-        int opcao = sc.nextInt();
 
-        switch (opcao) {
-            case 1:
-                System.out.println("1 - Nome");
-                System.out.println("2 - Idade");
-                System.out.println("3 - Email");
-                System.out.println("4 - Telefone");
-                System.out.print("Qual dado quer alterar? ");
-                int dado = sc.nextInt();
+        while (true) {
+            System.out.println("\n Quer alterar algum dado? (1 - Sim, 2 - Não)");
+            System.out.print("Escolha: ");
 
-                switch (dado) {
-                    case 1:
-                        System.out.print("Novo nome: ");
-//                        usuario.setNome(sc.nextLine());
-                        break;
-                    case 2:
-                        System.out.print("Nova idade: ");
-//                        usuario.setIdade(sc.nextInt());
-                        break;
-                    case 3:
-                        System.out.print("Novo email: ");
-                        sc.nextLine(); // limpar buffer
-//                        usuario.setEmail(sc.nextLine());
-                        break;
-                    case 4:
-                        System.out.print("Novo telefone: ");
-                        sc.nextLine(); // limpar buffer
-//                        usuario.setTelefone(sc.nextLine());
-                        break;
-                    default:
-                        System.out.println("Opção inválida!");
+            int opcao = -1;
+            try {
+                String line = sc.nextLine().trim();
+                opcao = line.isEmpty() ? -1 : Integer.parseInt(line);
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida. Digite 1 ou 2.");
+                continue;
+            }
+
+            switch (opcao) {
+                case 1:
+                    if (executarEdicao()) {
                         return;
-                }
+                    }
+                    break;
 
-                System.out.println("Dado atualizado com sucesso!");
-                break;
+                case 2:
+                    System.out.println("Voltando...");
+                    return;
 
-            case 2:
-                System.out.println("Saindo...");
-                break;
-
-            default:
-                System.out.println("Digite um valor válido!");
-                break;
+                default:
+                    System.out.println("Digite um valor válido (1 ou 2)!");
+                    break;
+            }
         }
+    }
+
+    private boolean executarEdicao() {
+        System.out.println("\n=== EDIÇÃO DE DADOS ===");
+        System.out.println("1 - Nome (" + usuarioLogado.getNome() + ")");
+        System.out.println("2 - Email (" + usuarioLogado.getEmail() + ")");
+        System.out.println("3 - Telefone (" + usuarioLogado.getTelefone() + ")");
+        System.out.println("4 - Endereço (" + usuarioLogado.getEndereco() + ")");
+        System.out.println("5 - CPF: (" + usuarioLogado.getCpf() + ")");
+        System.out.println("0 - Cancelar Edição");
+        System.out.print("Qual dado quer alterar? ");
+
+        int dado;
+        try {
+            String line = sc.nextLine().trim();
+            dado = line.isEmpty() ? -1 : Integer.parseInt(line);
+        } catch (NumberFormatException e) {
+            System.out.println("Opção inválida. Digite apenas o número.");
+            return false;
+        }
+
+        if (dado == 0) {
+            System.out.println("Edição cancelada.");
+            return false;
+        }
+
+        if (dado < 1 || dado > 4) {
+            System.out.println("Opção de dado inválida!");
+            return false;
+        }
+
+        System.out.print("Digite o novo valor: ");
+        String novoValor = sc.nextLine().trim();
+
+        if (novoValor.isEmpty()) {
+            System.out.println("Valor não pode ser vazio. Edição cancelada.");
+            return false;
+        }
+
+        switch (dado) {
+            case 1:
+                usuarioLogado.setNome(novoValor);
+                break;
+            case 2:
+                usuarioLogado.setEmail(novoValor);
+                break;
+            case 3:
+                usuarioLogado.setTelefone(novoValor);
+                break;
+            case 4:
+                usuarioLogado.setEndereco(novoValor);
+                break;
+            case 5:
+                usuarioLogado.setCpf(novoValor);
+        }
+
+        controller.atualizarUsuario(usuarioLogado);
+        return true;
     }
 }
