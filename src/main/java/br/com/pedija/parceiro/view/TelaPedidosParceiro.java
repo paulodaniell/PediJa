@@ -27,12 +27,12 @@ public class TelaPedidosParceiro {
             System.out.println("\nPedidos " + parceiro.getNome());
             System.out.println("------------------------------");
 
-            System.out.println("1- Pedidos Pendentes: (" + pedidoController.contarPedidosPendentes() + ")");
-            System.out.println("2- Pedidos em Preparo: (" + pedidoController.contarPedidosEmPreparo() + ")");
-            System.out.println("3- Pedidos Prontos: (" + pedidoController.contarPedidosProntos() + ")");
-            System.out.println("4- Histórico");
-            System.out.println("5- Pedidos em Entrega: (" + pedidoController.contarPedidosEmEntrega() + ")");
-            System.out.println("0- Voltar");
+            System.out.println("[1]- Pedidos Pendentes: (" + pedidoController.contarPedidosPendentes() + ")");
+            System.out.println("[2]- Pedidos em Preparo: (" + pedidoController.contarPedidosEmPreparo() + ")");
+            System.out.println("[3]- Pedidos Prontos: (" + pedidoController.contarPedidosProntos() + ")");
+            System.out.println("[4]- Histórico");
+            System.out.println("[5]- Pedidos em Entrega: (" + pedidoController.contarPedidosEmEntrega() + ")");
+            System.out.println("[0]- Voltar");
 
             System.out.print("\nEscolha uma opção: ");
 

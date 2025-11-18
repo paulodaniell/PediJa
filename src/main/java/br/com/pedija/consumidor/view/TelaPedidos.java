@@ -230,9 +230,9 @@ public class TelaPedidos {
                     Pedido pedidoSelecionado = lista.get(escolha - 1);
 
                     if (permitirConfirmar) {
-                        exibirDetalhesEConfirmar(pedidoSelecionado); // detalhes + confirmar
+                        exibirDetalhesEConfirmar(pedidoSelecionado);
                     } else {
-                        exibirDetalhes(pedidoSelecionado);           // só detalhes
+                        exibirDetalhes(pedidoSelecionado);
                     }
 
                     return;

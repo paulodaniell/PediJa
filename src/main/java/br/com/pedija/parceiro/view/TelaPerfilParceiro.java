@@ -85,7 +85,7 @@ public class TelaPerfilParceiro {
         System.out.println("Telefone: " + parceiro.getTelefone());
         System.out.println("Endereço Completo:\n Cidade: " + parceiro.getCidade() + " CEP: " + parceiro.getCep() + " Estado: " + parceiro.getEstado() + " Bairro: " + parceiro.getBairro() + " Numero: " + parceiro.getNumero());
         System.out.println("Categoria: " + parceiro.getCategoria());
-        System.out.println(" Taxa e tempo: " + parceiro.getTaxaEntrega());//adicionar login
+        System.out.println(" Taxa e tempo: " + parceiro.getTaxaEntrega());
     }
 
     public void horarioFuncionamento() {

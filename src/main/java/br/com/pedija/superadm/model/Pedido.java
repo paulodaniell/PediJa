@@ -19,13 +19,11 @@ public class Pedido {
 
     private List<Produto> itens = new ArrayList<>();
 
-    //teste erro
-    // adiciona item e atualiza o total
     public void addItem(Produto item) {
         itens.add(item);
         valorTotal += item.getPreco();
     }
-//teste erro
+
     public List<Produto> getItens() {
         return itens;
     }
@@ -33,7 +31,6 @@ public class Pedido {
     public void setItens(List<Produto> itens) {
         this.itens = itens;
     }
-//teste erro
 
     public int getIdUsuario() {
         return idusuario;
@@ -42,7 +39,6 @@ public class Pedido {
     public void setIdUsuario(int idUsuario) {
         this.idusuario = idUsuario;
     }
-
 
     public int getId() {
         return id;

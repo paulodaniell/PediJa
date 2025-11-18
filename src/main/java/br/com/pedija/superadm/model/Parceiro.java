@@ -35,7 +35,7 @@ public class Parceiro {
         this.aberto = aberto;
     }
 
-//teste erro
+
     public String getHorarioSemana() {
         return horarioSemana;
     }
@@ -59,7 +59,6 @@ public class Parceiro {
     public void setFormasPagamento(List<String> formasPagamento) {
         this.formasPagamento = formasPagamento;
     }
-//teste erro
 
     public String getCep() {
         return cep;

@@ -9,13 +9,13 @@ public class MenuPrincipalParceiro {
     private final Scanner sc;
     private final Parceiro parceiro;
 
-    // Construtor padrão quando já vem um Parceiro
+
     public MenuPrincipalParceiro(Parceiro parceiro) {
         this.sc = new Scanner(System.in);
         this.parceiro = parceiro;
     }
 
-    // Construtor usado quando o login retorna um Usuario
+
     public MenuPrincipalParceiro(Usuario usuariologado) {
         this.sc = new Scanner(System.in);
         this.parceiro = new Parceiro();

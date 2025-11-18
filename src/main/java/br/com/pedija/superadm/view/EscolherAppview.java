@@ -31,7 +31,7 @@ public class EscolherAppview {
 
             } catch (Exception erro) {
                 System.out.println("Opção inválida!");
-                sc.nextLine(); // limpa o buffer
+                sc.nextLine();
             }
 
         } while (opcao != 0);

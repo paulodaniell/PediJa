@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ProdutoDAO {
 
-    // CREATE
+
     public void criar(Produto produto) {
 
         String sql = """
@@ -41,7 +41,7 @@ public class ProdutoDAO {
         }
     }
 
-    // READ - todos
+
     public List<Produto> buscarTodos() {
         List<Produto> produtos = new ArrayList<>();
         String sql = "SELECT * FROM produtos ORDER BY id";
@@ -61,7 +61,7 @@ public class ProdutoDAO {
         return produtos;
     }
 
-    // READ - por parceiro
+
     public List<Produto> buscarPorParceiro(int idParceiro) {
 
         List<Produto> produtos = new ArrayList<>();
@@ -84,7 +84,6 @@ public class ProdutoDAO {
         return produtos;
     }
 
-    // READ - por ID
     public Produto buscarPorId(int id) {
 
         String sql = "SELECT * FROM produtos WHERE id = ?";
@@ -106,7 +105,7 @@ public class ProdutoDAO {
         return null;
     }
 
-    // READ - por Nome
+
     public Produto buscarPorNome(String nome) {
 
         String sql = "SELECT * FROM produtos WHERE nome = ?";
@@ -130,7 +129,6 @@ public class ProdutoDAO {
     }
 
 
-    // UPDATE
     public void atualizar(Produto produto) {
 
         String sql = """
@@ -156,7 +154,7 @@ public class ProdutoDAO {
         }
     }
 
-    // UPDATE - disponibilidade
+
     public boolean alterarDisponibilidade(int id, boolean disponivel) {
 
         String sql = "UPDATE produtos SET disponivel = ? WHERE id = ?";
@@ -174,7 +172,7 @@ public class ProdutoDAO {
         }
     }
 
-    // DELETE
+
     public void deletar(int id) {
 
         String sql = "DELETE FROM produtos WHERE id = ?";
@@ -245,7 +243,7 @@ public class ProdutoDAO {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                // Reutiliza o mapProduto para transformar o resultado em objeto
+
                 produtos.add(mapProduto(rs));
             }
         } catch (SQLException e) {

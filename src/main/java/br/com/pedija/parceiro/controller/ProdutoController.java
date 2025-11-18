@@ -54,7 +54,7 @@ public class ProdutoController {
         return produtoDAO.listarMaisVendidos(idParceiro);
     }
 
-    // CONTAR QUANTOS PRODUTOS TEM O PARCEIRO
+
     public int contarPorParceiro(int idParceiro) {
         return produtoDAO.contarPorParceiro(idParceiro);
     }

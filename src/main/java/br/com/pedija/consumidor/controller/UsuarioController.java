@@ -1,17 +1,8 @@
 package br.com.pedija.consumidor.controller;
 
 
-import br.com.pedija.superadm.model.Parceiro;
 import br.com.pedija.superadm.model.Usuario;
 import br.com.pedija.superadm.dao.UsuarioDAO;
-
-/**
- * Controller mínimo para trabalhar com VIEW + MODEL sem DAO.
- * Atualmente usa uma lista em memória como "banco fake".
- *
- * // AQUI ENTRA O BANCO DE DADOS (FUTURO)
- * - Substituir a lista por chamadas ao DAO/Repository que acesse o BD.
- */
 
 public class UsuarioController {
 

@@ -9,7 +9,7 @@ import java.util.List;
 
 public class UsuarioDAO {
 
-    // CREATE
+
     public void criar(Usuario usuario) {
 
         String sql = "INSERT INTO usuario (email, telefone, cpf, nome, endereco, formadepagamento) " +
@@ -33,7 +33,6 @@ public class UsuarioDAO {
     }
 
 
-    // READ ALL
     public List<Usuario> buscarTodos() {
         List<Usuario> usuarios = new ArrayList<>();
         String sql = "SELECT * FROM usuario ORDER BY id";
@@ -74,7 +73,7 @@ public class UsuarioDAO {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                // --- Mapeamento feito aqui dentro ---
+
                 Usuario u = new Usuario();
                 u.setId(rs.getInt("id"));
                 u.setEmail(rs.getString("email"));
@@ -96,7 +95,7 @@ public class UsuarioDAO {
 
 
 
-    // READ BY ID
+
     public Usuario buscarPorId(int id) {
         String sql = "SELECT * FROM usuario WHERE id = ?";
 
@@ -126,7 +125,6 @@ public class UsuarioDAO {
     }
 
 
-    // UPDATE
     public void atualizar(Usuario usuario) {
         String sql = """
                 UPDATE usuario
@@ -156,7 +154,7 @@ public class UsuarioDAO {
     }
 
 
-    // DELETE
+
     public void deletar(int id) {
         String sql = "DELETE FROM usuario WHERE id = ?";
 

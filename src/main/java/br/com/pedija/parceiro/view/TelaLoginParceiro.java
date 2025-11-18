@@ -29,7 +29,7 @@ public class TelaLoginParceiro {
             System.out.println("2 - Cadastrar");
             System.out.println("0 Sair");
             opcao = sc.nextInt();
-            sc.nextLine(); // limpar buffer
+            sc.nextLine();
 
             switch (opcao) {
                 case 1:
@@ -97,7 +97,7 @@ public class TelaLoginParceiro {
 
             System.out.print(" Numero: ");
             novoParceiro.setNumero(sc.nextInt());
-            sc.nextLine(); // limpar buffer
+            sc.nextLine();
 
             System.out.println(" Categoria da sua loja ");
             System.out.println("[1] Pizzaria");

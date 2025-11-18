@@ -14,7 +14,6 @@ public class PedidoController {
     PedidoDAO pedidoDAO = new PedidoDAO();
     Pedido pedido =  new Pedido();
 
-
     public List<Pedido> listarPedidos() {
 
             List<Pedido> pedidos = pedidoDAO.listarTodos();
@@ -22,14 +21,11 @@ public class PedidoController {
     return pedidos;
     }
 
-
-
     public Pedido buscarPorId(int id) {
 
         return pedidoDAO.buscarPorId(id);
 
     }
-
 
     public boolean atualizarStatus(int id, String novoStatus) {
         Pedido p = buscarPorId(id);
@@ -41,23 +37,15 @@ public class PedidoController {
         return false;
     }
 
-
-
     public List<Pedido> listarPendentes() {
 
             return pedidoDAO.buscarPorStatus("PENDENTE");
-
-
     }
-
 
     public List<Pedido> listarEmPreparo() {
 
             return pedidoDAO.buscarPorStatus("EM PREPARO");
-
-
     }
-
 
     public List<Pedido> listarAguardandoEntregador(int idParceiro) {
         List<Pedido> resultado = new ArrayList<>();
@@ -79,17 +67,11 @@ public class PedidoController {
 
     }
 
-
     public List<Pedido> listarProntos() {
 
             return pedidoDAO.buscarPorStatus("PRONTO");
 
     }
-
-
-
-
-
 
     public boolean atribuirEntregador(int idPedido, int idEntregador) {
         Pedido p = buscarPorId(idPedido);
@@ -104,11 +86,6 @@ public class PedidoController {
 
         return false;
     }
-
-
-
-
-
 
     public int contarPedidosPendentes() {
         int contador = 0;
@@ -136,9 +113,6 @@ public class PedidoController {
         }
         return contador;
     }
-
-
-
 
     public int contarPedidosProntos() {
         int contador = 0;
