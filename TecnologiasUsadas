@@ -1,0 +1,5 @@
+## Conceitos de POO utilizados:
+
+1- Abstração: representamos entidades do mundo real (ou conceitos) no código, focando apenas nos atributos e comportamentos essenciais.
+2- Encapsulamento: protegemos os dados internos de um objeto, escondendo a complexidade e permitindo o acesso apenas por meio de métodos controlados (getters e setters).
+3- Polimorfismo: colocamos métodos para se comportarem de diferentes maneiras, dependendo do objeto que o invoca. Ele tem tanto comportamentos via via overriding (sobrescrita) ou overloading(sobrecarga).
