@@ -1,11 +1,11 @@
-## Fluxo Projeto POO
+## Fluxo Principal do Projeto PediJá
 
 1- Entrar(caso já tenha feito o cadastro) ou cadastrar no Parceiro;
 2- Ir na opção de "Gerenciar Cardápio";
 3- Ir até a opção "Adicionar Produto" e colocar as informações do produto adicionado;
 4- Depois de adicionado o produto, voltar até a página principal para escolher a opção "Consumidor";
 5- Entrar(caso já tenha feito o cadastro) ou cadastrar no Consumidor;
-6- Ir na opção "Buscar produtos" e digitar exatamente o nome do produto que havia adicionado;
+6- Ir na opção "Buscar produtos" e digitar no nome do produto que havia adicionado;
 7- Adicionar o produto buscado no carrinho. 
 8- Voltar ao "Menu Principal Consumidor" e navegar até a opção "Ver carrinho";
 9-  Apertar na opção "Finalizar Pedido" para concluir o pedido;
@@ -23,7 +23,4 @@
 21- Digitar o número do pedido visível na tela para ver mais informações dele;
 22- Confirmar ou não se o pedido foi recebido ou não pelo consumidor;
 23- Depois disso, o pedido vai estar na opção "Pedidos Concluídos" tanto para o “Consumidor” quanto para o “Parceiro”;
-
-
-
-
+24- Todas as outras funções são navegáveis ou visuais.
