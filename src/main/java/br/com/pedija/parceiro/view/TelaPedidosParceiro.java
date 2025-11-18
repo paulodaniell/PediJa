@@ -95,15 +95,6 @@ public class TelaPedidosParceiro {
             System.out.println("Itens:");
 
 
-         //  for (Pedido p : p.getItens()) {
-         //       System.out.printf(" • %dx %s - R$ %.2f%n",
-         //              item.getQuantidade(),
-         //              item.getNomeProduto(),
-          //             item.getSubTotal());
-       //    }
-        }
-
-
         System.out.println("\n[1] Aceitar Pedido");
         System.out.println("[2] Rejeitar Pedido");
         System.out.println("[3] Voltar");
@@ -119,7 +110,12 @@ public class TelaPedidosParceiro {
             int id = sc.nextInt();
             sc.nextLine();
             aceitarPedido(id);
-        } else if (opcao == 2) {
+
+        }
+
+        else if (opcao == 2) {
+
+        }
             System.out.print("ID do Pedido: ");
             int id = sc.nextInt();
             sc.nextLine();
@@ -225,7 +221,7 @@ public class TelaPedidosParceiro {
         sc.nextLine();
 
 
-        if (pedidoController.atualizarStatus(id, "EM_PREPARO")) {
+        if (pedidoController.atualizarStatus(id, "EM PREPARO")) {
             System.out.println("\nPedido #" + id + " aceito!");
             System.out.println("Tempo de preparo: " + tempo + " minutos");
         } else {
