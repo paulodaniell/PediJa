@@ -127,7 +127,6 @@ public class DatabaseConnection {
             conn = getConnection();
             Statement stmt = conn.createStatement();
 
-            // ✅ Ordem corrigida — primeiro as tabelas base, depois as dependentes
             stmt.execute(createCategoriasSQL);
             stmt.execute(createParceiroSQL);
             stmt.execute(createProdutosSQL);
@@ -137,11 +136,9 @@ public class DatabaseConnection {
             stmt.execute(createPedidoSQL);
             stmt.execute(createPromocaoSQL);
 
-            System.out.println("✅ SUCESSO: Banco de dados inicializado com sucesso!");
-            System.out.println("📦 Local: " + ((H2ConnectionFactory) connectionFactory).getUrl());
-
         } catch (SQLException e) {
-            System.err.println("❌ ERRO: Erro ao inicializar banco de dados: " + e.getMessage());
+            System.err.println(" ERRO: Erro ao inicializar banco de dados: " + e.getMessage
+                    ());
         } finally {
             try {
                 closeConnection(conn);

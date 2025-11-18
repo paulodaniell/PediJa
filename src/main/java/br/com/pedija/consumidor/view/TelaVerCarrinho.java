@@ -52,7 +52,7 @@ public class TelaVerCarrinho {
                 case 1 -> removerItem();
                 case 2 -> finalizarPedido();
                 case 0 -> { return; }
-                default -> System.out.println("❌ Opção inválida! Digite 0, 1 ou 2.\n");
+                default -> System.out.println("Opção inválida! Digite 0, 1 ou 2.\n");
             }
         }
     }
@@ -63,17 +63,17 @@ public class TelaVerCarrinho {
         int indice = numero - 1;
 
         if (indice < 0 || indice >= carrinho.listar().size()) {
-            System.out.println("❌ Número do item inválido!\n");
+            System.out.println(" Número do item inválido!\n");
         } else {
             carrinho.removerProduto(indice);
-            System.out.println("✅ Item removido com sucesso!\n");
+            System.out.println("Item removido com sucesso!\n");
         }
     }
 
     private void finalizarPedido() {
         String forma = escolherFormaPagamento();
         if (forma == null) {
-            System.out.println("\n↩ Pagamento cancelado. Voltando ao carrinho...\n");
+            System.out.println("\n Pagamento cancelado. Voltando ao carrinho...\n");
             return;
         }
 
@@ -90,6 +90,8 @@ public class TelaVerCarrinho {
 
         exibirResumoPedido(revisao);
 
+        revisao.setStatus("PENDENTE");
+
         System.out.print("Escolha: ");
         int conf = lerInt();
 
@@ -97,12 +99,13 @@ public class TelaVerCarrinho {
             try {
                 pedidoController.criarPedido(revisao);
                 carrinho.limpar();
-                System.out.println("\n✅ Pedido confirmado com sucesso!");
+                System.out.println("\n Pedido confirmado com sucesso!");
+
             } catch (Exception e) {
-                System.out.println("\n❌ Erro ao confirmar pedido: " + e.getMessage());
+                System.out.println("\n Erro ao confirmar pedido: " + e.getMessage());
             }
         } else {
-            System.out.println("\n↩ Pedido cancelado. Voltando ao carrinho...\n");
+            System.out.println("\n Pedido cancelado. Voltando ao carrinho...\n");
         }
     }
 
@@ -146,7 +149,7 @@ public class TelaVerCarrinho {
                 case 3 -> { return "Cartão de Débito"; }
                 case 4 -> { return "Dinheiro"; }
                 case 0 -> { return null; }
-                default -> System.out.println("❌ Opção inválida! Digite 0 a 4.\n");
+                default -> System.out.println("Opção inválida! Digite 0 a 4.\n");
             }
         }
     }
