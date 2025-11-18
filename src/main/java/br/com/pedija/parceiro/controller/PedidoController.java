@@ -170,6 +170,18 @@ public class PedidoController {
     }
 
 
+    public int contarPedidosEmEntrega() {
+        int contador = 0;
+
+
+        List<Pedido> prontos = listarEmEntrega();
+
+
+        for (Pedido p : prontos) {
+            contador++;
+        }
+        return contador;
+    }
 }
 
 

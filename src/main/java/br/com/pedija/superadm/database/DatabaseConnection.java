@@ -61,16 +61,6 @@ public class DatabaseConnection {
         )
     """;
 
-        String createEntregadorSQL = """
-        CREATE TABLE IF NOT EXISTS Entregador (
-            id INT PRIMARY KEY AUTO_INCREMENT,
-            nomeEntregador VARCHAR(150) NOT NULL,
-            telefone VARCHAR(20),
-            cpf VARCHAR(14),
-            veiculo VARCHAR(50),
-            disponivel BOOLEAN DEFAULT TRUE
-        )
-    """;
 
         String createParceiroSQL = """
         CREATE TABLE IF NOT EXISTS Parceiro (
@@ -139,7 +129,6 @@ public class DatabaseConnection {
 
             stmt.execute(createUsuarioSQL);
             stmt.execute(createPagamentoSQL);
-            stmt.execute(createEntregadorSQL);
             stmt.execute(createParceiroSQL);
             stmt.execute(createProdutosSQL);
             stmt.execute(createPedidoSQL);
