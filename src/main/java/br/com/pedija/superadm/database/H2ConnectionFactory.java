@@ -5,13 +5,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class H2ConnectionFactory implements ConnectionFactory {
-    private static final String URL = "jdbc:h2:./lojinha";
+
+    private static final String URL = "jdbc:h2:./data/pedija";
     private static final String USER = "sa";
     private static final String PASSWORD = "";
 
     private static H2ConnectionFactory instance;
 
-    // Singleton para garantir uma única instância da factory
     private H2ConnectionFactory() {}
 
     public static H2ConnectionFactory getInstance() {
@@ -28,12 +28,15 @@ public class H2ConnectionFactory implements ConnectionFactory {
     @Override
     public Connection getConnection() throws SQLException {
         try {
-            // Opcional para H2 moderno, boa prática em manter
+
             Class.forName("org.h2.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new SQLException("Driver H2 não encontrado", e);
         }
-        return DriverManager.getConnection(URL, USER, PASSWORD);
+        catch (ClassNotFoundException e) {
+            throw new SQLException("Driver H2 não encontrado!", e);
+        }
+
+        Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+        return conn;
     }
 
     @Override
@@ -43,7 +46,6 @@ public class H2ConnectionFactory implements ConnectionFactory {
         }
     }
 
-    // Útil para logs
     public String getUrl() {
         return URL;
     }
