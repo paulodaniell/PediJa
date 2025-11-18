@@ -5,6 +5,7 @@ import br.com.pedija.consumidor.controller.PedidoController;
 import br.com.pedija.consumidor.controller.UsuarioController;
 import br.com.pedija.consumidor.view.perfil.TelaPerfil;
 import br.com.pedija.superadm.model.Usuario;
+import br.com.pedija.superadm.dao.PromocaoDAO;
 import java.util.Scanner;
 
 public class MenuPrincipalConsumidorView {
@@ -15,6 +16,7 @@ public class MenuPrincipalConsumidorView {
     private final PedidoController pedidoController;
     private final BuscaProdutoConsumidor buscaProdutoConsumidor;
     private final TelaPromocoes telaPromocoes;
+    PromocaoDAO promocaoDAO = new PromocaoDAO();
 
     private Usuario usuarioLogado;
 
@@ -25,10 +27,9 @@ public class MenuPrincipalConsumidorView {
         this.pedidoController = new PedidoController();
         this.usuarioLogado = usuarioLogado;
         this.buscaProdutoConsumidor = new BuscaProdutoConsumidor(carrinho);
-        this.telaPromocoes = new TelaPromocoes();
+        this.telaPromocoes = new TelaPromocoes(promocaoDAO, carrinho);
     }
 
-    // ✅ Permite reaproveitar o mesmo Scanner (caso queira compartilhar)
     public MenuPrincipalConsumidorView(Usuario usuarioLogado, Scanner sc) {
         this.sc = sc;
         this.usuarioController = new UsuarioController();
@@ -36,7 +37,7 @@ public class MenuPrincipalConsumidorView {
         this.pedidoController = new PedidoController();
         this.usuarioLogado = usuarioLogado;
         this.buscaProdutoConsumidor = new BuscaProdutoConsumidor(carrinho);
-        this.telaPromocoes = new TelaPromocoes();
+        this.telaPromocoes = new TelaPromocoes(promocaoDAO, carrinho);
     }
 
     public void setUsuarioLogado(Usuario usuario) {

@@ -66,10 +66,7 @@ public class BuscaProdutoConsumidor {
                 if (op.equals("1")) {
                     carrinhoController.adicionar(produto);
                     System.out.println("\nProduto adicionado ao carrinho! Voltando ao menu...");
-                    return; // volta para menu principal após adicionar
-                } else {
-                    // volta para a busca de produtos
-                    continue;
+                    return;
                 }
 
             } else {

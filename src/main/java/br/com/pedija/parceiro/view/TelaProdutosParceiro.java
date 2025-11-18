@@ -33,9 +33,9 @@ public class TelaProdutosParceiro {
                 opcao = Integer.parseInt(sc.nextLine());
                 executarOpcao(opcao);
             } catch (NumberFormatException e) {
-                System.out.println("⚠️  Entrada inválida! Digite apenas números.");
+                System.out.println("Entrada inválida! Digite apenas números.");
             } catch (Exception e) {
-                System.out.println("❌ Erro: " + e.getMessage());
+                System.out.println("Erro: " + e.getMessage());
                 e.printStackTrace();
             }
         } while (opcao != 0);
@@ -89,16 +89,14 @@ public class TelaProdutosParceiro {
             novo.setDescricao(sc.nextLine());
             System.out.print("Preço (R$): ");
             novo.setPreco(Double.parseDouble(sc.nextLine()));
-            System.out.print("Quantidade: ");
-            novo.setQuantidade(Integer.parseInt(sc.nextLine()));
             novo.setCategoria_id(1);
             novo.setDisponivel(true);
             novo.setIdParceiro(parceiro.getId());
 
             if (produtoController.adicionarProduto(novo)) {
-                System.out.println("✅ Produto adicionado com sucesso!");
+                System.out.println("Produto adicionado com sucesso!");
             } else {
-                System.out.println("❌ Falha ao adicionar produto.");
+                System.out.println(" Falha ao adicionar produto.");
             }
         } catch (Exception e) {
             System.out.println("Erro ao cadastrar produto: " + e.getMessage());

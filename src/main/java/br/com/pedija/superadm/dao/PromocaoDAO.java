@@ -37,6 +37,25 @@ public class PromocaoDAO {
         }
     }
 
+    public List<Promocao> listarTodas() {
+        List<Promocao> lista = new ArrayList<>();
+        String sql = "SELECT * FROM Promocao";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                lista.add(mapPromocao(rs));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao listar todas as promoções: " + e.getMessage(), e);
+        }
+
+        return lista;
+    }
+
 
     public List<Promocao> listarPorParceiro(int idParceiro) {
         List<Promocao> lista = new ArrayList<>();

@@ -70,7 +70,7 @@ public class TelaPedidos {
         }
     }
 
-    private void exibirDetalhesEConfirmar(Pedido pedidoSelecionado) {
+    private void exibirDetalhes(Pedido pedidoSelecionado) {
 
         System.out.println("\n=== DETALHES DO PEDIDO #" + pedidoSelecionado.getId() + " ===");
 
@@ -85,6 +85,10 @@ public class TelaPedidos {
         System.out.println("Forma de pagamento: " + pedidoSelecionado.getFormaPagamento());
         System.out.println("------------------------------------");
 
+    }
+
+    private void Confirmar(Pedido pedidoconfirmado) {
+
         System.out.println("Caso tenha recebido seu pedido, confirme:");
         System.out.println("[S]");
         System.out.println("[N]");
@@ -94,7 +98,7 @@ public class TelaPedidos {
             String resposta = sc.nextLine().trim().toUpperCase();
 
             if (resposta.equals("S")) {
-                pedidoSelecionado.setStatus("PRONTO");
+                pedidoconfirmado.setStatus("PRONTO");
                 System.out.printf("\nPedido recebido e CONCLUÍDO!");
                 return;
 
@@ -108,6 +112,11 @@ public class TelaPedidos {
         }
     }
 
+    private void exibirDetalhesEConfirmar(Pedido pedidoSelecionado) {
+        exibirDetalhes(pedidoSelecionado);
+        Confirmar(pedidoSelecionado);
+    }
+
     private void pedidospreparo() {
 
         List<Pedido> preparo = pedidoController.listarEmPreparo();
@@ -119,10 +128,12 @@ public class TelaPedidos {
         for (Pedido p : preparo) {
 
             indiceExibicao++;
+
             System.out.printf(" [%d] Pedido #%d | Total: R$ %.2f%n",
                     indiceExibicao, p.getId(), p.getValorTotal());
 
             if (!p.getItens().isEmpty()) {
+
                 System.out.printf("Itens: %s e mais...\n", p.getItens().get(0));
             } else {
                 System.out.println("Itens: Sem itens registrados.");
@@ -133,7 +144,7 @@ public class TelaPedidos {
             System.out.println("Nenhum pedido em Preparo.\n");
         }
 
-        selecionarPedido(preparo);
+        selecionarPedido(preparo, false);
     }
 
     private void pedidoscaminho() {
@@ -147,14 +158,13 @@ public class TelaPedidos {
         for (Pedido p : emAndamento) {
 
             indiceExibicao++;
+
             System.out.printf(" [%d] Pedido #%d | Total: R$ %.2f%n",
                     indiceExibicao, p.getId(), p.getValorTotal());
 
             if (!p.getItens().isEmpty()) {
                 System.out.printf("Itens: %s e mais...\n", p.getItens().get(0));
-            }
-
-            else {
+            } else {
                 System.out.println("Itens: Sem itens registrados.");
             }
         }
@@ -163,8 +173,9 @@ public class TelaPedidos {
             System.out.println("Nenhum pedido em andamento.\n");
         }
 
-        selecionarPedido(emAndamento);
+        selecionarPedido(emAndamento, true); // habilita confirmação
     }
+
 
     private void pedidospendentes() {
 
@@ -177,6 +188,7 @@ public class TelaPedidos {
         for (Pedido p : pendentes) {
 
             indiceExibicao++;
+
             System.out.printf(" [%d] Pedido #%d | Total: R$ %.2f%n",
                     indiceExibicao, p.getId(), p.getValorTotal());
 
@@ -191,10 +203,10 @@ public class TelaPedidos {
             System.out.println("Nenhum pedido pendente.\n");
         }
 
-        selecionarPedido(pendentes);
+        selecionarPedido(pendentes, false);
     }
 
-    private void selecionarPedido(List<Pedido> lista) {
+    private void selecionarPedido(List<Pedido> lista, boolean permitirConfirmar) {
 
         if (lista.isEmpty()) return;
 
@@ -213,7 +225,13 @@ public class TelaPedidos {
 
                 if (escolha > 0 && escolha <= lista.size()) {
                     Pedido pedidoSelecionado = lista.get(escolha - 1);
-                    exibirDetalhesEConfirmar(pedidoSelecionado);
+
+                    if (permitirConfirmar) {
+                        exibirDetalhesEConfirmar(pedidoSelecionado); // detalhes + confirmar
+                    } else {
+                        exibirDetalhes(pedidoSelecionado);           // só detalhes
+                    }
+
                     return;
 
                 } else if (escolha != -1) {
@@ -226,28 +244,6 @@ public class TelaPedidos {
         }
     }
 
-    private void listarPedidosPorStatus(List<Pedido> pedidos, String statusFiltro) {
-        int contador = 0;
-
-        for (Pedido p : pedidos) {
-            if (p.getStatus() != null && p.getStatus().equalsIgnoreCase(statusFiltro)) {
-                contador++;
-
-                System.out.printf(" [%d] Pedido #%d | Total: R$ %.2f%n",
-                        contador, p.getId(), p.getValorTotal());
-
-                if (!p.getItens().isEmpty()) {
-                    System.out.printf("     Itens: %s e mais...\n", p.getItens());
-                } else {
-                    System.out.println("     Itens: Sem itens registrados.");
-                }
-            }
-        }
-
-        if (contador == 0) {
-            System.out.println("Nenhum pedido encontrado neste status.");
-        }
-    }
 
     private void pedidosfinalizados() {
 
