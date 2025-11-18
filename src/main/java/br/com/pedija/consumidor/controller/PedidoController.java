@@ -45,7 +45,7 @@ public class PedidoController {
             p.setIdParceiro(produtos.get(0).getIdParceiro());
         }
 
-        p.setStatus("Em Andamento");
+        p.setStatus("EM ENTREGA");
 
         return p;
     }
@@ -95,7 +95,7 @@ public class PedidoController {
 
     public List<Pedido> listarEmEntrega() {
 
-        return pedidoDAO.buscarPorStatus("Em ENTREGA");
+        return pedidoDAO.buscarPorStatus("EM ENTREGA");
 
     }
 

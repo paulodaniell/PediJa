@@ -75,7 +75,7 @@ public class PedidoController {
 
     public List<Pedido> listarEmEntrega() {
 
-            return pedidoDAO.buscarPorStatus("EM_ENTREGA");
+            return pedidoDAO.buscarPorStatus("EM ENTREGA");
 
     }
 
@@ -96,7 +96,7 @@ public class PedidoController {
 
 
         if (p != null) {
-            p.setStatus("EM_ENTREGA");
+            p.setStatus("EM ENTREGA");
             pedidoDAO.atualizar(p);
             return true;
         }
