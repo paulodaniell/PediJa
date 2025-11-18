@@ -40,6 +40,11 @@ public class PedidoController {
         p.setFormaPagamento(formaPagamento);
         p.setIdUsuario(usuarioId);
 
+        // Pega o idParceiro do primeiro produto (todos os produtos do carrinho são do mesmo parceiro)
+        if (!produtos.isEmpty()) {
+            p.setIdParceiro(produtos.get(0).getIdParceiro());
+        }
+
         p.setStatus("Em Andamento");
 
         return p;
