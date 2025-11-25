@@ -1,4 +1,4 @@
-package br.com.pedija.entregador.model;
+package br.com.pedija.superadm.model;
 
 public class Duvida {
 

@@ -36,7 +36,7 @@ public class TelaInicialEntregador {
         } while (opcao != 0);
 
     }
-    //So opção 1 com metodo
+
     private void resultadoOpcao(int opcao) {
 
         TelaAjudaEntregador telaAjuda = new TelaAjudaEntregador();

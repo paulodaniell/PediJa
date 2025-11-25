@@ -7,11 +7,13 @@ public class Entregador {
     private String nome;
     private String email;
     private String senha;
-    private String telefone;
+    private int telefone;
     private String cpf;
     private String veiculo;
     private boolean disponivel;
     private List<String> formasPagamento;
+    private int contatoDeEmergencia;
+    private String nomeEmergencia;
 
     public String getNome() {
         return nome;
@@ -42,11 +44,11 @@ public class Entregador {
         this.id = id;
     }
 
-    public String getTelefone() {
+    public int getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(String telefone) {
+    public void setTelefone(int telefone) {
         this.telefone = telefone;
     }
 
@@ -83,5 +85,21 @@ public class Entregador {
     }
 
     public void setSenha(String s) {
+    }
+
+    public int getContatoDeEmergencia() {
+        return contatoDeEmergencia;
+    }
+
+    public void setContatoDeEmergencia(int contatoDeEmergencia) {
+        this.contatoDeEmergencia = contatoDeEmergencia;
+    }
+
+    public String getNomeEmergencia() {
+        return nomeEmergencia;
+    }
+
+    public void setNomeEmergencia(String nomeEmergencia) {
+        this.nomeEmergencia = nomeEmergencia;
     }
 }

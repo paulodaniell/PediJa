@@ -1,71 +1,62 @@
 package br.com.pedija.entregador.view;
-import br.com.pedija.App;
-import br.com.pedija.superadm.view.EscolherAppview;
 
-import java.awt.*;
+import br.com.pedija.entregador.controller.EntregadorController;
+import br.com.pedija.superadm.model.Entregador;
 import java.util.Scanner;
 
 public class TelaPerfilEntregador {
-    public void perfilview() {
 
-    System.out.println("Perfil Entregador");
-    System.out.println("Nome do Usuário");
+    private final Scanner sc;
+    private final Entregador entregadorLogado;
+    private final EntregadorController controller;
 
-        Scanner sc = new Scanner(System.in);
+    public TelaPerfilEntregador(Entregador entregadorLogado, EntregadorController controller) {
+        this.sc = new Scanner(System.in);
+        this.entregadorLogado = entregadorLogado;
+        this.controller = controller;
+    }
 
-        System.out.println("Bem vindo(a) ao Ifood Entregador!");
+    public void verPerfil() {
 
-        int opcao = 0;
+        int opcao = -1;
 
         do {
-            System.out.println("-----------------------------------");
-            System.out.println(" 1 - Ver e editar seus Dados       ");
-            System.out.println(" 2 - Sair da conta                 ");
-            System.out.println(" 0 - Voltar                        ");
-            System.out.println("-----------------------------------");
+            System.out.println("------------------------------");
+            System.out.println(" 1 - Dados da Conta           ");
+            System.out.println(" 0 - Voltar                   ");
+            System.out.println("------------------------------");
 
             System.out.print("\nEscolha uma opção: ");
 
             try {
-                opcao = sc.nextInt();
-                resultadoOpcao(opcao);
-
-            } catch (Exception error) {
-                System.out.println("Opção inválida!");
-                sc.nextLine();
+                String line = sc.nextLine().trim();
+                opcao = line.isEmpty() ? -1 : Integer.parseInt(line);
+                if (opcao != -1) {
+                    resultadoOpcao(opcao);
+                }
+            } catch (NumberFormatException erro) {
+                System.out.println("Opção inválida! Digite apenas números.");
             }
 
         } while (opcao != 0);
-
     }
 
     private void resultadoOpcao(int opcao) {
-
-
-        TelaDadosEntregador dados = new TelaDadosEntregador();
-
-
         switch (opcao) {
             case 1:
-                System.out.println("Ver e Editar seus dados\n");
-                dados.dadosview();
-                break;
-
-            case 2:
-                System.out.println("Excluir Conta\n");
-                System.out.println("Tem certeza que quer exluir sua conta? (1 - Não) (2 - Sim)\n");
-                EscolherAppview menu = new EscolherAppview();
-                menu.EscolherAppview();
+                System.out.println("Dados da Conta");
+                DadosContaEntregador dadosContaView =
+                        new DadosContaEntregador(this.entregadorLogado, this.sc, this.controller);
+                dadosContaView.exibirDados();
                 break;
 
             case 0:
-                System.out.println("Voltando..");
+                System.out.println("Voltando ao menu anterior...");
+                return;
+
+            default:
+                System.out.println("Opção inválida!");
                 break;
-
-            default:System.out.println("Opção inválida!");
-                break;
-
-
         }
     }
 }

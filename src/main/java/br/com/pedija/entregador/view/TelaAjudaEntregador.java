@@ -1,6 +1,6 @@
 package br.com.pedija.entregador.view;
 
-import br.com.pedija.entregador.model.Duvida;
+import br.com.pedija.superadm.model.Duvida;
 
 import java.util.ArrayList;
 import java.util.Scanner;

@@ -57,7 +57,7 @@ public class TelaMaisEntregador {
 
                     case 3:
                         System.out.println("Perfil\n");
-                        telaperfil.perfilview();
+                        telaperfil.verPerfil();
 
                         break;
                     case 0:

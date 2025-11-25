@@ -1,8 +1,7 @@
 package br.com.pedija.entregador.view;
 
 import java.util.Scanner;
-import br.com.pedija.entregador.model.Entregador;
-import br.com.pedija.entregador.model.Banco;
+import br.com.pedija.superadm.model.Entregador;
 
 public class TelaDadosEntregador {
     public void dadosview() {
@@ -10,7 +9,6 @@ public class TelaDadosEntregador {
         TelaPerfilEntregador telaPerfil = new TelaPerfilEntregador();
 
         Entregador entregador = new Entregador();
-        Banco banco = new Banco();
 
         Scanner sc = new Scanner(System.in);
 
@@ -21,13 +19,6 @@ public class TelaDadosEntregador {
         System.out.println("4 - Contato de Emerência: " + entregador.getContatoDeEmergencia());
         System.out.println("5 - Nome Contato de emergência: " + entregador.getNomeEmergencia() + "\n");
 
-        System.out.println("Dados Bancários: ");
-        System.out.println("6 - Banco Associado: " + banco.getNomeBanco());
-        System.out.println("7 - Agência: 0000000 " + banco.getAgencia() + "\n");
-
-        System.out.println("Dados de Entrega: ");
-        System.out.println("8 - Forma de entrega: " + entregador.getFormaEntrega());
-        System.out.println("9 - Forma de pagamento: " + entregador.getFormaPagamento()+ "\n");
 
         System.out.println("Deseja mudar algum dado do seu perfil? (1 - Sim) (2 - Não)");
         int mudar = sc.nextInt();
@@ -43,7 +34,7 @@ public class TelaDadosEntregador {
 
                 case 1:
                     System.out.println("CPF: ");
-                    int novoCpf = sc.nextInt();
+                    String novoCpf = sc.nextLine();
                     sc.nextLine();
                     entregador.setCpf(novoCpf);
                     break;
@@ -74,31 +65,6 @@ public class TelaDadosEntregador {
                     entregador.setNomeEmergencia(novoNome);
                     break;
 
-                case 6:
-                    System.out.println("Nome do banco: ");
-                    String novoNomeBanco = sc.nextLine();
-                    banco.setNomeBanco(novoNomeBanco);
-                    break;
-
-                case 7:
-                    System.out.println("Agência: ");
-                    int novoAgencia = sc.nextInt();
-                    sc.nextLine();
-                    banco.setAgencia(novoAgencia);
-                    break;
-
-                case 8:
-                    System.out.println("Forma de entrega: ");
-                    String novaformaentrega = sc.nextLine();
-                    entregador.setFormaPagamento(novaformaentrega);
-                    break;
-
-                case 9:
-                    System.out.println("Forma de pagamento: ");
-                    String novaformapag = sc.nextLine();
-                    entregador.setFormaPagamento(novaformapag);
-                    break;
-
                 default:
                     break;
 
@@ -106,7 +72,7 @@ public class TelaDadosEntregador {
         }
 
         else {
-                telaPerfil.perfilview();
+                telaPerfil.verPerfil();
 
         }
         }
