@@ -1,0 +1,87 @@
+package br.com.pedija.superadm.model;
+
+import java.util.List;
+
+public class Entregador {
+    private int id;
+    private String nome;
+    private String email;
+    private String senha;
+    private String telefone;
+    private String cpf;
+    private String veiculo;
+    private boolean disponivel;
+    private List<String> formasPagamento;
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public List<String> getFormasPagamento() {
+        return formasPagamento;
+    }
+
+    public void setFormasPagamento(List<String> formasPagamento) {
+        this.formasPagamento = formasPagamento;
+    }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getVeiculo() {
+        return veiculo;
+    }
+
+    public void setVeiculo(String veiculo) {
+        this.veiculo = veiculo;
+    }
+
+    public boolean isDisponivel() {
+        return disponivel;
+    }
+
+    public void setDisponivel(boolean disponivel) {
+        this.disponivel = disponivel;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setSenha(String s) {
+    }
+}
