@@ -1,11 +1,16 @@
 package br.com.pedija.entregador.view;
 
 
+import br.com.pedija.entregador.controller.EntregadorController;
+import br.com.pedija.superadm.model.Entregador;
+
 import java.util.Scanner;
 
 public class TelaMaisEntregador {
 
     Scanner sc = new Scanner(System.in);
+    Entregador entregador = new Entregador();
+    EntregadorController controller = new EntregadorController();
 
     public void mais() {
 
@@ -41,7 +46,7 @@ public class TelaMaisEntregador {
 
             TelaScoreEntregador telascore = new TelaScoreEntregador();
             TelaPromoeVantagens telaspromoev = new TelaPromoeVantagens();
-            TelaPerfilEntregador telaperfil = new TelaPerfilEntregador();
+            TelaPerfilEntregador telaperfil = new TelaPerfilEntregador(entregador, controller);
 
 
                 switch (opcao) {

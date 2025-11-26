@@ -1,12 +1,18 @@
 package br.com.pedija.entregador.view;
 
 import java.util.Scanner;
+
+import br.com.pedija.entregador.controller.EntregadorController;
 import br.com.pedija.superadm.model.Entregador;
 
 public class TelaDadosEntregador {
+
+    Entregador entregador;
+    EntregadorController entregadorController;
+
     public void dadosview() {
 
-        TelaPerfilEntregador telaPerfil = new TelaPerfilEntregador();
+        TelaPerfilEntregador telaPerfil = new TelaPerfilEntregador(entregador, entregadorController);
 
         Entregador entregador = new Entregador();
 

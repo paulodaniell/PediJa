@@ -22,8 +22,8 @@ public class EntregadorDAO {
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-            stmt.setString(1, entregador.getNomeEntregador());
-            stmt.setString(2, entregador.getTelefone());
+            stmt.setString(1, entregador.getNome());
+            stmt.setInt(2, entregador.getTelefone());
             stmt.setString(3, entregador.getCpf());
             stmt.setString(4, entregador.getVeiculo());
             stmt.setBoolean(5, entregador.isDisponivel());
@@ -120,8 +120,8 @@ public class EntregadorDAO {
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, entregador.getNomeEntregador());
-            stmt.setString(2, entregador.getTelefone());
+            stmt.setString(1, entregador.getNome());
+            stmt.setInt(2, entregador.getTelefone());
             stmt.setString(3, entregador.getCpf());
             stmt.setString(4, entregador.getVeiculo());
             stmt.setBoolean(5, entregador.isDisponivel());
@@ -164,8 +164,8 @@ public class EntregadorDAO {
     private Entregador mapEntregador(ResultSet rs) throws SQLException {
         Entregador e = new Entregador();
         e.setId(rs.getInt("id"));
-        e.setNomeEntregador(rs.getString("nomeEntregador"));
-        e.setTelefone(rs.getString("telefone"));
+        e.setNome(rs.getString("nomeEntregador"));
+        e.setTelefone(rs.getInt("telefone"));
         e.setCpf(rs.getString("cpf"));
         e.setVeiculo(rs.getString("veiculo"));
         e.setDisponivel(rs.getBoolean("disponivel"));
@@ -190,7 +190,7 @@ public class EntregadorDAO {
                 e.setNome(rs.getString("nome"));
                 e.setEmail(rs.getString("email"));
                 e.setSenha(rs.getString("senha"));
-                e.setTelefone(rs.getString("telefone"));
+                e.setTelefone(rs.getInt("telefone"));
                 e.setCpf(rs.getString("cpf"));
                 e.setVeiculo(rs.getString("veiculo"));
                 e.setDisponivel(rs.getBoolean("disponivel"));

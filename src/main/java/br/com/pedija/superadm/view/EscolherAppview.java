@@ -54,7 +54,7 @@ public class EscolherAppview {
 
             case 3:
                 System.out.println("Opção entregador escolhida!");
-                telaLoginEntregador.telaLoginview();
+                telaLoginEntregador.exibir();
 
             case 0:
                 System.out.println("Saindo...");

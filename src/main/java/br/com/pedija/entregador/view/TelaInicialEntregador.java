@@ -1,10 +1,12 @@
 package br.com.pedija.entregador.view;
+import br.com.pedija.superadm.model.Entregador;
 
 import java.util.Scanner;
 
 public class TelaInicialEntregador {
 
     Scanner sc = new Scanner(System.in);
+    Entregador entregador = new Entregador();
 
     public void TelaInicioEntregador() {
 
@@ -48,8 +50,20 @@ public class TelaInicialEntregador {
         switch (opcao) {
             case 1:
                 System.out.println("Ficar disponível selecionado !\n");
-                entrega.novaentrega();
-                break;
+
+                System.out.print("Quer ficar disponível? (1 - Sim) (0 - Não): ");
+                int disponibilidade = sc.nextInt();
+
+                if  (disponibilidade == 1) {
+
+                    entregador.setDisponivel(true);
+                    entrega.novaentrega();
+                }
+
+                if  (disponibilidade == 0) {
+                    entregador.setDisponivel(false);
+                    break;
+                }
 
             case 2:
                 System.out.println("Extrato selecionado");

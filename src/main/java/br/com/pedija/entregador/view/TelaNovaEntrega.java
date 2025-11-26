@@ -1,10 +1,14 @@
 package br.com.pedija.entregador.view;
 
+import br.com.pedija.superadm.dao.PedidoDAO;
+import br.com.pedija.superadm.model.Pedido;
+
 import java.util.Scanner;
 
 public class TelaNovaEntrega {
 
     Telacorrida telacorrida = new Telacorrida();
+    PedidoDAO pedidoDAO = new PedidoDAO();
 
     Scanner sc = new Scanner(System.in);
 
@@ -15,37 +19,40 @@ public class TelaNovaEntrega {
         int opcao = 0;
 
 
-    System.out.println("Temos uma entrega para você!");
+    System.out.println("Temos corridas para você!");
 
-    System.out.println("Valor: 13,98");
-    System.out.println("De: Sushi Loko");
-    System.out.println("Para: Setor O");
+    System.out.println(pedidoDAO.buscarPorStatus("PRONTO"));
 
-    System.out.println("Aceitar a rota? (1- Sim) (2 - Não)");
-    opcao = sc.nextInt();
+    System.out.println("Deseja aceitar algum pedido: (1 - Sim) ( 0 - Não)");
+    int aceitar = sc.nextInt();
 
-    switch (opcao) {
-        case 1:
+    if (aceitar == 1) {
 
-            System.out.println("Corrida Iniciada! \n");
-            telacorrida.corrida();
-            break;
+        System.out.println("Digite o id do pedido que quer aceitar: ");
+        int id = sc.nextInt();
+        Pedido pedidoaceito = new Pedido();
+        pedidoaceito.setId(id);
 
-        case 2:
-            System.out.println("Voltando...");
-            break;
+        System.out.println("Tem certeza que deseja aceitar: (1  - Sim) (2 - Não)");
+
+        switch (opcao) {
+            case 1:
+
+                System.out.println("Corrida Iniciada! \n");
+                pedidoaceito.setStatus("EM ENTREGA");
+                telacorrida.corrida();
+                break;
+
+            case 2:
+                System.out.println("Voltando...");
+                break;
+        }
+
+        }
+
+    else {return;}
+
     }
 
-
-
-
-
-
-
-
-
-
-
-
     }
-}
+

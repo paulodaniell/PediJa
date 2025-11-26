@@ -85,7 +85,7 @@ public class TelaLoginEntregador{
             novoEntregador.setCpf(sc.nextLine());
 
             System.out.print(" Telefone: ");
-            novoEntregador.setTelefone(sc.nextLine());
+            novoEntregador.setTelefone(sc.nextInt());
 
             System.out.print("Veiculo:  (Carro, moto ou bicicleta)");
             novoEntregador.setVeiculo(sc.nextLine());

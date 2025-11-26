@@ -1,5 +1,5 @@
 package br.com.pedija.parceiro.view;
-import br.com.pedija.parceiro.controller.EntregadorController;
+import br.com.pedija.entregador.controller.EntregadorController;
 import br.com.pedija.parceiro.controller.PedidoController;
 import br.com.pedija.superadm.model.Entregador;
 import br.com.pedija.superadm.model.Parceiro;
@@ -71,7 +71,7 @@ public class TelaEntregasParceiro {
         System.out.println("\n PEDIDOS AGUARDANDO ENTREGADOR");
         System.out.println("------------------------------");
 
-        List<Pedido> pedidos = pedidoController.listarAguardandoEntregador(parceiro.getId());
+        List<Pedido> pedidos = pedidoController.listarAguardandoEntregador();
 
         if (pedidos.isEmpty()) {
             System.out.println("\nNenhum pedido aguardando entregador");
@@ -111,7 +111,7 @@ public class TelaEntregasParceiro {
 
         System.out.println("\nENTREGADORES DISPONÍVEIS:");
         for (Entregador e : disponiveis) {
-            System.out.println("ID: " + e.getId() + " - " + e.getNomeEntregador() +
+            System.out.println("ID: " + e.getId() + " - " + e.getNome() +
                     " (" + e.getVeiculo() + ")");
         }
 
@@ -177,7 +177,7 @@ public class TelaEntregasParceiro {
         } else {
             for (Entregador e : disponiveis) {
                 System.out.println("\nID: " + e.getId());
-                System.out.println("Nome: " + e.getNomeEntregador());
+                System.out.println("Nome: " + e.getNome());
                 System.out.println("Veículo: " + e.getVeiculo());
                 System.out.println("Telefone: " + e.getTelefone());
                 System.out.println("----------------------------");
