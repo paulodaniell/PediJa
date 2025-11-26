@@ -60,6 +60,23 @@ public class DatabaseConnection {
             prazo INT
         )
     """;
+        String createEntregadorSQL = """
+    CREATE TABLE IF NOT EXISTS Entregador (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        nome VARCHAR(100) NOT NULL,
+        email VARCHAR(100) NOT NULL UNIQUE,
+        senha VARCHAR(255) NOT NULL,
+        telefone VARCHAR(20) NOT NULL,
+        cpf VARCHAR(20) NOT NULL UNIQUE,
+        veiculo VARCHAR(50) NOT NULL,
+        disponivel BOOLEAN DEFAULT TRUE,
+        formasPagamento VARCHAR(255),
+        contatoDeEmergencia VARCHAR(20),
+        nomeEmergencia VARCHAR(100)
+    )
+    """;
+
+
 
 
         String createParceiroSQL = """
@@ -100,6 +117,8 @@ public class DatabaseConnection {
     """;
 
 
+
+
         String createPromocaoSQL = """
         CREATE TABLE IF NOT EXISTS Promocao (
             id INT PRIMARY KEY AUTO_INCREMENT,
@@ -133,6 +152,7 @@ public class DatabaseConnection {
             stmt.execute(createProdutosSQL);
             stmt.execute(createPedidoSQL);
             stmt.execute(createPromocaoSQL);
+            stmt.execute(createEntregadorSQL);
 
             System.out.println("SUCESSO: Banco de dados inicializado com sucesso!");
             System.out.println("  Usando: " +
