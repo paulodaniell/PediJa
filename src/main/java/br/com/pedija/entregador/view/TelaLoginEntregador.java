@@ -1,6 +1,5 @@
 package br.com.pedija.entregador.view;
 
-import br.com.pedija.entregador.controller.*;
 import br.com.pedija.entregador.controller.EntregadorController;
 import br.com.pedija.superadm.dao.EntregadorDAO;
 import br.com.pedija.superadm.model.Entregador;
@@ -9,11 +8,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public class TelaLoginEntregador{
+public class TelaLoginEntregador {
 
     private Scanner sc;
     private EntregadorController controller;
-    private Entregador entregador;
     private EntregadorDAO entregadorDAO;
 
     public TelaLoginEntregador() {
@@ -24,28 +22,22 @@ public class TelaLoginEntregador{
 
     public void exibir() {
 
-        int opcao = 0;
+        int opcao;
 
         do {
             System.out.println("\nPEDIJA - Entregador");
             System.out.println("1 - Login");
             System.out.println("2 - Cadastrar");
-            System.out.println("0 Sair");
+            System.out.println("0 - Sair");
 
             opcao = sc.nextInt();
             sc.nextLine();
 
             switch (opcao) {
-                case 1:
-                    entrar();
-                    break;
-                case 2:
-                    cadastrar();
-                    break;
-                case 0:
-                    return;
-                default:
-                    System.out.println("Opção inválida!");
+                case 1 -> entrar();
+                case 2 -> cadastrar();
+                case 0 -> { return; }
+                default -> System.out.println("Opção inválida!");
             }
 
         } while (true);
@@ -85,15 +77,21 @@ public class TelaLoginEntregador{
             novoEntregador.setCpf(sc.nextLine());
 
             System.out.print(" Telefone: ");
-            novoEntregador.setTelefone(sc.nextInt());
+            novoEntregador.setTelefone(sc.nextLine());
 
-            System.out.print("Veiculo:  (Carro, moto ou bicicleta)");
+            System.out.print(" Veículo (Carro, moto ou bicicleta): ");
             novoEntregador.setVeiculo(sc.nextLine());
 
             novoEntregador.setDisponivel(true);
 
+            System.out.print(" Contato de Emergência: ");
+            novoEntregador.setContatoDeEmergencia(Integer.parseInt(sc.nextLine()));
+
+            System.out.print(" Nome do Contato de Emergência: ");
+            novoEntregador.setNomeEmergencia(sc.nextLine());
+
             System.out.println("═══ FORMAS DE PAGAMENTO ═══");
-            System.out.print("Digite as formas de pagamento (separadas por vírgula ex:pix,debito,credito): ");
+            System.out.print("Digite as formas de pagamento (ex: pix,debito,credito): ");
             String formasInput = sc.nextLine();
 
             List<String> formas = Arrays.asList(formasInput.split(","));
@@ -106,32 +104,40 @@ public class TelaLoginEntregador{
             System.out.println(" Email: " + novoEntregador.getEmail());
             System.out.println(" CPF: " + novoEntregador.getCpf());
             System.out.println(" Telefone: " + novoEntregador.getTelefone());
+            System.out.println(" Contato de Emergência: " + novoEntregador.getContatoDeEmergencia());
+            System.out.println(" Nome do Contato: " + novoEntregador.getNomeEmergencia());
             System.out.println("----------------------------------");
 
             System.out.print("\nConfirma cadastro? (S/N): ");
             String confirma = sc.nextLine();
 
             if (confirma.equalsIgnoreCase("S")) {
+
                 if (controller.cadastrar(novoEntregador)) {
                     System.out.println("\n Entregador cadastrado com sucesso!");
                     System.out.println(" Bem-vindo ao Pedija, " + novoEntregador.getNome() + "!");
 
-                    Entregador entregadorLogado = controller.login(novoEntregador.getEmail(), novoEntregador.getSenha());
+                    Entregador entregadorLogado = controller.login(
+                            novoEntregador.getEmail(),
+                            novoEntregador.getSenha()
+                    );
 
                     if (entregadorLogado != null) {
                         TelaInicialEntregador menu = new TelaInicialEntregador();
                         menu.TelaInicioEntregador();
                     }
+
                 } else {
                     System.out.println("\n Erro ao cadastrar entregador!");
                 }
+
             } else {
                 System.out.println("\n Cadastro cancelado!");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("\n️ Erro no cadastro.");
+            System.out.println("\n Erro no cadastro.");
         }
     }
 
@@ -153,4 +159,4 @@ public class TelaLoginEntregador{
             System.out.println("Email ou senha inválidos!");
         }
     }
-    }
+}

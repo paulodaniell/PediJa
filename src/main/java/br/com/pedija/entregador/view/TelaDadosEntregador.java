@@ -47,8 +47,7 @@ public class TelaDadosEntregador {
 
                 case 2:
                     System.out.println("Telefone: ");
-                    int novoTelefone = sc.nextInt();
-                    sc.nextLine();
+                    String novoTelefone = sc.nextLine();
                     entregador.setTelefone(novoTelefone);
                     break;
 

@@ -16,9 +16,6 @@ public class TelaNovaEntrega {
 
         System.out.println("---------Você está disponível para novas entregas-----------------\n");
 
-        int opcao = 0;
-
-
     System.out.println("Temos corridas para você!");
 
     System.out.println(pedidoDAO.buscarPorStatus("PRONTO"));
@@ -35,12 +32,15 @@ public class TelaNovaEntrega {
 
         System.out.println("Tem certeza que deseja aceitar: (1  - Sim) (2 - Não)");
 
+        int opcao = sc.nextInt();
+
         switch (opcao) {
             case 1:
 
                 System.out.println("Corrida Iniciada! \n");
                 pedidoaceito.setStatus("EM ENTREGA");
-                telacorrida.corrida();
+                pedidoDAO.atualizar(pedidoaceito);
+                telacorrida.corrida(pedidoaceito);
                 break;
 
             case 2:

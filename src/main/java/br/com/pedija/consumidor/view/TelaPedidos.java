@@ -13,7 +13,6 @@ public class TelaPedidos {
     private PedidoController pedidoController;
     private final Scanner sc;
     private final Usuario usuarioLogado;
-    Pedido pedido;
 
     public TelaPedidos(PedidoController pedidoController, Usuario usuarioLogado) {
         this.pedidoController = pedidoController;
@@ -98,8 +97,8 @@ public class TelaPedidos {
             String resposta = sc.nextLine().trim().toUpperCase();
 
             if (resposta.equals("S")) {
-                pedidoconfirmado.setStatus("PRONTO");
-                pedidoController.atualizarStatus(pedidoconfirmado.getId(), "PRONTO");
+                pedidoconfirmado.setStatus("ENTREGUE");
+                pedidoController.atualizarStatus(pedidoconfirmado.getId(), "ENTREGUE");
                 System.out.printf("\nPedido recebido e CONCLUÍDO!");
                 return;
 
@@ -170,8 +169,6 @@ public class TelaPedidos {
             }
         }
 
-
-
         if (emAndamento.isEmpty()) {
             System.out.println("Nenhum pedido em andamento.\n");
         }
@@ -230,9 +227,9 @@ public class TelaPedidos {
                     Pedido pedidoSelecionado = lista.get(escolha - 1);
 
                     if (permitirConfirmar) {
-                        exibirDetalhesEConfirmar(pedidoSelecionado); // detalhes + confirmar
+                        exibirDetalhesEConfirmar(pedidoSelecionado);
                     } else {
-                        exibirDetalhes(pedidoSelecionado);           // só detalhes
+                        exibirDetalhes(pedidoSelecionado);
                     }
 
                     return;

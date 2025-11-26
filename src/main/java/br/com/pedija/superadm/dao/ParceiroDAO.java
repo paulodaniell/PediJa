@@ -13,7 +13,6 @@ public class ParceiroDAO {
     // CREATE
     public void criar(Parceiro parceiro) {
 
-
         String sql = """
             INSERT INTO Parceiro 
             (cnpj, nome, senha, telefone, email, endereco, categoria, taxaEntrega, cep, estado, cidade, bairro, numero, horarioSemana, horarioFimSemana, formasPagamento)

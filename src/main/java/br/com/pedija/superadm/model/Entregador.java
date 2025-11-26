@@ -7,7 +7,7 @@ public class Entregador {
     private String nome;
     private String email;
     private String senha;
-    private int telefone;
+    private String telefone;
     private String cpf;
     private String veiculo;
     private boolean disponivel;
@@ -44,11 +44,11 @@ public class Entregador {
         this.id = id;
     }
 
-    public int getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(int telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 
@@ -85,6 +85,7 @@ public class Entregador {
     }
 
     public void setSenha(String s) {
+            this.senha = s;
     }
 
     public int getContatoDeEmergencia() {

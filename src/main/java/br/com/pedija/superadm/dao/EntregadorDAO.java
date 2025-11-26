@@ -2,7 +2,6 @@ package br.com.pedija.superadm.dao;
 
 import br.com.pedija.superadm.database.DatabaseConnection;
 import br.com.pedija.superadm.model.Entregador;
-import br.com.pedija.superadm.model.Parceiro;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,26 +10,35 @@ import java.util.List;
 
 public class EntregadorDAO {
 
-
     public void criar(Entregador entregador) {
 
         String sql = """
-                INSERT INTO Entregador (nomeEntregador, telefone, cpf, veiculo, disponivel)
-                VALUES (?, ?, ?, ?, ?)
+                INSERT INTO Entregador 
+                (nome, email, senha, telefone, cpf, veiculo, disponivel, formasPagamento, contatoDeEmergencia, nomeEmergencia)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """;
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             stmt.setString(1, entregador.getNome());
-            stmt.setInt(2, entregador.getTelefone());
-            stmt.setString(3, entregador.getCpf());
-            stmt.setString(4, entregador.getVeiculo());
-            stmt.setBoolean(5, entregador.isDisponivel());
+            stmt.setString(2, entregador.getEmail());
+            stmt.setString(3, entregador.getSenha());
+            stmt.setString(4, entregador.getTelefone());
+            stmt.setString(5, entregador.getCpf());
+            stmt.setString(6, entregador.getVeiculo());
+            stmt.setBoolean(7, entregador.isDisponivel());
+
+            if (entregador.getFormasPagamento() != null)
+                stmt.setString(8, String.join(",", entregador.getFormasPagamento()));
+            else
+                stmt.setString(8, null);
+
+            stmt.setInt(9, entregador.getContatoDeEmergencia());
+            stmt.setString(10, entregador.getNomeEmergencia());
 
             stmt.executeUpdate();
 
-            // Pega o ID gerado pelo banco e salva no objeto
             ResultSet rs = stmt.getGeneratedKeys();
             if (rs.next()) {
                 entregador.setId(rs.getInt(1));
@@ -41,11 +49,9 @@ public class EntregadorDAO {
         }
     }
 
-
-    // READ ALL
     public List<Entregador> buscarTodos() {
         List<Entregador> entregadores = new ArrayList<>();
-        // SQL CORRIGIDO: Nome da tabela 'Entregador'
+
         String sql = "SELECT * FROM Entregador ORDER BY id";
 
         try (Connection conn = DatabaseConnection.getConnection();
@@ -53,7 +59,7 @@ public class EntregadorDAO {
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
-                entregadores.add(mapEntregador(rs)); // Usando o map
+                entregadores.add(mapEntregador(rs));
             }
 
         } catch (SQLException e) {
@@ -63,10 +69,7 @@ public class EntregadorDAO {
         return entregadores;
     }
 
-
-    // READ BY ID
     public Entregador buscarPorId(int id) {
-        // SQL CORRIGIDO: Nome da tabela 'Entregador'
         String sql = "SELECT * FROM Entregador WHERE id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
@@ -76,20 +79,19 @@ public class EntregadorDAO {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                return mapEntregador(rs); // Usando o map
+                return mapEntregador(rs);
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao buscar entregador: " + e.getMessage(), e);
+            throw new RuntimeException("Erro ao buscar entregador por ID: " + e.getMessage(), e);
         }
 
         return null;
     }
 
-    // READ - LISTAR DISPONÍVEIS (Adicionado do DAO 1, mas corrigido)
     public List<Entregador> listarDisponiveis() {
         List<Entregador> lista = new ArrayList<>();
-        // SQL CORRIGIDO: Nome da tabela 'Entregador'
+
         String sql = "SELECT * FROM Entregador WHERE disponivel = TRUE ORDER BY id";
 
         try (Connection conn = DatabaseConnection.getConnection();
@@ -107,13 +109,12 @@ public class EntregadorDAO {
         return lista;
     }
 
-
-    // UPDATE
     public void atualizar(Entregador entregador) {
-        // SQL CORRIGIDO: Nome da tabela 'Entregador'
+
         String sql = """
                 UPDATE Entregador
-                SET nomeEntregador = ?, telefone = ?, cpf = ?, veiculo = ?, disponivel = ?
+                SET nome = ?, email = ?, senha = ?, telefone = ?, cpf = ?, veiculo = ?, 
+                    disponivel = ?, formasPagamento = ?, contatoDeEmergencia = ?, nomeEmergencia = ?
                 WHERE id = ?
                 """;
 
@@ -121,16 +122,26 @@ public class EntregadorDAO {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, entregador.getNome());
-            stmt.setInt(2, entregador.getTelefone());
-            stmt.setString(3, entregador.getCpf());
-            stmt.setString(4, entregador.getVeiculo());
-            stmt.setBoolean(5, entregador.isDisponivel());
-            stmt.setInt(6, entregador.getId());
+            stmt.setString(2, entregador.getEmail());
+            stmt.setString(3, entregador.getSenha());
+            stmt.setString(4, entregador.getTelefone());
+            stmt.setString(5, entregador.getCpf());
+            stmt.setString(6, entregador.getVeiculo());
+            stmt.setBoolean(7, entregador.isDisponivel());
 
-            int rowsAffected = stmt.executeUpdate();
+            if (entregador.getFormasPagamento() != null)
+                stmt.setString(8, String.join(",", entregador.getFormasPagamento()));
+            else
+                stmt.setString(8, null);
 
-            if (rowsAffected == 0) {
-                throw new RuntimeException("Entregador não encontrado!");
+            stmt.setInt(9, entregador.getContatoDeEmergencia());
+            stmt.setString(10, entregador.getNomeEmergencia());
+
+            stmt.setInt(11, entregador.getId());
+
+            int rows = stmt.executeUpdate();
+            if (rows == 0) {
+                throw new RuntimeException("Entregador não encontrado.");
             }
 
         } catch (SQLException e) {
@@ -138,10 +149,8 @@ public class EntregadorDAO {
         }
     }
 
-
-    // DELETE
     public void deletar(int id) {
-        // SQL CORRIGIDO: Nome da tabela 'Entregador'
+
         String sql = "DELETE FROM Entregador WHERE id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
@@ -149,30 +158,41 @@ public class EntregadorDAO {
 
             stmt.setInt(1, id);
 
-            int rowsAffected = stmt.executeUpdate();
-
-            if (rowsAffected == 0) {
-                throw new RuntimeException("Entregador não encontrado!");
+            int rows = stmt.executeUpdate();
+            if (rows == 0) {
+                throw new RuntimeException("Entregador não encontrado.");
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao remover entregador: " + e.getMessage(), e);
+            throw new RuntimeException("Erro ao excluir entregador: " + e.getMessage(), e);
         }
     }
 
-    // MAP RESULTSET → OBJETO (Reutilizável)
     private Entregador mapEntregador(ResultSet rs) throws SQLException {
         Entregador e = new Entregador();
+
         e.setId(rs.getInt("id"));
-        e.setNome(rs.getString("nomeEntregador"));
-        e.setTelefone(rs.getInt("telefone"));
+        e.setNome(rs.getString("nome"));
+        e.setEmail(rs.getString("email"));
+        e.setSenha(rs.getString("senha"));
+        e.setTelefone(rs.getString("telefone"));
         e.setCpf(rs.getString("cpf"));
         e.setVeiculo(rs.getString("veiculo"));
         e.setDisponivel(rs.getBoolean("disponivel"));
+
+        String formas = rs.getString("formasPagamento");
+        if (formas != null && !formas.isEmpty()) {
+            e.setFormasPagamento(Arrays.asList(formas.split(",")));
+        }
+
+        e.setContatoDeEmergencia(rs.getInt("contatoDeEmergencia"));
+        e.setNomeEmergencia(rs.getString("nomeEmergencia"));
+
         return e;
     }
 
     public Entregador login(String email, String senha) {
+
         String sql = "SELECT * FROM Entregador WHERE email = ? AND senha = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
@@ -184,32 +204,13 @@ public class EntregadorDAO {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                // --- Mapeamento feito aqui dentro ---
-                Entregador e = new Entregador();
-                e.setId(rs.getInt("id"));
-                e.setNome(rs.getString("nome"));
-                e.setEmail(rs.getString("email"));
-                e.setSenha(rs.getString("senha"));
-                e.setTelefone(rs.getInt("telefone"));
-                e.setCpf(rs.getString("cpf"));
-                e.setVeiculo(rs.getString("veiculo"));
-                e.setDisponivel(rs.getBoolean("disponivel"));
-
-                String formasPagamento = rs.getString("formasPagamento");
-                if (formasPagamento != null && !formasPagamento.isEmpty()) {
-                    e.setFormasPagamento(Arrays.asList(formasPagamento.split(",")));
-                } else {
-                    e.setFormasPagamento(new ArrayList<>());
-                }
-
-                return e;
+                return mapEntregador(rs);
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao fazer login: " + e.getMessage(), e);
+            throw new RuntimeException("Erro no login: " + e.getMessage(), e);
         }
 
         return null;
     }
-
 }

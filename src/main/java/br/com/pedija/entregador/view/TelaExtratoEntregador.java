@@ -1,27 +1,19 @@
 package br.com.pedija.entregador.view;
-
-import java.util.Scanner;
+import br.com.pedija.superadm.dao.PedidoDAO;
+import br.com.pedija.superadm.model.Pedido;
 
 public class TelaExtratoEntregador {
+
+    PedidoDAO pedidoDAO = new PedidoDAO();
+    Pedido pedido = new Pedido();
 
     public void extrato() {
 
         TelaInicialEntregador tela = new TelaInicialEntregador();
 
-        double ganhoSemanal = 1300;
-        System.out.println("Ganho da semana: " + ganhoSemanal);
+        pedidoDAO.buscarPorStatus("ENTREGUE");
 
-        double ganhoDiario = 100;
-        System.out.println("Ganho da semana: " + ganhoDiario);
 
-        System.out.println("Voltar (1 - Sim)");
-        Scanner sc = new Scanner(System.in);
-        int voltar = sc.nextInt();
-
-        if (voltar == 1) {
-           tela.TelaInicioEntregador();
-
-        }
 
 
     }

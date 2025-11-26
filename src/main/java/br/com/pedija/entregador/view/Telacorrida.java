@@ -1,29 +1,36 @@
 package br.com.pedija.entregador.view;
 
-import java.util.Scanner;
+import br.com.pedija.superadm.dao.PedidoDAO;
+import br.com.pedija.superadm.model.Pedido;
 
 public class Telacorrida {
-    public void corrida() {
+    PedidoDAO pedidoDAO = new PedidoDAO();
 
-        Scanner sc = new Scanner(System.in);
-
-        int codigoParceiro;
-
-        System.out.println("Digite o código do parceiro: ");
-        codigoParceiro = sc.nextInt();
-
-        System.out.println("Código correto " +  codigoParceiro + "\n");
-        System.out.println("Vá para o local de entrega para finalizar a corrida \n");
-
-        int codigoCliente;
-
-        System.out.println("Digite o código do cliente: ");
-        codigoCliente = sc.nextInt();
-
-        System.out.println("Código correto " +  codigoCliente + "\n");
-
-    System.out.println("PARABÉNS ENTREGA REALIZADA COM SUCESSO");
+    public void corrida(Pedido pedido) {
 
 
-    }
+        String pedidostatus = pedido.getStatus();
+
+        if (pedido.getStatus() == null) {
+            System.out.println("Pedido invalido ou sem status.");
+            return;
+        }
+
+        if (pedidostatus.equals("EM ENTREGA")) {
+            System.out.println(pedidoDAO.buscarPorStatus("EM ENTREGA"));
+            System.out.println("Esperando Consumidor Confirmar Entrega");
+        }
+
+        if (pedidostatus.equals("ENTREGUE")) {
+            System.out.println(pedidoDAO.buscarPorStatus("ENTREGUE"));
+            System.out.println("PARABÉNS ENTREGA REALIZADA COM SUCESSO");
+
+            System.out.println("Deseja voltar para o menu inicial? (S/N)");
+            String opcao = new java.util.Scanner(System.in).nextLine();
+            if (opcao.equalsIgnoreCase("S")) {
+                TelaInicialEntregador telaInicialEntregador = new TelaInicialEntregador();
+                telaInicialEntregador.TelaInicioEntregador();
+            }
+        }
 }
+    }

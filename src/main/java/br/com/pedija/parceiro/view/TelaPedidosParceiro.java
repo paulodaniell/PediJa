@@ -31,7 +31,7 @@ public class TelaPedidosParceiro {
             System.out.println("2- Pedidos em Preparo: (" + pedidoController.contarPedidosEmPreparo() + ")");
             System.out.println("3- Pedidos Esperando Entregador: (" + pedidoController.contarPedidosEsperandoEntregador() + ")");
             System.out.println("4- Pedidos em Entrega: (" + pedidoController.contarPedidosEmEntrega() + ")");
-            System.out.println("5 - Pedidos Entregues: (" + pedidoController.contarPedidosEntregues());
+            System.out.println("5 - Pedidos Entregues: (" + pedidoController.contarPedidosEntregues() + ")");
             System.out.println("0- Voltar");
 
             System.out.print("\nEscolha uma opção: ");
@@ -238,7 +238,7 @@ public class TelaPedidosParceiro {
     }
 
     private void marcarComoPronto(int id) {
-        if (pedidoController.atualizarStatus(id, "EM ENTREGA")) {
+        if (pedidoController.atualizarStatus(id, "PRONTO")) {
             System.out.println("\nPedido #" + id + " está à caminho");
         } else {
             System.out.println("\nErro ao atualizar pedido!");
