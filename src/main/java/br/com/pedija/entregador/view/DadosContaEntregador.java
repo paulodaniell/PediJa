@@ -56,10 +56,50 @@ public class DadosContaEntregador {
         }
     }
 
-    private void executarEdicao() {
+    private boolean executarEdicao() {
         System.out.println("\n=== EDIÇÃO DE DADOS ===");
         System.out.println("1 - Nome (" + entregadorLogado.getNome() + ")");
         System.out.println("2 - Email (" + entregadorLogado.getEmail() + ")");
         System.out.println("3 - Telefone (" + entregadorLogado.getTelefone() + ")");
+        System.out.println("0 - Cancelar Edição");
+        System.out.print("Qual dado quer alterar? ");
+
+        int dado;
+        try {
+            String line = sc.nextLine().trim();
+            dado = line.isEmpty() ? -1 : Integer.parseInt(line);
+        } catch (NumberFormatException e) {
+            System.out.println("Opção inválida. Digite apenas o número.");
+            return false;
+        }
+
+        if (dado == 0) {
+            System.out.println("Edição cancelada.");
+            return false;
+        }
+
+        if (dado < 1 || dado > 3) {
+            System.out.println("Opção de dado inválida!");
+            return false;
+        }
+
+        System.out.print("Digite o novo valor: ");
+        String novoValor = sc.nextLine().trim();
+
+        if (novoValor.isEmpty()) {
+            System.out.println("Valor não pode ser vazio. Edição cancelada.");
+            return false;
+        }
+
+        switch (dado) {
+            case 1 -> entregadorLogado.setNome(novoValor);
+            case 2 -> entregadorLogado.setEmail(novoValor);
+            case 3 -> entregadorLogado.setTelefone(novoValor);
+        }
+
+
+        controller.atualizarEntregador(entregadorLogado);
+
+        return true;
     }
 }

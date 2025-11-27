@@ -93,4 +93,15 @@ public class EntregadorController {
         return true;
     }
 
+    public boolean atualizarEntregador(Entregador entregador) {
+        try {
+            entregadorDAO.atualizar(entregador);
+            return true;
+
+        } catch (Exception e) {
+            System.out.println("Erro ao atualizar usuário: " + e.getMessage());
+            return false;
+        }
+    }
+
 }

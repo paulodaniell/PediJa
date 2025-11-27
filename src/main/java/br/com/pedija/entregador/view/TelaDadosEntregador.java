@@ -14,7 +14,7 @@ public class TelaDadosEntregador {
 
         TelaPerfilEntregador telaPerfil = new TelaPerfilEntregador(entregador, entregadorController);
 
-        Entregador entregador = new Entregador();
+       Entregador entregador = new Entregador();
 
         Scanner sc = new Scanner(System.in);
 
