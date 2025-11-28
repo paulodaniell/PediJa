@@ -123,7 +123,8 @@ public class TelaLoginEntregador {
                     );
 
                     if (entregadorLogado != null) {
-                        TelaInicialEntregador menu = new TelaInicialEntregador();
+                        // <-- só alterado aqui: passar o entregador logado ao criar a TelaInicialEntregador
+                        TelaInicialEntregador menu = new TelaInicialEntregador(entregadorLogado);
                         menu.TelaInicioEntregador();
                     }
 
@@ -152,7 +153,8 @@ public class TelaLoginEntregador {
 
         if (entregadorLogado != null) {
             System.out.println("Login realizado com sucesso! Bem-vindo " + entregadorLogado.getNome());
-            TelaInicialEntregador menu = new TelaInicialEntregador();
+            // <-- só alterado aqui: passar o entregador logado ao criar a TelaInicialEntregador
+            TelaInicialEntregador menu = new TelaInicialEntregador(entregadorLogado);
             menu.TelaInicioEntregador();
 
         } else {

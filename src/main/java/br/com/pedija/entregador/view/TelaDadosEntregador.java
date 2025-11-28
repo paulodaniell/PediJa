@@ -1,84 +1,59 @@
 package br.com.pedija.entregador.view;
 
-import java.util.Scanner;
-
-import br.com.pedija.entregador.controller.EntregadorController;
 import br.com.pedija.superadm.model.Entregador;
+import java.util.Scanner;
 
 public class TelaDadosEntregador {
 
-    Entregador entregador;
-    EntregadorController entregadorController;
+    private Entregador entregador;
 
-    public void dadosview() {
+    public TelaDadosEntregador(Entregador entregador) {
+        this.entregador = entregador;
+    }
 
-        TelaPerfilEntregador telaPerfil = new TelaPerfilEntregador(entregador, entregadorController);
-
-       Entregador entregador = new Entregador();
+    public void exibirDados() {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Dados Pessoais:");
+        System.out.println("\nDados Pessoais:");
         System.out.println("1 - CPF: " + entregador.getCpf());
-        System.out.println("2 - Telefone: " + entregador.getTelefone());
-        System.out.println("3 - Email:  " + entregador.getEmail());
-        System.out.println("4 - Contato de Emerência: " + entregador.getContatoDeEmergencia());
-        System.out.println("5 - Nome Contato de emergência: " + entregador.getNomeEmergencia() + "\n");
+        System.out.println("2 - Contato de Emergência: " + entregador.getContatoDeEmergencia());
+        System.out.println("3 - Nome do Contato de Emergência: " + entregador.getNomeEmergencia());
+        System.out.println();
 
-
-        System.out.println("Deseja mudar algum dado do seu perfil? (1 - Sim) (2 - Não)");
+        System.out.println("Deseja mudar algum dado? (1 - Sim / 2 - Não)");
         int mudar = sc.nextInt();
         sc.nextLine();
 
         if (mudar == 1) {
 
-            System.out.println("Qual dado quer mudar? Digite pelo numero");
+            System.out.println("Qual dado deseja mudar?");
             int numdado = sc.nextInt();
             sc.nextLine();
 
             switch (numdado) {
 
                 case 1:
-                    System.out.println("CPF: ");
-                    String novoCpf = sc.nextLine();
-                    sc.nextLine();
-                    entregador.setCpf(novoCpf);
+                    System.out.print("Novo CPF: ");
+                    entregador.setCpf(sc.nextLine());
                     break;
-
                 case 2:
-                    System.out.println("Telefone: ");
-                    String novoTelefone = sc.nextLine();
-                    entregador.setTelefone(novoTelefone);
+                    System.out.print("Novo contato de emergência: ");
+                    entregador.setContatoDeEmergencia(sc.nextInt());
+                    sc.nextLine();
                     break;
 
                 case 3:
-                    System.out.println("Email: ");
-                    String novoEmail = sc.nextLine();
-                    entregador.setEmail(novoEmail);
-                    break;
-
-                case 4:
-                    System.out.println("Contato de emergencia: ");
-                    int novoContato = sc.nextInt();
-                    sc.nextLine();
-                    entregador.setContatoDeEmergencia(novoContato);
-                    break;
-
-                case 5:
-                    System.out.println("Nome do contato: ");
-                    String novoNome = sc.nextLine();
-                    entregador.setNomeEmergencia(novoNome);
+                    System.out.print("Novo nome do contato: ");
+                    entregador.setNomeEmergencia(sc.nextLine());
                     break;
 
                 default:
+                    System.out.println("Opção inválida.");
                     break;
-
             }
         }
 
-        else {
-                telaPerfil.verPerfil();
-
-        }
-        }
+        System.out.println("Voltando ao perfil...");
     }
+}
