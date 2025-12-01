@@ -92,6 +92,7 @@ public class TelaProdutosParceiro {
             novo.setCategoria_id(1);
             novo.setDisponivel(true);
             novo.setIdParceiro(parceiro.getId());
+            novo.setNomeParceiro(parceiro.getNome());
 
             if (produtoController.adicionarProduto(novo)) {
                 System.out.println("Produto adicionado com sucesso!");

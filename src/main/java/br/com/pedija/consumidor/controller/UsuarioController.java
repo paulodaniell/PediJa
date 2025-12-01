@@ -39,7 +39,6 @@ public class UsuarioController {
 
         usuarioDAO.criar(usuario);
 
-        System.out.println("Consumidor cadastrado no banco!");
         return true;
     }
 
