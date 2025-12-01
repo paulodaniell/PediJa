@@ -69,22 +69,30 @@ public class TelaVerCarrinho {
             System.out.println("Item removido com sucesso!\n");
         }
     }
-
     private void finalizarPedido() {
+
         String forma = escolherFormaPagamento();
         if (forma == null) {
-            System.out.println("\n Pagamento cancelado. Voltando ao carrinho...\n");
+            System.out.println("\nPagamento cancelado. Voltando ao carrinho...\n");
             return;
         }
 
-        usuario.setFormadepagamento(forma);
-        usuarioController.atualizarUsuario(usuario);
+
+        Usuario usuarioAtualizado = usuarioController.buscarPorId(usuario.getId());
+        if (usuarioAtualizado == null) {
+            System.out.println("Erro: usuário não encontrado no banco. Não é possível finalizar o pedido.");
+            return;
+        }
+
+
+        usuarioAtualizado.setFormadepagamento(forma);
+        usuarioController.atualizarUsuario(usuarioAtualizado);
 
         Pedido revisao = pedidoController.revisaopedido(
                 carrinho.listar(),
-                usuario.getId(),
-                usuario.getNome(),
-                usuario.getEndereco(),
+                usuarioAtualizado.getId(),
+                usuarioAtualizado.getNome(),
+                usuarioAtualizado.getEndereco(),
                 forma
         );
 
@@ -99,13 +107,12 @@ public class TelaVerCarrinho {
             try {
                 pedidoController.criarPedido(revisao);
                 carrinho.limpar();
-                System.out.println("\n Pedido confirmado com sucesso!");
-
+                System.out.println("\nPedido confirmado com sucesso!");
             } catch (Exception e) {
-                System.out.println("\n Erro ao confirmar pedido: " + e.getMessage());
+                System.out.println("\nErro ao confirmar pedido: " + e.getMessage());
             }
         } else {
-            System.out.println("\n Pedido cancelado. Voltando ao carrinho...\n");
+            System.out.println("\nPedido cancelado. Voltando ao carrinho...\n");
         }
     }
 

@@ -1,6 +1,7 @@
 package br.com.pedija.consumidor.controller;
 
 
+import br.com.pedija.superadm.model.Parceiro;
 import br.com.pedija.superadm.model.Usuario;
 import br.com.pedija.superadm.dao.UsuarioDAO;
 
@@ -51,6 +52,10 @@ public class UsuarioController {
             System.out.println("Erro ao atualizar usuário: " + e.getMessage());
             return false;
         }
+    }
+
+    public Usuario buscarPorId(int id) {
+        return usuarioDAO.buscarPorId(id);
     }
 
 
