@@ -29,9 +29,9 @@ public class TelaPedidosParceiro {
 
             System.out.println("1- Pedidos Pendentes: (" + pedidoController.contarPedidosPendentes() + ")");
             System.out.println("2- Pedidos em Preparo: (" + pedidoController.contarPedidosEmPreparo() + ")");
-            System.out.println("3- Pedidos Prontos: (" + pedidoController.contarPedidosProntos() + ")");
-            System.out.println("4- Histórico");
-            System.out.println("5- Pedidos em Entrega: (" + pedidoController.contarPedidosEmEntrega() + ")");
+            System.out.println("3- Pedidos Esperando Entregador: (" + pedidoController.contarPedidosEsperandoEntregador() + ")");
+            System.out.println("4- Pedidos em Entrega: (" + pedidoController.contarPedidosEmEntrega() + ")");
+            System.out.println("5 - Pedidos Entregues: (" + pedidoController.contarPedidosEntregues() + ")");
             System.out.println("0- Voltar");
 
             System.out.print("\nEscolha uma opção: ");
@@ -52,9 +52,9 @@ public class TelaPedidosParceiro {
         switch (opcao) {
             case 1: exibirPendentes(); break;
             case 2: exibirEmPreparo(); break;
-            case 3: exibirProntos(); break;
-            case 4: exibirHistorico(); break;
-            case 5: exibirEmEntrega(); break;
+            case 3: exibirEsperandoEntregador(); break;
+            case 4: exibirEmEntrega(); break;
+            case 5: exibirEntregues(); break;
             case 0: System.out.println("Voltando.."); break;
             default: System.out.println("Opção inválida!"); break;
         }
@@ -105,7 +105,7 @@ public class TelaPedidosParceiro {
 
     public void exibirEmPreparo() {
         System.out.println("---------------------");
-        System.out.println("PEDIDOS EM PREPARO:");
+        System.out.println("PEDIDOS EM PREPARO");
         System.out.println("---------------------");
 
         List<Pedido> pedidos = pedidoController.listarEmPreparo();
@@ -136,12 +136,12 @@ public class TelaPedidosParceiro {
         }
     }
 
-    private void exibirProntos() {
+    private void exibirEsperandoEntregador() {
         System.out.println("---------------------");
-        System.out.println("PEDIDOS PRONTOS:");
+        System.out.println("PEDIDOS ESPERANDO ENTREGADOR");
         System.out.println("---------------------");
 
-        List<Pedido> pedidos = pedidoController.listarProntos();
+        List<Pedido> pedidos = pedidoController.listarAguardandoEntregador();
 
         if (pedidos.isEmpty()) {
             System.out.println("\nNenhum pedido pronto no momento");
@@ -158,7 +158,7 @@ public class TelaPedidosParceiro {
 
     private void exibirEmEntrega() {
         System.out.println("---------------------");
-        System.out.println("PEDIDOS EM ENTREGA:");
+        System.out.println("PEDIDOS EM ENTREGA");
         System.out.println("---------------------");
 
         List<Pedido> pedidos = pedidoController.listarEmEntrega();
@@ -178,12 +178,12 @@ public class TelaPedidosParceiro {
         sc.nextLine();
     }
 
-    private void exibirHistorico() {
+    private void exibirEntregues() {
         System.out.println("---------------------");
-        System.out.println("HISTÓRICO DE PEDIDOS");
+        System.out.println("PEDIDOS ENTREGUES");
         System.out.println("---------------------");
 
-        List<Pedido> entregues = pedidoController.listarProntos();
+        List<Pedido> entregues = pedidoController.listarPedidosEntregues();
 
         System.out.println("\nTotal de pedidos entregues: " + entregues.size());
 
@@ -238,7 +238,7 @@ public class TelaPedidosParceiro {
     }
 
     private void marcarComoPronto(int id) {
-        if (pedidoController.atualizarStatus(id, "EM ENTREGA")) {
+        if (pedidoController.atualizarStatus(id, "PRONTO")) {
             System.out.println("\nPedido #" + id + " está à caminho");
         } else {
             System.out.println("\nErro ao atualizar pedido!");

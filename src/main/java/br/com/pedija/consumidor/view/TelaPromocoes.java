@@ -17,7 +17,7 @@ public class TelaPromocoes {
     private final CarrinhoController carrinhoController;
 
     public TelaPromocoes(CarrinhoController carrinhoController, Scanner sc) {
-        this.sc = sc;
+        this.sc = sc; // Scanner vindo do menu principal
         this.promocaoDAO = new PromocaoDAO();
         this.produtoDAO = new ProdutoDAO();
         this.carrinhoController = carrinhoController;

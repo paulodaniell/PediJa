@@ -1,50 +1,45 @@
 package br.com.pedija.entregador.view;
 
 import br.com.pedija.superadm.dao.PedidoDAO;
-import br.com.pedija.superadm.model.Entregador;
 import br.com.pedija.superadm.model.Pedido;
 
 import java.util.Scanner;
 
 public class TelaNovaEntrega {
 
-    private Entregador entregador;
-    private Telacorrida telacorrida;
-    private PedidoDAO pedidoDAO = new PedidoDAO();
+    Telacorrida telacorrida = new Telacorrida();
+    PedidoDAO pedidoDAO = new PedidoDAO();
 
     Scanner sc = new Scanner(System.in);
 
-
-    public TelaNovaEntrega(Entregador entregador) {
-        this.entregador = entregador;
-    }
     public void novaentrega() {
 
         System.out.println("---------Você está disponível para novas entregas-----------------\n");
+
         System.out.println("Temos corridas para você!");
 
         System.out.println(pedidoDAO.buscarPorStatus("PRONTO"));
 
-        System.out.println("Deseja aceitar algum pedido: (1 - Sim) (0 - Não)");
+        System.out.println("Deseja aceitar algum pedido: (1 - Sim) ( 0 - Não)");
         int aceitar = sc.nextInt();
 
         if (aceitar == 1) {
 
             System.out.println("Digite o id do pedido que quer aceitar: ");
             int id = sc.nextInt();
-
             Pedido pedidoaceito = new Pedido();
             pedidoaceito.setId(id);
 
-            System.out.println("Tem certeza que deseja aceitar: (1 - Sim) (2 - Não)");
+            System.out.println("Tem certeza que deseja aceitar: (1  - Sim) (2 - Não)");
+
             int opcao = sc.nextInt();
 
             switch (opcao) {
                 case 1:
-                    System.out.println("Corrida Iniciada!\n");
+
+                    System.out.println("Corrida Iniciada! \n");
                     pedidoaceito.setStatus("EM ENTREGA");
                     pedidoDAO.atualizar(pedidoaceito);
-
                     telacorrida.corrida(pedidoaceito);
                     break;
 
@@ -53,8 +48,10 @@ public class TelaNovaEntrega {
                     break;
             }
 
-        } else {
-            return;
         }
+
+        else {return;}
+
     }
+
 }

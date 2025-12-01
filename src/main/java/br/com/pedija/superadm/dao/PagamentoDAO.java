@@ -9,7 +9,7 @@ import java.util.List;
 
 public class PagamentoDAO {
 
-
+    // CREATE
     public void criar(Pagamento pagamento) {
         String sql = "INSERT INTO pagamento (idpagamento, valor, forma, prazo) VALUES (?, ?, ?, ?)";
 
@@ -29,7 +29,7 @@ public class PagamentoDAO {
     }
 
 
-
+    // READ ALL
     public List<Pagamento> buscarTodos() {
         List<Pagamento> pagamentos = new ArrayList<>();
         String sql = "SELECT * FROM pagamento ORDER BY idpagamento";
@@ -56,7 +56,7 @@ public class PagamentoDAO {
     }
 
 
-
+    // READ BY ID
     public Pagamento buscarPorId(int idpagamento) {
         String sql = "SELECT * FROM pagamento WHERE idpagamento = ?";
 
@@ -83,7 +83,7 @@ public class PagamentoDAO {
     }
 
 
-
+    // UPDATE
     public void atualizar(Pagamento pagamento) {
         String sql = """
                 UPDATE pagamento
@@ -110,7 +110,7 @@ public class PagamentoDAO {
     }
 
 
-
+    // DELETE
     public void deletar(int idpagamento) {
         String sql = "DELETE FROM pagamento WHERE idpagamento = ?";
 

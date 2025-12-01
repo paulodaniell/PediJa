@@ -2,6 +2,7 @@ package br.com.pedija.consumidor.view;
 
 
 import br.com.pedija.consumidor.controller.UsuarioController;
+import br.com.pedija.parceiro.view.MenuPrincipalParceiro;
 import br.com.pedija.superadm.model.Usuario;
 import java.util.Scanner;
 import br.com.pedija.superadm.dao.UsuarioDAO;

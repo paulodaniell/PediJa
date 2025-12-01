@@ -17,11 +17,10 @@ public class PedidoController {
 
     public List<Pedido> listarPedidos() {
 
-            List<Pedido> pedidos = pedidoDAO.listarTodos();
+        List<Pedido> pedidos = pedidoDAO.listarTodos();
 
-    return pedidos;
+        return pedidos;
     }
-
 
 
     public Pedido buscarPorId(int id) {
@@ -42,10 +41,9 @@ public class PedidoController {
     }
 
 
-
     public List<Pedido> listarPendentes() {
 
-            return pedidoDAO.buscarPorStatus("PENDENTE");
+        return pedidoDAO.buscarPorStatus("PENDENTE");
 
 
     }
@@ -53,47 +51,34 @@ public class PedidoController {
 
     public List<Pedido> listarEmPreparo() {
 
-            return pedidoDAO.buscarPorStatus("EM PREPARO");
+        return pedidoDAO.buscarPorStatus("EM PREPARO");
 
 
     }
 
 
-    public List<Pedido> listarAguardandoEntregador(int idParceiro) {
-        List<Pedido> resultado = new ArrayList<>();
-        List<Pedido> prontos = pedidoDAO.buscarPorStatus("PRONTO");
+    public List<Pedido> listarAguardandoEntregador() {
 
-        for (Pedido p : prontos) {
-            if (p.getIdParceiro() == idParceiro) {
-                resultado.add(p);
-            }
-        }
-
-        return resultado;
+        return pedidoDAO.buscarPorStatus("PRONTO");
     }
 
 
     public List<Pedido> listarEmEntrega() {
 
-            return pedidoDAO.buscarPorStatus("EM ENTREGA");
+        return pedidoDAO.buscarPorStatus("EM ENTREGA");
 
     }
 
+    public List<Pedido> listarPedidosEntregues() {
 
-    public List<Pedido> listarProntos() {
-
-            return pedidoDAO.buscarPorStatus("PRONTO");
+        return  pedidoDAO.buscarPorStatus("ENTREGUE");
 
     }
-
-
-
-
 
 
     public boolean atribuirEntregador(int idPedido, int idEntregador) {
-        Pedido p = buscarPorId(idPedido);
 
+        Pedido p = buscarPorId(idPedido);
 
         if (p != null) {
             p.setStatus("EM ENTREGA");
@@ -104,9 +89,6 @@ public class PedidoController {
 
         return false;
     }
-
-
-
 
 
 
@@ -137,14 +119,10 @@ public class PedidoController {
         return contador;
     }
 
-
-
-
-    public int contarPedidosProntos() {
+    public int contarPedidosEsperandoEntregador() {
         int contador = 0;
 
-
-        List<Pedido> prontos = listarProntos();
+        List<Pedido> prontos = listarAguardandoEntregador();
 
 
         for (Pedido p : prontos) {
@@ -152,21 +130,6 @@ public class PedidoController {
         }
         return contador;
     }
-    public double calcularFaturamentoTotal(int idParceiro) {
-
-
-        double soma = 0.0;
-
-
-        List<Pedido> prontos = listarProntos();
-
-
-        for (Pedido p : prontos) {
-            soma += p.getValorTotal();
-        }
-        return soma;
-    }
-
 
     public int contarPedidosEmEntrega() {
         int contador = 0;
@@ -180,7 +143,36 @@ public class PedidoController {
         }
         return contador;
     }
-}
 
+    public int contarPedidosEntregues() {
+        int contador = 0;
+
+
+        List<Pedido> prontos = listarPedidosEntregues();
+
+
+        for (Pedido p : prontos) {
+            contador++;
+        }
+        return contador;
+    }
+
+    public double calcularFaturamentoTotal(int idParceiro) {
+
+
+        double soma = 0.0;
+
+
+        List<Pedido> prontos = listarPedidosEntregues();
+
+
+        for (Pedido p : prontos) {
+            soma += p.getValorTotal();
+        }
+        return soma;
+    }
+
+
+}
 
 

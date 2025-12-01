@@ -1,18 +1,10 @@
 package br.com.pedija.entregador.view;
 
 import br.com.pedija.superadm.dao.PedidoDAO;
-import br.com.pedija.superadm.model.Entregador;
 import br.com.pedija.superadm.model.Pedido;
 
 public class Telacorrida {
     PedidoDAO pedidoDAO = new PedidoDAO();
-
-
-    private Entregador entregadorLogado;
-
-    public Telacorrida(Entregador entregadorLogado) {
-        this.entregadorLogado = entregadorLogado;
-    }
 
     public void corrida(Pedido pedido) {
 
@@ -36,10 +28,9 @@ public class Telacorrida {
             System.out.println("Deseja voltar para o menu inicial? (S/N)");
             String opcao = new java.util.Scanner(System.in).nextLine();
             if (opcao.equalsIgnoreCase("S")) {
-                TelaInicialEntregador telaInicialEntregador = new TelaInicialEntregador(entregadorLogado);
-
+                TelaInicialEntregador telaInicialEntregador = new TelaInicialEntregador();
                 telaInicialEntregador.TelaInicioEntregador();
             }
         }
-}
     }
+}

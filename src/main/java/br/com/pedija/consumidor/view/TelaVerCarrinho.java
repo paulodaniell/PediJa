@@ -69,30 +69,22 @@ public class TelaVerCarrinho {
             System.out.println("Item removido com sucesso!\n");
         }
     }
-    private void finalizarPedido() {
 
+    private void finalizarPedido() {
         String forma = escolherFormaPagamento();
         if (forma == null) {
-            System.out.println("\nPagamento cancelado. Voltando ao carrinho...\n");
+            System.out.println("\n Pagamento cancelado. Voltando ao carrinho...\n");
             return;
         }
 
-
-        Usuario usuarioAtualizado = usuarioController.buscarPorId(usuario.getId());
-        if (usuarioAtualizado == null) {
-            System.out.println("Erro: usuário não encontrado no banco. Não é possível finalizar o pedido.");
-            return;
-        }
-
-
-        usuarioAtualizado.setFormadepagamento(forma);
-        usuarioController.atualizarUsuario(usuarioAtualizado);
+        usuario.setFormadepagamento(forma);
+        usuarioController.atualizarUsuario(usuario);
 
         Pedido revisao = pedidoController.revisaopedido(
                 carrinho.listar(),
-                usuarioAtualizado.getId(),
-                usuarioAtualizado.getNome(),
-                usuarioAtualizado.getEndereco(),
+                usuario.getId(),
+                usuario.getNome(),
+                usuario.getEndereco(),
                 forma
         );
 
@@ -107,12 +99,13 @@ public class TelaVerCarrinho {
             try {
                 pedidoController.criarPedido(revisao);
                 carrinho.limpar();
-                System.out.println("\nPedido confirmado com sucesso!");
+                System.out.println("\n Pedido confirmado com sucesso!");
+
             } catch (Exception e) {
-                System.out.println("\nErro ao confirmar pedido: " + e.getMessage());
+                System.out.println("\n Erro ao confirmar pedido: " + e.getMessage());
             }
         } else {
-            System.out.println("\nPedido cancelado. Voltando ao carrinho...\n");
+            System.out.println("\n Pedido cancelado. Voltando ao carrinho...\n");
         }
     }
 

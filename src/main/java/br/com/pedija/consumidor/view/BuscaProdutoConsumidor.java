@@ -36,7 +36,7 @@ public class BuscaProdutoConsumidor {
 
 
             if (entrada.equals("0")) {
-                return;
+                return; // volta para o menu
             }
             if (entrada.isEmpty()) {
                 System.out.println("Escreva um nome válido.\n");
@@ -77,6 +77,5 @@ public class BuscaProdutoConsumidor {
         }
     }
 }
-
 
 

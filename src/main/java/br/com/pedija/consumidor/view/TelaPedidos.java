@@ -173,7 +173,7 @@ public class TelaPedidos {
             System.out.println("Nenhum pedido em andamento.\n");
         }
 
-        selecionarPedido(emAndamento, true);
+        selecionarPedido(emAndamento, true); // habilita confirmação
     }
 
 

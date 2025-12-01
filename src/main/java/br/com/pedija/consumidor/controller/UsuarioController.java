@@ -1,9 +1,9 @@
 package br.com.pedija.consumidor.controller;
 
 
-import br.com.pedija.superadm.model.Parceiro;
 import br.com.pedija.superadm.model.Usuario;
 import br.com.pedija.superadm.dao.UsuarioDAO;
+
 
 public class UsuarioController {
 
@@ -39,6 +39,7 @@ public class UsuarioController {
 
         usuarioDAO.criar(usuario);
 
+        System.out.println("Parceiro cadastrado no banco!");
         return true;
     }
 
@@ -53,10 +54,5 @@ public class UsuarioController {
         }
     }
 
-    public Usuario buscarPorId(int id) {
-        return usuarioDAO.buscarPorId(id);
-    }
-
 
 }
-

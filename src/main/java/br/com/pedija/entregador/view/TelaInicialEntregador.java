@@ -1,16 +1,12 @@
 package br.com.pedija.entregador.view;
-
 import br.com.pedija.superadm.model.Entregador;
+
 import java.util.Scanner;
 
 public class TelaInicialEntregador {
 
-    private Scanner sc = new Scanner(System.in);
-    private Entregador entregador;
-
-    public TelaInicialEntregador(Entregador entregador) {
-        this.entregador = entregador;
-    }
+    Scanner sc = new Scanner(System.in);
+    Entregador entregador = new Entregador();
 
     public void TelaInicioEntregador() {
 
@@ -38,34 +34,36 @@ public class TelaInicialEntregador {
                 sc.nextLine();
             }
 
+
         } while (opcao != 0);
+
     }
 
     private void resultadoOpcao(int opcao) {
 
-
         TelaAjudaEntregador telaAjuda = new TelaAjudaEntregador();
-        TelaExtratoEntregador telaExtrato = new TelaExtratoEntregador(entregador);
-        TelaMaisEntregador telaMais = new TelaMaisEntregador(entregador);
-        TelaNovaEntrega entrega =  new TelaNovaEntrega(entregador);
-        switch (opcao) {
+        TelaExtratoEntregador telaExtrato = new TelaExtratoEntregador();
+        TelaMaisEntregador telaMais = new TelaMaisEntregador();
+        TelaNovaEntrega entrega =  new TelaNovaEntrega();
 
+
+        switch (opcao) {
             case 1:
                 System.out.println("Ficar disponível selecionado !\n");
 
                 System.out.print("Quer ficar disponível? (1 - Sim) (0 - Não): ");
                 int disponibilidade = sc.nextInt();
 
-                if (disponibilidade == 1) {
+                if  (disponibilidade == 1) {
+
                     entregador.setDisponivel(true);
                     entrega.novaentrega();
                 }
 
-                if (disponibilidade == 0) {
+                if  (disponibilidade == 0) {
                     entregador.setDisponivel(false);
+                    break;
                 }
-
-                break;
 
             case 2:
                 System.out.println("Extrato selecionado");
@@ -75,6 +73,7 @@ public class TelaInicialEntregador {
             case 3:
                 System.out.println("Ajuda selecionado!");
                 telaAjuda.ajuda();
+
                 break;
 
             case 4:
@@ -86,9 +85,19 @@ public class TelaInicialEntregador {
                 System.out.println("Voltando..");
                 break;
 
-            default:
-                System.out.println("Opção inválida!");
+            default:System.out.println("Opção inválida!");
                 break;
+
+
         }
     }
 }
+
+
+
+
+
+
+
+
+

@@ -14,7 +14,7 @@ public class PedidoController {
 
     PedidoDAO pedidoDAO = new PedidoDAO();
 
-
+    // revisão do pedido
     public Pedido revisaopedido(List<Produto> produtos, int usuarioId, String nome, String endereco, String formaPagamento) {
 
         Pedido p = new Pedido();
@@ -158,5 +158,4 @@ public class PedidoController {
 
 
 }
-
 

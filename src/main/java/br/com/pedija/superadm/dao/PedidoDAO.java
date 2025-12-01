@@ -9,7 +9,7 @@ import java.util.List;
 
 public class PedidoDAO {
 
-
+    // CREATE
     public void criar(Pedido pedido) {
         String sql = """
             INSERT INTO Pedido 
@@ -56,7 +56,7 @@ public class PedidoDAO {
         return pedidos;
     }
 
-
+    // READ
     public Pedido buscarPorId(int id) {
         String sql = "SELECT * FROM Pedido WHERE id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
@@ -72,7 +72,7 @@ public class PedidoDAO {
         return null;
     }
 
-
+    // UPDATE
     public void atualizar(Pedido pedido) {
         String sql = """
             UPDATE Pedido 
@@ -94,7 +94,7 @@ public class PedidoDAO {
         }
     }
 
-
+    // DELETE
     public void deletar(int id) {
         String sql = "DELETE FROM Pedido WHERE id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
@@ -106,7 +106,7 @@ public class PedidoDAO {
         }
     }
 
-
+    // READ - por status
     public List<Pedido> buscarPorStatus(String status) {
         List<Pedido> pedidos = new ArrayList<>();
         String sql = "SELECT * FROM Pedido WHERE status = ? ORDER BY id DESC";
@@ -137,7 +137,7 @@ public class PedidoDAO {
 
         Integer idParceiro = (Integer) rs.getObject("idParceiro");
         p.setIdParceiro(idParceiro == null ? 0 : idParceiro);
-        
+
         return p;
     }
 }

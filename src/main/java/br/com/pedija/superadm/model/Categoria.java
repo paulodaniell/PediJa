@@ -12,7 +12,7 @@ public class Categoria {
         this.descricao = descricao;
     }
 
-
+    // Getters e Setters
     public Integer getId() {
         return id;
     }

@@ -9,7 +9,7 @@ import java.util.List;
 
 public class PromocaoDAO {
 
-
+    // CREATE
     public void criar(Promocao promocao) {
         String sql = """
             INSERT INTO Promocao (idProduto, idParceiro, precoOriginal, precoPromocional, ativa)
@@ -23,7 +23,7 @@ public class PromocaoDAO {
             stmt.setInt(2, promocao.getIdParceiro());
             stmt.setDouble(3, promocao.getPrecoOriginal());
             stmt.setDouble(4, promocao.getPrecoPromocional());
-            stmt.setBoolean(5, promocao.isAtiva());
+            stmt.setBoolean(5, promocao.isAtiva()); // Salva o status 'ativa'
 
             stmt.executeUpdate();
 
@@ -114,7 +114,7 @@ public class PromocaoDAO {
         }
     }
 
-
+    // DELETE
     public void deletar(int id) {
         String sql = "DELETE FROM Promocao WHERE id = ?";
 

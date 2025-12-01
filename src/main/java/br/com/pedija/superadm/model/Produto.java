@@ -25,7 +25,10 @@ public class Produto {
         NomeParceiro = nomeParceiro;
     }
 
+    public Produto(int i, String pizzaCalabresa, String pizzaGrandeComCalabresa, double v, String moema) {
+    }
 
+    // GETTERS E SETTERS CORRETOS
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }

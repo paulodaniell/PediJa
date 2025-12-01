@@ -46,8 +46,6 @@ public class ProdutoController {
         }
     }
 
-
-
     public boolean alterarDisponibilidade(int id, boolean disponivel) {
         return produtoDAO.alterarDisponibilidade(id, disponivel);
     }
@@ -56,7 +54,7 @@ public class ProdutoController {
         return produtoDAO.listarMaisVendidos(idParceiro);
     }
 
-
+    // CONTAR QUANTOS PRODUTOS TEM O PARCEIRO
     public int contarPorParceiro(int idParceiro) {
         return produtoDAO.contarPorParceiro(idParceiro);
     }

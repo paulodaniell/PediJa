@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ParceiroDAO {
 
-
+    // CREATE
     public void criar(Parceiro parceiro) {
 
         String sql = """
@@ -38,7 +38,7 @@ public class ParceiroDAO {
             stmt.setString(14, parceiro.getHorarioSemana());
             stmt.setString(15, parceiro.getHorarioFimSemana());
 
-
+            // converte List<String> → "pix,crédito,débito"
             String formasPagamento = String.join(",", parceiro.getFormasPagamento());
             stmt.setString(16, formasPagamento);
 
@@ -56,7 +56,7 @@ public class ParceiroDAO {
     }
 
 
-
+    // READ ALL
     public List<Parceiro> buscarTodos() {
         List<Parceiro> parceiros = new ArrayList<>();
 
@@ -104,7 +104,7 @@ public class ParceiroDAO {
     }
 
 
-
+    // READ BY ID
     public Parceiro buscarPorId(int id) {
         String sql = "SELECT * FROM Parceiro WHERE id = ?";
 
@@ -162,7 +162,7 @@ public class ParceiroDAO {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-
+                // --- Mapeamento feito aqui dentro ---
                 Parceiro p = new Parceiro();
                 p.setId(rs.getInt("id"));
                 p.setCnpj(rs.getString("cnpj"));
@@ -198,7 +198,7 @@ public class ParceiroDAO {
     }
 
 
-
+    // UPDATE
     public void atualizar(Parceiro parceiro) {
         String sql = """
             UPDATE Parceiro SET 
@@ -242,7 +242,7 @@ public class ParceiroDAO {
             throw new RuntimeException("Erro ao atualizar parceiro: " + e.getMessage(), e);
         }
     }
-
+    // DELETE
     public void deletar(int id) {
         String sql = "DELETE FROM Parceiro WHERE id = ?";
 

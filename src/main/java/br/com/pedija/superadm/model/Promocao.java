@@ -8,17 +8,21 @@ public class Promocao {
     private double precoOriginal;
     private double precoPromocional;
 
+    //teste erro
     private double percentualDesconto;
     private boolean ativa;
-
+    //teste erro
     public double getPercentualDesconto() {
-     if (precoOriginal == 0) {
-         return 0;
-     }
-     return ((precoOriginal - precoPromocional) / precoOriginal) * 100;
+        if (precoOriginal == 0) {
+            return 0;
+        }
+        return ((precoOriginal - precoPromocional) / precoOriginal) * 100;
     }
 
-    public void setPercentualDesconto(double percentualDesconto) {this.percentualDesconto = percentualDesconto;}
+
+    public void setPercentualDesconto(double percentualDesconto) {
+        this.percentualDesconto = percentualDesconto;
+    }
 
     public boolean isAtiva() {
         return ativa;
@@ -27,6 +31,9 @@ public class Promocao {
     public void setAtiva(boolean ativa) {
         this.ativa = ativa;
     }
+//teste erro
+
+
 
     public int getId() {
         return id;

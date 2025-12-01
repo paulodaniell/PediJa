@@ -10,8 +10,6 @@ public class ProdutoController {
 
     public Produto buscarPorNome(String nome) {
 
-        return produtoDAO.buscarPorNomeComParceiro(nome);
+        return produtoDAO.buscarPorNome(nome);
     }
-
-
 }

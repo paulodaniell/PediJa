@@ -9,7 +9,7 @@ import java.util.List;
 
 public class CategoriaDAO {
 
-
+    // CREATE
     public void criar(Categoria categoria) {
         String sql = "INSERT INTO categorias (nome, descricao) VALUES (?, ?)";
 
@@ -26,7 +26,7 @@ public class CategoriaDAO {
         }
     }
 
-
+    // READ ALL
     public List<Categoria> buscarTodas() {
         List<Categoria> categorias = new ArrayList<>();
         String sql = "SELECT * FROM categorias ORDER BY nome";
@@ -50,7 +50,7 @@ public class CategoriaDAO {
         return categorias;
     }
 
-
+    // READ BY ID
     public Categoria buscarPorId(int id) {
         String sql = "SELECT * FROM categorias WHERE id = ?";
 
@@ -75,7 +75,7 @@ public class CategoriaDAO {
         return null;
     }
 
-
+    // UPDATE
     public void atualizar(Categoria categoria) {
         String sql = "UPDATE categorias SET nome = ?, descricao = ? WHERE id = ?";
 
@@ -96,15 +96,15 @@ public class CategoriaDAO {
         }
     }
 
-
+    // DELETE
     public void deletar(int id) {
-
+        // Verifica se existem produtos associados
         String checkSql = "SELECT COUNT(*) FROM produtos WHERE categoria_id = ?";
         String deleteSql = "DELETE FROM categorias WHERE id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection()) {
 
-
+            // Verifica produtos associados
             try (PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
                 checkStmt.setInt(1, id);
                 ResultSet rs = checkStmt.executeQuery();
@@ -113,7 +113,7 @@ public class CategoriaDAO {
                 }
             }
 
-
+            // Deleta a categoria
             try (PreparedStatement deleteStmt = conn.prepareStatement(deleteSql)) {
                 deleteStmt.setInt(1, id);
                 int rowsAffected = deleteStmt.executeUpdate();
