@@ -10,7 +10,6 @@ public class TelaInicialEntregador {
 
     public void TelaInicioEntregador() {
 
-        System.out.println("Bem vindo(a) ao Ifood Entregador!");
 
         int opcao = 0;
 

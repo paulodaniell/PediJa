@@ -123,7 +123,12 @@ public class TelaLoginEntregador {
                     );
 
                     if (entregadorLogado != null) {
+<<<<<<< Updated upstream
                         TelaInicialEntregador menu = new TelaInicialEntregador();
+=======
+
+                        TelaInicialEntregador menu = new TelaInicialEntregador(entregadorLogado);
+>>>>>>> Stashed changes
                         menu.TelaInicioEntregador();
                     }
 
@@ -152,7 +157,12 @@ public class TelaLoginEntregador {
 
         if (entregadorLogado != null) {
             System.out.println("Login realizado com sucesso! Bem-vindo " + entregadorLogado.getNome());
+<<<<<<< Updated upstream
             TelaInicialEntregador menu = new TelaInicialEntregador();
+=======
+
+            TelaInicialEntregador menu = new TelaInicialEntregador(entregadorLogado);
+>>>>>>> Stashed changes
             menu.TelaInicioEntregador();
 
         } else {
