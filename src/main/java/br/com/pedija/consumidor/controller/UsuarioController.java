@@ -39,7 +39,7 @@ public class UsuarioController {
 
         usuarioDAO.criar(usuario);
 
-        System.out.println("Parceiro cadastrado no banco!");
+        System.out.println("Consumidor cadastrado no banco!");
         return true;
     }
 
