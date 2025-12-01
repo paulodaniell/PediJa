@@ -254,4 +254,53 @@ public class ProdutoDAO {
         return produtos;
     }
 
+    public Produto buscarPorNomeComParceiro(String nome) {
+
+        String sql = """
+        SELECT p.*, u.nome AS nome_parceiro
+
+
+        FROM produtos p
+
+
+        JOIN usuario u ON p.idParceiro = u.id
+
+
+        WHERE p.nome = ?
+
+
+    """;
+        try (Connection conn = DatabaseConnection.getConnection();
+
+
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, nome);
+
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+
+
+                Produto produto = mapProduto(rs);
+
+
+                produto.setNomeParceiro(rs.getString("nome_parceiro"));
+
+
+                return produto;
+
+
+            }
+        } catch (SQLException e) {
+
+
+            throw new RuntimeException("Erro ao buscar produto com parceiro: " + e.getMessage(), e);
+        }
+        return null;
+
+
+    }
 }
+
