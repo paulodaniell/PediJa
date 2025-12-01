@@ -68,6 +68,8 @@ public class ParceiroController {
         return true;
     }
 
+
+
     public Parceiro buscarPorId(int id) {
         return parceiroDAO.buscarPorId(id);
     }

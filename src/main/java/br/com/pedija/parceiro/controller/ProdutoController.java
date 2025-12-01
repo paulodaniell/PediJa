@@ -46,6 +46,8 @@ public class ProdutoController {
         }
     }
 
+
+
     public boolean alterarDisponibilidade(int id, boolean disponivel) {
         return produtoDAO.alterarDisponibilidade(id, disponivel);
     }
