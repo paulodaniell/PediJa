@@ -25,12 +25,13 @@ public class Telacorrida {
             System.out.println(pedidoDAO.buscarPorStatus("ENTREGUE"));
             System.out.println("PARABÉNS ENTREGA REALIZADA COM SUCESSO");
 
-            System.out.println("Deseja voltar para o menu inicial? (S/N)");
-            String opcao = new java.util.Scanner(System.in).nextLine();
-            if (opcao.equalsIgnoreCase("S")) {
-                TelaInicialEntregador telaInicialEntregador = new TelaInicialEntregador();
-                telaInicialEntregador.TelaInicioEntregador();
-            }
+        }
+
+        System.out.println("Deseja voltar para o menu inicial? (S/N)");
+        String opcao = new java.util.Scanner(System.in).nextLine();
+        if (opcao.equalsIgnoreCase("S")) {
+            TelaInicialEntregador telaInicialEntregador = new TelaInicialEntregador();
+            telaInicialEntregador.TelaInicioEntregador();
         }
     }
 }

@@ -92,6 +92,7 @@ public class TelaProdutosParceiro {
             novo.setCategoria_id(1);
             novo.setDisponivel(true);
             novo.setIdParceiro(parceiro.getId());
+            novo.setNomeParceiro(parceiro.getNome());
 
             if (produtoController.adicionarProduto(novo)) {
                 System.out.println("Produto adicionado com sucesso!");
@@ -128,9 +129,9 @@ public class TelaProdutosParceiro {
             }
 
             if (produtoController.atualizarProduto(produto)) {
-                System.out.println("✅ Produto atualizado com sucesso!");
+                System.out.println("roduto atualizado com sucesso!");
             } else {
-                System.out.println("❌ Erro ao atualizar produto!");
+                System.out.println(" Erro ao atualizar produto!");
             }
 
         } catch (Exception e) {
@@ -154,9 +155,9 @@ public class TelaProdutosParceiro {
 
             if (conf.equalsIgnoreCase("S")) {
                 if (produtoController.remover(id)) {
-                    System.out.println("✅ Produto removido com sucesso!");
+                    System.out.println("Produto removido com sucesso!");
                 } else {
-                    System.out.println("❌ Erro ao remover produto!");
+                    System.out.println("Erro ao remover produto!");
                 }
             } else {
                 System.out.println("Remoção cancelada.");
@@ -179,9 +180,9 @@ public class TelaProdutosParceiro {
 
             boolean novoStatus = !produto.isDisponivel();
             if (produtoController.alterarDisponibilidade(id, novoStatus)) {
-                System.out.println("✅ Produto agora está " + (novoStatus ? "DISPONÍVEL" : "INDISPONÍVEL"));
+                System.out.println("Produto agora está " + (novoStatus ? "DISPONÍVEL" : "INDISPONÍVEL"));
             } else {
-                System.out.println("❌ Erro ao alterar disponibilidade!");
+                System.out.println("Erro ao alterar disponibilidade!");
             }
 
         } catch (Exception e) {

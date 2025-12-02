@@ -1,5 +1,4 @@
 package br.com.pedija.superadm.model;
-import br.com.pedija.superadm.model.Parceiro;
 
 
 public class Produto {
@@ -24,11 +23,7 @@ public class Produto {
     public void setNomeParceiro(String nomeParceiro) {
         NomeParceiro = nomeParceiro;
     }
-
-    public Produto(int i, String pizzaCalabresa, String pizzaGrandeComCalabresa, double v, String moema) {
-    }
-
-    // GETTERS E SETTERS CORRETOS
+    
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }

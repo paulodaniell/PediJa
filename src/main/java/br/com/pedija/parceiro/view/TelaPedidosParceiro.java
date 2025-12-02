@@ -77,7 +77,7 @@ public class TelaPedidosParceiro {
             System.out.printf("Cliente: %s%n", p.getNomeCliente());
             System.out.printf("Valor: R$ %.2f%n", p.getValorTotal());
             System.out.printf("Pagamento: %s%n", p.getFormaPagamento());
-            System.out.println("Itens:");
+            System.out.println("Itens: " + p.getItens());
 
             System.out.println("\n[1] Aceitar Pedido");
             System.out.println("[2] Rejeitar Pedido");

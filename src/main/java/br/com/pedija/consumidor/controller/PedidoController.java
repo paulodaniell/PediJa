@@ -95,7 +95,7 @@ public class PedidoController {
 
     public List<Pedido> listarProntos() {
 
-        return pedidoDAO.buscarPorStatus("PRONTO");
+        return pedidoDAO.buscarPorStatus("ENTRGUE");
 
     }
 

@@ -16,9 +16,13 @@ public class TelaNovaEntrega {
 
         System.out.println("---------Você está disponível para novas entregas-----------------\n");
 
-        System.out.println("Temos corridas para você!");
-
         System.out.println(pedidoDAO.buscarPorStatus("PRONTO"));
+
+        if (pedidoDAO.buscarPorStatus("PRONTO") == null) {
+
+            System.out.println("Nenhum pedido encontrado");
+        }
+
 
         System.out.println("Deseja aceitar algum pedido: (1 - Sim) ( 0 - Não)");
         int aceitar = sc.nextInt();
@@ -50,8 +54,5 @@ public class TelaNovaEntrega {
 
         }
 
-        else {return;}
-
     }
-
 }

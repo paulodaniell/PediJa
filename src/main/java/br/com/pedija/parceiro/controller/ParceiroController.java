@@ -64,7 +64,6 @@ public class ParceiroController {
 
         parceiroDAO.criar(parceiro);
 
-        System.out.println("Parceiro cadastrado no banco!");
         return true;
     }
 

@@ -10,8 +10,6 @@ public class TelaInicialEntregador {
 
     public void TelaInicioEntregador() {
 
-        System.out.println("Bem vindo(a) ao Ifood Entregador!");
-
         int opcao = 0;
 
         do {
@@ -42,10 +40,11 @@ public class TelaInicialEntregador {
 
         TelaExtratoEntregador telaExtrato = new TelaExtratoEntregador();
         TelaNovaEntrega entrega =  new TelaNovaEntrega();
-        TelaDadosEntregador perfil = new TelaDadosEntregador();
+        TelaDadosEntregador perfil = new TelaDadosEntregador(entregador);
 
 
         switch (opcao) {
+
             case 1:
                 System.out.println("Ficar disponível selecionado !\n");
 
@@ -53,15 +52,14 @@ public class TelaInicialEntregador {
                 int disponibilidade = sc.nextInt();
 
                 if  (disponibilidade == 1) {
-
                     entregador.setDisponivel(true);
                     entrega.novaentrega();
+                } else {
+                    entregador.setDisponivel(false);
                 }
 
-                if  (disponibilidade == 0) {
-                    entregador.setDisponivel(false);
-                    break;
-                }
+                break;
+
 
             case 2:
                 System.out.println("Extrato selecionado");
@@ -70,7 +68,7 @@ public class TelaInicialEntregador {
 
             case 3:
                 System.out.println("Perfil selecionado!");
-                perfil.dadosview();
+                perfil.exibirDados();
                 break;
 
             case 0:

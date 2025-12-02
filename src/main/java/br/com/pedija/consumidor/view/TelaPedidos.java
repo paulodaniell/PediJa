@@ -132,12 +132,7 @@ public class TelaPedidos {
             System.out.printf(" [%d] Pedido #%d | Total: R$ %.2f%n",
                     indiceExibicao, p.getId(), p.getValorTotal());
 
-            if (!p.getItens().isEmpty()) {
-
-                System.out.printf("Itens: %s e mais...\n", p.getItens().get(0));
-            } else {
-                System.out.println("Itens: Sem itens registrados.");
-            }
+           System.out.println(p.getItens());
         }
 
         if (preparo.isEmpty()) {
