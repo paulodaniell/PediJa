@@ -18,8 +18,7 @@ public class TelaInicialEntregador {
             System.out.println("-----------------------------------");
             System.out.println(" 1 - Ficar Disponível para entrega ");
             System.out.println(" 2 - Extrato                       ");
-            System.out.println(" 3 - Ajuda                         ");
-            System.out.println(" 4 - Mais                          ");
+            System.out.println(" 3 - Perfil");
             System.out.println(" 0 - Voltar                        ");
             System.out.println("-----------------------------------");
 
@@ -41,10 +40,9 @@ public class TelaInicialEntregador {
 
     private void resultadoOpcao(int opcao) {
 
-        TelaAjudaEntregador telaAjuda = new TelaAjudaEntregador();
         TelaExtratoEntregador telaExtrato = new TelaExtratoEntregador();
-        TelaMaisEntregador telaMais = new TelaMaisEntregador();
         TelaNovaEntrega entrega =  new TelaNovaEntrega();
+        TelaDadosEntregador perfil = new TelaDadosEntregador();
 
 
         switch (opcao) {
@@ -71,14 +69,8 @@ public class TelaInicialEntregador {
                 break;
 
             case 3:
-                System.out.println("Ajuda selecionado!");
-                telaAjuda.ajuda();
-
-                break;
-
-            case 4:
-                System.out.println("Opção Mais selecionada!\n");
-                telaMais.mais();
+                System.out.println("Perfil selecionado!");
+                perfil.dadosview();
                 break;
 
             case 0:

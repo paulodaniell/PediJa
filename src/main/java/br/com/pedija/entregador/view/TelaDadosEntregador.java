@@ -12,8 +12,7 @@ public class TelaDadosEntregador {
 
     public void dadosview() {
 
-        TelaPerfilEntregador telaPerfil = new TelaPerfilEntregador(entregador, entregadorController);
-
+        TelaInicialEntregador inicialEntregador = new TelaInicialEntregador();
         Entregador entregador = new Entregador();
 
         Scanner sc = new Scanner(System.in);
@@ -77,7 +76,7 @@ public class TelaDadosEntregador {
         }
 
         else {
-            telaPerfil.verPerfil();
+            inicialEntregador.TelaInicioEntregador();
 
         }
     }
