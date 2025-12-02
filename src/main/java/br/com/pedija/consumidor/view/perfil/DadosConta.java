@@ -29,7 +29,7 @@ public class DadosConta {
 
 
         while (true) {
-            System.out.println("\n Quer alterar algum dado? (1 - Sim, 2 - Não)");
+            System.out.println("\nQuer alterar algum dado? (1 - Sim, 2 - Não)");
             System.out.print("Escolha: ");
 
             int opcao = -1;

@@ -1,6 +1,7 @@
 package br.com.pedija.entregador.view;
 
 import br.com.pedija.superadm.model.Entregador;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -25,12 +26,12 @@ public class TelaDadosEntregador {
         System.out.println("6 - CPF: " + entregador.getCpf());
         System.out.println("7 - Veículo: " + entregador.getVeiculo());
         System.out.println("8 - Disponível: " + (entregador.isDisponivel() ? "Sim" : "Não"));
-        System.out.println("9 - Formas de Pagamento: " + entregador.getFormasPagamento());
+        System.out.println("9 - Formas de Pagamento: " + (entregador.getFormasPagamento() != null ? entregador.getFormasPagamento() : "Nenhuma"));
         System.out.println("10 - Contato de Emergência: " + entregador.getContatoDeEmergencia());
         System.out.println("11 - Nome do Contato de Emergência: " + entregador.getNomeEmergencia());
         System.out.println();
 
-        System.out.println("Deseja mudar algum dado? (1 - Sim / 2 - Não)");
+        System.out.println("Deseja alterar algum dado? (1 - Sim / 2 - Não)");
         int mudar = sc.nextInt();
         sc.nextLine(); // limpar buffer
 
@@ -94,7 +95,7 @@ public class TelaDadosEntregador {
                     System.out.print("Novo Contato de Emergência: ");
                     while (!sc.hasNextInt()) {
                         System.out.println("Digite apenas números!");
-                        sc.next(); // descarta entrada inválida
+                        sc.next();
                     }
                     entregador.setContatoDeEmergencia(sc.nextInt());
                     sc.nextLine();
@@ -114,5 +115,9 @@ public class TelaDadosEntregador {
         }
 
         System.out.println("Voltando ao perfil...");
+    }
+
+    public void atualizarEExibir() {
+        exibirDados();
     }
 }

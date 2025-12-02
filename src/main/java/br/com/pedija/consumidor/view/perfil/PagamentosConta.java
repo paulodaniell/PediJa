@@ -20,7 +20,7 @@ public class PagamentosConta {
 
     public void exibir() {
 
-        System.out.println("\n=== CUSTO TOTAL DE PEDIDOS ===");
+        System.out.println("\nCUSTO TOTAL DE PEDIDOS");
 
         List<Pedido> pedidos = pedidoController.listarProntos();
 
@@ -30,7 +30,7 @@ public class PagamentosConta {
             double totalGasto = 0;
 
             for (Pedido p : pedidos) {
-                System.out.printf(" Pedido #%d |  Custo: R$ %.2f%n",
+                System.out.printf("Pedido #%d |  Custo: R$ %.2f%n",
                         p.getId(), p.getValorTotal());
                 totalGasto += p.getValorTotal();
             }

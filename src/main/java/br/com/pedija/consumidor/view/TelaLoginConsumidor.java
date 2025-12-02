@@ -25,11 +25,11 @@ public class TelaLoginConsumidor {
 
 
         do {
-            System.out.println("=====PEDIJÁ - CONSUMIDOR=====");
-            System.out.println("[1] ENTRAR");
-            System.out.println("[2] CADASTRAR");
-            System.out.println("[0] VOLTAR");
-            System.out.print("\n Escolha uma opção: ");
+            System.out.println("\nPEDIJÁ - CONSUMIDOR\n");
+            System.out.println("1 - ENTRAR");
+            System.out.println("2 - CADASTRAR");
+            System.out.println("0 - VOLTAR");
+            System.out.print("Escolha uma opção: ");
 
 
             try {
@@ -71,7 +71,7 @@ public class TelaLoginConsumidor {
 
     private void entrar(){
 
-        System.out.println("Digite seu Email: ");
+        System.out.println("\nDigite seu Email: ");
         String email = sc.nextLine();
 
         System.out.println("Digite seu telefone: ");
@@ -98,7 +98,7 @@ public class TelaLoginConsumidor {
 
         Usuario novoConsumidor = new Usuario();
 
-        System.out.print("Email: ");
+        System.out.print("\nEmail: ");
         novoConsumidor.setEmail(sc.nextLine());
 
 
@@ -123,7 +123,7 @@ public class TelaLoginConsumidor {
 
         if(resposta){
             System.out.println("CADASTRO REALIZADO COM SUCESSO!");
-            System.out.println("BEM-VINDO AO PEDIJÁ!");
+            System.out.println("BEM-VINDO AO PEDIJÁ\n1");
             MenuPrincipalConsumidorView view = new MenuPrincipalConsumidorView(novoConsumidor);
             view.exibirMenuCliente();
         }

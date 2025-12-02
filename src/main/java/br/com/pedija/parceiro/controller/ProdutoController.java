@@ -50,11 +50,7 @@ public class ProdutoController {
         return produtoDAO.alterarDisponibilidade(id, disponivel);
     }
 
-    public List<Produto> listarMaisVendidos(int idParceiro) {
-        return produtoDAO.listarMaisVendidos(idParceiro);
-    }
 
-    // CONTAR QUANTOS PRODUTOS TEM O PARCEIRO
     public int contarPorParceiro(int idParceiro) {
         return produtoDAO.contarPorParceiro(idParceiro);
     }

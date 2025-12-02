@@ -18,14 +18,13 @@ public class EscolherAppview {
     public EscolherAppview() {}
     public void EscolherAppview() {
         do {
-            System.out.println("------------------------------");
+
             System.out.println(" 1 - Parceiro                 ");
             System.out.println(" 2 - Consumidor               ");
             System.out.println(" 3 - Entregador               ");
             System.out.println(" 0 - Sair                     ");
-            System.out.println("------------------------------");
 
-            System.out.print("\n Escolha uma opção: ");
+            System.out.print("\nEscolha uma opção: ");
 
             try {
 

@@ -2,12 +2,14 @@ package br.com.pedija.entregador.view;
 
 import br.com.pedija.superadm.dao.PedidoDAO;
 import br.com.pedija.superadm.model.Pedido;
+import br.com.pedija.superadm.model.Entregador;
 
 import java.util.Scanner;
 
 public class TelaNovaEntrega {
 
-    Telacorrida telacorrida = new Telacorrida();
+    Entregador entregador;
+    Telacorrida telacorrida = new Telacorrida(entregador);
     PedidoDAO pedidoDAO = new PedidoDAO();
 
     Scanner sc = new Scanner(System.in);

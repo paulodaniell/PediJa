@@ -224,83 +224,30 @@ public class ProdutoDAO {
         return 0;
     }
 
-    public List<Produto> listarMaisVendidos(int idParceiro) {
-        List<Produto> produtos = new ArrayList<>();
-
-        String sql = """
-            SELECT p.id, p.nome, p.descricao, p.preco, p.quantidade, p.idParceiro, p.disponivel
-            FROM ItemPedido ip
-            JOIN Pedido ped ON ip.pedidoId = ped.id
-            JOIN produtos p ON ip.produtoId = p.id
-            WHERE ped.idParceiro = ? AND ped.status = 'ENTREGUE'
-            GROUP BY p.id, p.nome, p.descricao, p.preco, p.quantidade, p.idParceiro, p.disponivel
-            ORDER BY SUM(ip.quantidade) DESC
-            LIMIT 5
-        """;
-
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setInt(1, idParceiro);
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                // Reutiliza o mapProduto para transformar o resultado em objeto
-                produtos.add(mapProduto(rs));
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("Erro ao buscar produtos mais vendidos: " + e.getMessage(), e);
-        }
-        return produtos;
-    }
-
     public Produto buscarPorNomeComParceiro(String nome) {
-
         String sql = """
         SELECT p.*, u.nome AS nome_parceiro
-
-
         FROM produtos p
-
-
-        JOIN usuario u ON p.idParceiro = u.id
-
-
+        JOIN Parceiro u ON p.idParceiro = u.id
         WHERE p.nome = ?
-
-
     """;
+
         try (Connection conn = DatabaseConnection.getConnection();
-
-
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, nome);
-
-
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-
-
                 Produto produto = mapProduto(rs);
-
-
                 produto.setNomeParceiro(rs.getString("nome_parceiro"));
-
-
                 return produto;
-
-
             }
         } catch (SQLException e) {
-
-
             throw new RuntimeException("Erro ao buscar produto com parceiro: " + e.getMessage(), e);
         }
         return null;
-
-
     }
+
 }
 

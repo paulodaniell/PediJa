@@ -40,6 +40,18 @@ public class DatabaseConnection {
             );
         """;
 
+            String createPedidoItensSQL = """
+    CREATE TABLE IF NOT EXISTS PedidoItens (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        idPedido INT NOT NULL,
+        idProduto INT NOT NULL,
+        nomeProduto VARCHAR(150) NOT NULL,
+        preco DECIMAL(10,2) NOT NULL,
+        quantidade INT NOT NULL,
+        FOREIGN KEY (idPedido) REFERENCES Pedido(id),
+        FOREIGN KEY (idProduto) REFERENCES produtos(id)
+    );
+    """;
         String createUsuarioSQL = """
         CREATE TABLE IF NOT EXISTS Usuario (
             id INT PRIMARY KEY AUTO_INCREMENT,
@@ -60,6 +72,7 @@ public class DatabaseConnection {
             prazo INT
         )
     """;
+
         String createEntregadorSQL = """
     CREATE TABLE IF NOT EXISTS Entregador (
         id INT PRIMARY KEY AUTO_INCREMENT,
@@ -75,9 +88,6 @@ public class DatabaseConnection {
         nomeEmergencia VARCHAR(100)
     )
     """;
-
-
-
 
         String createParceiroSQL = """
         CREATE TABLE IF NOT EXISTS Parceiro (
@@ -102,22 +112,29 @@ public class DatabaseConnection {
     """;
 
         String createPedidoSQL = """
-                CREATE TABLE IF NOT EXISTS Pedido(
-                    id INT PRIMARY KEY AUTO_INCREMENT,
-                    idusuario INT NOT NULL,
-                    nomeCliente VARCHAR(150) NOT NULL,
-                    valorTotal DECIMAL(10,2) NOT NULL,
-                    status VARCHAR(50),
-                    endereco VARCHAR(200),
-                    formaPagamento VARCHAR(50),
-                    idParceiro INT NULL,
-                    
-                    FOREIGN KEY (idParceiro) REFERENCES Parceiro(id)
-                );
-    """;
+        CREATE TABLE IF NOT EXISTS Pedido(
+            id INT PRIMARY KEY AUTO_INCREMENT,
+            idusuario INT NOT NULL,
+            nomeCliente VARCHAR(150) NOT NULL,
+            valorTotal DECIMAL(10,2) NOT NULL,
+            status VARCHAR(50),
+            endereco VARCHAR(200),
+            formaPagamento VARCHAR(50),
+            idParceiro INT NULL,
+            FOREIGN KEY (idParceiro) REFERENCES Parceiro(id)
+        );
+        """;
 
-
-
+        String createPedidoProdutoSQL = """
+        CREATE TABLE IF NOT EXISTS Pedido_Produto (
+            idPedido INT NOT NULL,
+            idProduto INT NOT NULL,
+            quantidade INT DEFAULT 1,
+            PRIMARY KEY (idPedido, idProduto),
+            FOREIGN KEY (idPedido) REFERENCES Pedido(id),
+            FOREIGN KEY (idProduto) REFERENCES produtos(id)
+        );
+        """;
 
         String createPromocaoSQL = """
         CREATE TABLE IF NOT EXISTS Promocao (
@@ -138,7 +155,6 @@ public class DatabaseConnection {
 
             stmt.execute(createCategoriasSQL);
 
-
             String insertCategoriaPadraoSQL = """
                 INSERT INTO categorias (nome, descricao)
                 SELECT 'Geral', 'Categoria padrão'
@@ -151,12 +167,13 @@ public class DatabaseConnection {
             stmt.execute(createParceiroSQL);
             stmt.execute(createProdutosSQL);
             stmt.execute(createPedidoSQL);
+            stmt.execute(createPedidoProdutoSQL);
             stmt.execute(createPromocaoSQL);
             stmt.execute(createEntregadorSQL);
+            stmt.execute(createPedidoItensSQL);
 
-            System.out.println("SUCESSO: Banco de dados inicializado com sucesso!");
-            System.out.println("  Usando: " +
-                    ((H2ConnectionFactory) connectionFactory).getUrl());
+            System.out.println("Banco de dados inicializado com sucesso!\n");
+
         } catch (SQLException e) {
             System.err.println("ERRO: Erro ao inicializar banco de dados: " + e.getMessage());
         } finally {

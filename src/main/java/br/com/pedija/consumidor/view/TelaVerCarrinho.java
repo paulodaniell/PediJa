@@ -7,6 +7,7 @@ import br.com.pedija.superadm.model.Pedido;
 import br.com.pedija.superadm.model.Produto;
 import br.com.pedija.superadm.model.Usuario;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -27,13 +28,13 @@ public class TelaVerCarrinho {
 
     public void verCarrinho() {
         if (carrinho.Vazio()) {
-            System.out.println("\n==== MEU CARRINHO ====\n");
+            System.out.println("\nMEU CARRINHO\n");
             System.out.println("Seu carrinho está vazio.\n");
             return;
         }
 
         while (true) {
-            System.out.println("\n==== MEU CARRINHO ====\n");
+            System.out.println("\nMEU CARRINHO\n");
 
             int i = 1;
             for (Produto p : carrinho.listar()) {
@@ -41,9 +42,9 @@ public class TelaVerCarrinho {
             }
             System.out.printf("\nTotal: R$ %.2f\n\n", carrinho.precoTotal());
 
-            System.out.println("[1] Remover item");
-            System.out.println("[2] Finalizar pedido");
-            System.out.println("[0] Voltar");
+            System.out.println("1 - Remover item");
+            System.out.println("2 - Finalizar pedido");
+            System.out.println("0 - Voltar");
             System.out.print("Escolha: ");
 
             int op = lerInt();
@@ -63,7 +64,7 @@ public class TelaVerCarrinho {
         int indice = numero - 1;
 
         if (indice < 0 || indice >= carrinho.listar().size()) {
-            System.out.println(" Número do item inválido!\n");
+            System.out.println("Número do item inválido!\n");
         } else {
             carrinho.removerProduto(indice);
             System.out.println("Item removido com sucesso!\n");
@@ -73,7 +74,7 @@ public class TelaVerCarrinho {
     private void finalizarPedido() {
         String forma = escolherFormaPagamento();
         if (forma == null) {
-            System.out.println("\n Pagamento cancelado. Voltando ao carrinho...\n");
+            System.out.println("\nPagamento cancelado. Voltando ao carrinho...\n");
             return;
         }
 
@@ -88,6 +89,8 @@ public class TelaVerCarrinho {
                 forma
         );
 
+        revisao.setItens(new ArrayList<>(carrinho.listar()));
+
         exibirResumoPedido(revisao);
 
         revisao.setStatus("PENDENTE");
@@ -99,18 +102,17 @@ public class TelaVerCarrinho {
             try {
                 pedidoController.criarPedido(revisao);
                 carrinho.limpar();
-                System.out.println("\n Pedido confirmado com sucesso!");
-
+                System.out.println("\nPedido confirmado com sucesso!");
             } catch (Exception e) {
-                System.out.println("\n Erro ao confirmar pedido: " + e.getMessage());
+                System.out.println("\nErro ao confirmar pedido: " + e.getMessage());
             }
         } else {
-            System.out.println("\n Pedido cancelado. Voltando ao carrinho...\n");
+            System.out.println("\nPedido cancelado. Voltando ao carrinho...\n");
         }
     }
 
     private void exibirResumoPedido(Pedido pedido) {
-        System.out.println("\n=== RESUMO DO PEDIDO ===");
+        System.out.println("\nRESUMO DO PEDIDO");
 
         List<Produto> itens = pedido.getItens();
         if (itens == null || itens.isEmpty()) {
@@ -127,18 +129,18 @@ public class TelaVerCarrinho {
         System.out.println("Nome: " + pedido.getNomeCliente());
         System.out.println("Endereço: " + pedido.getEndereco());
         System.out.println("Forma de pagamento: " + pedido.getFormaPagamento());
-        System.out.println("\n[1] Confirmar pedido");
-        System.out.println("[2] Voltar ao carrinho");
+        System.out.println("\n1 - Confirmar pedido");
+        System.out.println("2 - Voltar ao carrinho");
     }
 
     private String escolherFormaPagamento() {
         while (true) {
             System.out.println("\nQual a forma de pagamento?");
-            System.out.println("[1] PIX");
-            System.out.println("[2] Cartão de Crédito");
-            System.out.println("[3] Cartão de Débito");
-            System.out.println("[4] Dinheiro");
-            System.out.println("[0] Voltar");
+            System.out.println("1 - PIX");
+            System.out.println("2 - Cartão de Crédito");
+            System.out.println("3 - Cartão de Débito");
+            System.out.println("4 - Dinheiro");
+            System.out.println("0 - Voltar");
             System.out.print("Escolha: ");
 
             int escolha = lerInt();

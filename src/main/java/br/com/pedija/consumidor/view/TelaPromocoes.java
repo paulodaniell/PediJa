@@ -31,7 +31,7 @@ public class TelaPromocoes {
             return;
         }
 
-        System.out.println("\n====== PROMOÇÕES PEDIJÁ =======");
+        System.out.println("\nPROMOÇÕES PEDIJÁ\n");
         for (Promocao p : promocoes) {
             Produto produto = produtoDAO.buscarPorId(p.getIdProduto());
             String nomeProduto = (produto != null) ? produto.getNome() : "Produto não encontrado";

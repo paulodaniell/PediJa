@@ -3,6 +3,7 @@ package br.com.pedija.parceiro.view;
 import br.com.pedija.parceiro.controller.PedidoController;
 import br.com.pedija.superadm.model.Parceiro;
 import br.com.pedija.superadm.model.Pedido;
+import br.com.pedija.superadm.model.Produto;
 
 import java.util.List;
 import java.util.Scanner;
@@ -23,11 +24,8 @@ public class TelaPedidosParceiro {
         int opcao = -1;
 
         do {
-            System.out.println("------------------------------");
             System.out.println("\nPedidos " + parceiro.getNome());
-            System.out.println("------------------------------");
-
-            System.out.println("1- Pedidos Pendentes: (" + pedidoController.contarPedidosPendentes() + ")");
+            System.out.println("\n1- Pedidos Pendentes: (" + pedidoController.contarPedidosPendentes() + ")");
             System.out.println("2- Pedidos em Preparo: (" + pedidoController.contarPedidosEmPreparo() + ")");
             System.out.println("3- Pedidos Esperando Entregador: (" + pedidoController.contarPedidosEsperandoEntregador() + ")");
             System.out.println("4- Pedidos em Entrega: (" + pedidoController.contarPedidosEmEntrega() + ")");
@@ -60,13 +58,25 @@ public class TelaPedidosParceiro {
         }
     }
 
+    private void exibirItens(Pedido p) {
+        List<Produto> itens = p.getItens();
+        if (itens == null || itens.isEmpty()) {
+            System.out.println("Itens: Sem itens registrados.");
+            return;
+        }
+
+        System.out.print("Itens: ");
+        for (int i = 0; i < itens.size(); i++) {
+            Produto item = itens.get(i);
+            System.out.print(item.getNome());
+            if (i < itens.size() - 1) System.out.print(", ");
+        }
+        System.out.println();
+    }
+
     private void exibirPendentes() {
-        System.out.println("---------------------");
         System.out.println("PEDIDOS PENDENTES:");
-        System.out.println("---------------------");
-
         List<Pedido> pedidos = pedidoController.listarPendentes();
-
         if (pedidos.isEmpty()) {
             System.out.println("\nNenhum pedido pendente");
             return;
@@ -77,11 +87,11 @@ public class TelaPedidosParceiro {
             System.out.printf("Cliente: %s%n", p.getNomeCliente());
             System.out.printf("Valor: R$ %.2f%n", p.getValorTotal());
             System.out.printf("Pagamento: %s%n", p.getFormaPagamento());
-            System.out.println("Itens: " + p.getItens());
+            exibirItens(p);
 
-            System.out.println("\n[1] Aceitar Pedido");
-            System.out.println("[2] Rejeitar Pedido");
-            System.out.println("[3] Voltar");
+            System.out.println("\n1 - Aceitar Pedido");
+            System.out.println("2 - Rejeitar Pedido");
+            System.out.println("0 - Voltar");
 
             System.out.print("Escolha uma opção: ");
             int opcao = sc.nextInt();
@@ -104,12 +114,8 @@ public class TelaPedidosParceiro {
     }
 
     public void exibirEmPreparo() {
-        System.out.println("---------------------");
-        System.out.println("PEDIDOS EM PREPARO");
-        System.out.println("---------------------");
-
+        System.out.println("\nPEDIDOS EM PREPARO\n");
         List<Pedido> pedidos = pedidoController.listarEmPreparo();
-
         if (pedidos.isEmpty()) {
             System.out.println("\nNenhum pedido em preparo");
             return;
@@ -119,10 +125,11 @@ public class TelaPedidosParceiro {
             System.out.printf("%nPedido #%d%n", p.getId());
             System.out.printf("Cliente: %s%n", p.getNomeCliente());
             System.out.printf("Valor: R$ %.2f%n", p.getValorTotal());
+            exibirItens(p);
         }
 
-        System.out.println("\n[1] Marcar como Pronto");
-        System.out.println("[0] Voltar");
+        System.out.println("\n1 - Marcar como Pronto");
+        System.out.println("0 - Voltar");
 
         System.out.print("Escolha uma opção: ");
         int opcao = sc.nextInt();
@@ -137,12 +144,8 @@ public class TelaPedidosParceiro {
     }
 
     private void exibirEsperandoEntregador() {
-        System.out.println("---------------------");
-        System.out.println("PEDIDOS ESPERANDO ENTREGADOR");
-        System.out.println("---------------------");
-
+        System.out.println("\nPEDIDOS ESPERANDO ENTREGADOR\n");
         List<Pedido> pedidos = pedidoController.listarAguardandoEntregador();
-
         if (pedidos.isEmpty()) {
             System.out.println("\nNenhum pedido pronto no momento");
             return;
@@ -152,17 +155,14 @@ public class TelaPedidosParceiro {
             System.out.printf("%nPEDIDO #%d%n", p.getId());
             System.out.printf("Cliente: %s%n", p.getNomeCliente());
             System.out.printf("Valor: R$ %.2f%n", p.getValorTotal());
+            exibirItens(p);
             System.out.println("Aguardando entregador...");
         }
     }
 
     private void exibirEmEntrega() {
-        System.out.println("---------------------");
-        System.out.println("PEDIDOS EM ENTREGA");
-        System.out.println("---------------------");
-
+        System.out.println("\nPEDIDOS EM ENTREGA\n");
         List<Pedido> pedidos = pedidoController.listarEmEntrega();
-
         if (pedidos.isEmpty()) {
             System.out.println("\nNenhum pedido em entrega");
             return;
@@ -172,6 +172,7 @@ public class TelaPedidosParceiro {
             System.out.printf("%nPEDIDO #%d%n", p.getId());
             System.out.printf("Cliente: %s%n", p.getNomeCliente());
             System.out.printf("Valor: R$ %.2f%n", p.getValorTotal());
+            exibirItens(p);
         }
 
         System.out.println("\n[0] Voltar");
@@ -179,22 +180,15 @@ public class TelaPedidosParceiro {
     }
 
     private void exibirEntregues() {
-        System.out.println("---------------------");
-        System.out.println("PEDIDOS ENTREGUES");
-        System.out.println("---------------------");
-
+        System.out.println("\nPEDIDOS ENTREGUES\n");
         List<Pedido> entregues = pedidoController.listarPedidosEntregues();
-
         System.out.println("\nTotal de pedidos entregues: " + entregues.size());
-
         if (!entregues.isEmpty()) {
             int limite = Math.min(10, entregues.size());
             for (int i = 0; i < limite; i++) {
                 Pedido p = entregues.get(i);
-                System.out.printf("#%d - %s - R$ %.2f%n",
-                        p.getId(),
-                        p.getNomeCliente(),
-                        p.getValorTotal());
+                System.out.printf("#%d - %s - R$ %.2f%n", p.getId(), p.getNomeCliente(), p.getValorTotal());
+                exibirItens(p);
             }
         }
     }
@@ -221,7 +215,6 @@ public class TelaPedidosParceiro {
         sc.nextLine();
 
         String motivo;
-
         if (opcao == 1) {
             motivo = "Fora da área de entrega";
         } else if (opcao == 2) {
@@ -243,11 +236,5 @@ public class TelaPedidosParceiro {
         } else {
             System.out.println("\nErro ao atualizar pedido!");
         }
-    }
-
-    public void exibirMensagemSucesso(String s) {
-    }
-
-    public void exibirErro(String message) {
     }
 }

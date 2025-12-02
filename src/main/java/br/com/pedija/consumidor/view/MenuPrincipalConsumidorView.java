@@ -48,14 +48,12 @@ public class MenuPrincipalConsumidorView {
         int opcao = -1;
 
         do {
-            System.out.println("------------------------------");
-            System.out.println(" 1 - Buscar Produtos");
-            System.out.println(" 2 - Ver Carrinho");
-            System.out.println(" 3 - Promoções");
-            System.out.println(" 4 - Ver Pedidos");
-            System.out.println(" 5 - Ver Perfil");
-            System.out.println(" 0 - Sair");
-            System.out.println("------------------------------");
+            System.out.println("\n1 - Buscar Produtos");
+            System.out.println("2 - Ver Carrinho");
+            System.out.println("3 - Promoções");
+            System.out.println("4 - Ver Pedidos");
+            System.out.println("5 - Ver Perfil");
+            System.out.println("0 - Sair");
 
             System.out.print("\nEscolha uma opção: ");
 
@@ -90,12 +88,10 @@ public class MenuPrincipalConsumidorView {
             }
 
             case 3 -> {
-                System.out.println("Promoções");
                 telaPromocoes.verPromocoes();
             }
 
             case 4 -> {
-                System.out.println("Ver Pedidos");
                 TelaPedidos telaPedidos = new TelaPedidos(this.pedidoController, this.usuarioLogado);
                 telaPedidos.verPedidos();
             }

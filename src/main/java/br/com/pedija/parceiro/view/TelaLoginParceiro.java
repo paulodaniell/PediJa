@@ -29,7 +29,7 @@ public class TelaLoginParceiro {
             System.out.println("2 - Cadastrar");
             System.out.println("0 Sair");
             opcao = sc.nextInt();
-            sc.nextLine(); // limpar buffer
+            sc.nextLine();
 
             switch (opcao) {
                 case 1:
@@ -48,9 +48,8 @@ public class TelaLoginParceiro {
     }
 
     private void cadastrar() {
-        System.out.println("\n-----------------------------------");
-        System.out.println("||     CADASTRO NOVO PARCEIRO    ||");
-        System.out.println("-----------------------------------");
+
+        System.out.println("\nCADASTRO NOVO PARCEIRO\n");
 
         Parceiro novoParceiro = new Parceiro();
 
@@ -75,7 +74,7 @@ public class TelaLoginParceiro {
             }
             novoParceiro.setSenha(senha);
 
-            System.out.println("═══ DADOS COMPLEMENTARES ═══");
+            System.out.println("\n═══ DADOS COMPLEMENTARES ═══");
 
             System.out.print(" CNPJ: ");
             novoParceiro.setCnpj(sc.nextLine());
@@ -97,9 +96,9 @@ public class TelaLoginParceiro {
 
             System.out.print(" Numero: ");
             novoParceiro.setNumero(sc.nextInt());
-            sc.nextLine(); // limpar buffer
+            sc.nextLine();
 
-            System.out.println(" Categoria da sua loja ");
+            System.out.println("\nCategoria da sua loja ");
             System.out.println("[1] Pizzaria");
             System.out.println("[2] Hamburgueria");
             System.out.println("[3] Japonês");
@@ -118,29 +117,27 @@ public class TelaLoginParceiro {
             }
             novoParceiro.setCategoria(categoria);
 
-            System.out.println("═══ FORMAS DE PAGAMENTO ═══");
+            System.out.println("\n═══ FORMAS DE PAGAMENTO ═══");
             System.out.print("Digite as formas de pagamento (separadas por vírgula ex:pix,debito,credito): ");
             String formasInput = sc.nextLine();
             List<String> formas = Arrays.asList(formasInput.split(","));
             novoParceiro.setFormasPagamento(formas);
 
-            System.out.println("\n-----------------------------------");
-            System.out.println("||      CONFIRMAR CADASTRO?      ||");
-            System.out.println("-----------------------------------");
+            System.out.println("\nCONFIRMAR CADASTRO?\n");
+
             System.out.println(" Nome: " + novoParceiro.getNome());
             System.out.println(" Email: " + novoParceiro.getEmail());
             System.out.println(" CNPJ: " + novoParceiro.getCnpj());
             System.out.println(" Telefone: " + novoParceiro.getTelefone());
             System.out.println(" Tipo: " + novoParceiro.getCategoria());
-            System.out.println("----------------------------------");
 
             System.out.print("\nConfirma cadastro? (S/N): ");
             String confirma = sc.nextLine();
 
             if (confirma.equalsIgnoreCase("S")) {
                 if (controller.cadastrar(novoParceiro)) {
-                    System.out.println("\n Parceiro cadastrado com sucesso!");
-                    System.out.println(" Bem-vindo ao Pedija, " + novoParceiro.getNome() + "!");
+                    System.out.println("\nParceiro cadastrado com sucesso!");
+                    System.out.println("Bem-vindo ao Pedija, " + novoParceiro.getNome() + "!");
 
                     Parceiro parceiroLogado = controller.login(novoParceiro.getEmail(), novoParceiro.getSenha());
                     if (parceiroLogado != null) {
@@ -161,7 +158,7 @@ public class TelaLoginParceiro {
     }
 
     private void entrar() {
-        System.out.println("Digite seu Email: ");
+        System.out.println("\nDigite seu Email: ");
         String email = sc.nextLine();
 
         System.out.println("Digite sua Senha: ");

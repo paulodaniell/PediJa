@@ -25,15 +25,12 @@ public class TelaPerfilParceiro {
         int opcao = -1;
 
         do {
-            System.out.println("------------------------------");
-            System.out.println("MINHA LOJA - " + parceiro.getNome());
-            System.out.println("------------------------------");
-            System.out.println(" 1 - Ver Informções e Dados");
-            System.out.println(" 2 - Relatorio e Estatisticas");
-            System.out.println(" 3 - Horario de Funcionamento");
-            System.out.println(" 4 - Forma de Pagamento");
-            System.out.println(" 0 - Voltar");
-            System.out.println("------------------------------");
+            System.out.println("\nMINHA LOJA - " + parceiro.getNome());
+
+            System.out.println("\n1 - Ver Informções e Dados");;
+            System.out.println("2 - Horario de Funcionamento");
+            System.out.println("3 - Forma de Pagamento");
+            System.out.println("0 - Voltar");
             System.out.print("Escolha uma opção: ");
 
             try {
@@ -57,16 +54,15 @@ public class TelaPerfilParceiro {
             case 1:
                 exibirInfoParceiro();
                 break;
+
             case 2:
-                TelaRelatorioParceiro telaRelatorio = new TelaRelatorioParceiro(parceiro);
-                telaRelatorio.menuRelatorio();
-                break;
-            case 3:
                 horarioFuncionamento();
                 break;
-            case 4:
+
+            case 3:
                 exibirFormasPagamento();
                 break;
+
             case 0:
                 System.out.println("Voltando...");
                 break;
@@ -77,19 +73,19 @@ public class TelaPerfilParceiro {
     }
 
     public void exibirInfoParceiro() {
-        System.out.println("DADOS PESSOAIS");
+        System.out.println("\nDADOS PESSOAIS\n");
 
         System.out.println("Nome: " + parceiro.getNome());
         System.out.println("CNPJ: " + parceiro.getCnpj());
         System.out.println("Email: " + parceiro.getEmail());
         System.out.println("Telefone: " + parceiro.getTelefone());
-        System.out.println("Endereço Completo:\n Cidade: " + parceiro.getCidade() + " CEP: " + parceiro.getCep() + " Estado: " + parceiro.getEstado() + " Bairro: " + parceiro.getBairro() + " Numero: " + parceiro.getNumero());
+        System.out.println("Endereço Completo:\nCidade: " + parceiro.getCidade() + " CEP: " + parceiro.getCep() + " Estado: " + parceiro.getEstado() + " Bairro: " + parceiro.getBairro() + " Numero: " + parceiro.getNumero());
         System.out.println("Categoria: " + parceiro.getCategoria());
-        System.out.println(" Taxa e tempo: " + parceiro.getTaxaEntrega());//adicionar login
+        System.out.println("Taxa e tempo: " + parceiro.getTaxaEntrega());
     }
 
     public void horarioFuncionamento() {
-        System.out.println("Horário de Funcionamento " + parceiro.getNome());
+        System.out.println("\nHorário de Funcionamento " + parceiro.getNome());
         System.out.println("Segunda a sexta: " + parceiro.getHorarioSemana());
         System.out.println("Sábado e domingo: " + parceiro.getHorarioFimSemana());
 
@@ -110,7 +106,7 @@ public class TelaPerfilParceiro {
         switch (opcao) {
 
             case 1:
-                System.out.println("Horário atual: " + parceiro.getHorarioSemana());
+                System.out.println("\nHorário atual: " + parceiro.getHorarioSemana());
                 System.out.print("Digite o novo horário (ex: 08:00 às 17:00): ");
                 String novoSemana = sc.nextLine();
 
@@ -138,8 +134,7 @@ public class TelaPerfilParceiro {
 
     public void exibirFormasPagamento() {
 
-        System.out.println("\n FORMAS DE PAGAMENTO ACEITAS:");
-        System.out.println("-------------------------");
+        System.out.println("\nFORMAS DE PAGAMENTO ACEITAS:\n");
 
         List<String> formas = parceiro.getFormasPagamento();
 
@@ -149,7 +144,6 @@ public class TelaPerfilParceiro {
             System.out.println(String.join(", ", formas));
         }
 
-        System.out.println("---------------------");
     }
 
 }

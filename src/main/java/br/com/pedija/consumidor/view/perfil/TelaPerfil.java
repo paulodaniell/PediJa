@@ -26,11 +26,9 @@ public class TelaPerfil {
         int opcao = -1;
 
         do {
-            System.out.println("------------------------------");
-            System.out.println(" 1 - Dados da Conta           ");
-            System.out.println(" 2 - Pagamentos               ");
-            System.out.println(" 0 - voltar                   ");
-            System.out.println("------------------------------");
+            System.out.println("\n1 - Dados da Conta           ");
+            System.out.println("2 - Pagamentos               ");
+            System.out.println("0 - voltar                   ");
 
             System.out.print("\nEscolha uma opção: ");
 

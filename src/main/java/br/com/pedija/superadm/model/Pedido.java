@@ -19,13 +19,11 @@ public class Pedido {
 
     private List<Produto> itens = new ArrayList<>();
 
-    //teste erro
-    // adiciona item e atualiza o total
     public void addItem(Produto item) {
         itens.add(item);
         valorTotal += item.getPreco();
     }
-    //teste erro
+
     public List<Produto> getItens() {
         return itens;
     }

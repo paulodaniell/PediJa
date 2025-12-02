@@ -1,20 +1,16 @@
 package br.com.pedija.consumidor.controller;
 
-
 import br.com.pedija.superadm.model.Pedido;
 import br.com.pedija.superadm.model.Produto;
 import br.com.pedija.superadm.dao.PedidoDAO;
 
-
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class PedidoController {
 
     PedidoDAO pedidoDAO = new PedidoDAO();
 
-    // revisão do pedido
     public Pedido revisaopedido(List<Produto> produtos, int usuarioId, String nome, String endereco, String formaPagamento) {
 
         Pedido p = new Pedido();
@@ -32,7 +28,7 @@ public class PedidoController {
 
         p.setItens(itens);
 
-        double total = itens.stream().mapToDouble(Produto::getPreco).sum();
+        double total = itens.stream().mapToDouble(produto -> produto.getPreco() * produto.getQuantidade()).sum();
         p.setValorTotal(total);
 
         p.setNomeCliente(nome);
@@ -40,25 +36,21 @@ public class PedidoController {
         p.setFormaPagamento(formaPagamento);
         p.setIdUsuario(usuarioId);
 
-
         if (!produtos.isEmpty()) {
             p.setIdParceiro(produtos.get(0).getIdParceiro());
         }
 
+        p.setStatus("PENDENTE");
+
         return p;
     }
 
-
-    public void criarPedido(Pedido revisaopedido) {
-
-        pedidoDAO.criar(revisaopedido);
-
+    public void criarPedido(Pedido pedido) {
+        pedidoDAO.criar(pedido);
     }
 
     public Pedido buscarPorId(int id) {
-
         return pedidoDAO.buscarPorId(id);
-
     }
 
     public boolean atualizarStatus(int id, String novoStatus) {
@@ -71,91 +63,42 @@ public class PedidoController {
         return false;
     }
 
-
-
     public List<Pedido> listarPendentes() {
-
         return pedidoDAO.buscarPorStatus("PENDENTE");
-
     }
 
-
     public List<Pedido> listarEmPreparo() {
-
         return pedidoDAO.buscarPorStatus("EM PREPARO");
-
     }
 
     public List<Pedido> listarEmEntrega() {
-
         return pedidoDAO.buscarPorStatus("EM ENTREGA");
-
     }
-
 
     public List<Pedido> listarProntos() {
-
-        return pedidoDAO.buscarPorStatus("ENTRGUE");
-
+        return pedidoDAO.buscarPorStatus("ENTREGUE");
     }
-
 
     public int contarPedidosPendentes() {
-        int contador = 0;
-
-
-        List<Pedido> prontos = listarPendentes();
-
-
-        for (Pedido p : prontos) {
-            contador++;
-        }
-        return contador;
+        return listarPendentes().size();
     }
-
 
     public int contarPedidosEmPreparo() {
-        int contador = 0;
-
-
-        List<Pedido> prontos = listarEmPreparo();
-
-
-        for (Pedido p : prontos) {
-            contador++;
-        }
-        return contador;
+        return listarEmPreparo().size();
     }
-
-
 
     public int contarPedidosProntos() {
-        int contador = 0;
-
-
-        List<Pedido> prontos = listarProntos();
-
-
-        for (Pedido p : prontos) {
-            contador++;
-        }
-        return contador;
+        return listarProntos().size();
     }
+
     public double calcularFaturamentoTotal(int idParceiro) {
-
-
         double soma = 0.0;
-
-
         List<Pedido> prontos = listarProntos();
-
-
         for (Pedido p : prontos) {
-            soma += p.getValorTotal();
+            if (p.getIdParceiro() == idParceiro) {
+                soma += p.getValorTotal();
+            }
         }
         return soma;
     }
-
-
 }
-

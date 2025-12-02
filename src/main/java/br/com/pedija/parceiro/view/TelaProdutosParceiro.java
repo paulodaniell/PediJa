@@ -22,7 +22,7 @@ public class TelaProdutosParceiro {
     public void exibirProdutos() {
         int opcao = -1;
         do {
-            System.out.println("\n===== GERENCIAR PRODUTOS - " + parceiro.getNome() + " =====");
+            System.out.println("\nGERENCIAR PRODUTOS - " + parceiro.getNome());
             List<Produto> produtos = produtoController.listarPorParceiros(parceiro.getId());
             listarProdutos(produtos);
 
@@ -42,14 +42,9 @@ public class TelaProdutosParceiro {
     }
 
     private void listarProdutos(List<Produto> produtos) {
-        System.out.println("\n-----------------------------------------------");
-        System.out.println("  PRODUTOS CADASTRADOS (" + produtos.size() + ")");
-        System.out.println("-----------------------------------------------");
 
-        if (produtos.isEmpty()) {
-            System.out.println("Nenhum produto cadastrado.");
-            return;
-        }
+
+        System.out.println("\nPRODUTOS CADASTRADOS (" + produtos.size() + ")");
 
         for (Produto p : produtos) {
             String status = p.isDisponivel() ? "Disponível" : "Indisponível";
@@ -58,11 +53,10 @@ public class TelaProdutosParceiro {
                 System.out.println("   → " + p.getDescricao());
             }
         }
-        System.out.println("-----------------------------------------------");
     }
 
     private void exibirMenu() {
-        System.out.println("1 - Adicionar Produto");
+        System.out.println("\n1 - Adicionar Produto");
         System.out.println("2 - Editar Produto");
         System.out.println("3 - Remover Produto");
         System.out.println("4 - Alterar Disponibilidade");
@@ -83,7 +77,7 @@ public class TelaProdutosParceiro {
     private void adicionarProduto() {
         try {
             Produto novo = new Produto();
-            System.out.print("Nome: ");
+            System.out.print("\nNome: ");
             novo.setNome(sc.nextLine());
             System.out.print("Descrição: ");
             novo.setDescricao(sc.nextLine());
@@ -92,12 +86,11 @@ public class TelaProdutosParceiro {
             novo.setCategoria_id(1);
             novo.setDisponivel(true);
             novo.setIdParceiro(parceiro.getId());
-            novo.setNomeParceiro(parceiro.getNome());
 
             if (produtoController.adicionarProduto(novo)) {
                 System.out.println("Produto adicionado com sucesso!");
             } else {
-                System.out.println(" Falha ao adicionar produto.");
+                System.out.println("Falha ao adicionar produto.");
             }
         } catch (Exception e) {
             System.out.println("Erro ao cadastrar produto: " + e.getMessage());
@@ -106,7 +99,7 @@ public class TelaProdutosParceiro {
 
     private void editarProduto() {
         try {
-            System.out.print("ID do produto: ");
+            System.out.print("\nID do produto: ");
             int id = Integer.parseInt(sc.nextLine());
             Produto produto = produtoController.buscarPorId(id);
             if (produto == null) {
@@ -114,7 +107,7 @@ public class TelaProdutosParceiro {
                 return;
             }
 
-            System.out.println("Editando: " + produto.getNome());
+            System.out.println("\nEditando: " + produto.getNome());
             System.out.println("1 - Nome | 2 - Descrição | 3 - Preço | 4 - Quantidade | 0 - Cancelar");
             System.out.print("Escolha: ");
             int opc = Integer.parseInt(sc.nextLine());
@@ -129,9 +122,9 @@ public class TelaProdutosParceiro {
             }
 
             if (produtoController.atualizarProduto(produto)) {
-                System.out.println("roduto atualizado com sucesso!");
+                System.out.println("Produto atualizado com sucesso!");
             } else {
-                System.out.println(" Erro ao atualizar produto!");
+                System.out.println("Erro ao atualizar produto!");
             }
 
         } catch (Exception e) {

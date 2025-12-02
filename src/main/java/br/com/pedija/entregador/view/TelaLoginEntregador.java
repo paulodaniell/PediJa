@@ -44,69 +44,66 @@ public class TelaLoginEntregador {
     }
 
     private void cadastrar() {
-        System.out.println("\n-----------------------------------");
-        System.out.println("||     CADASTRO NOVO ENTREGADOR    ||");
-        System.out.println("-----------------------------------");
+        System.out.println("\nCADASTRO NOVO ENTREGADOR\n");
 
         Entregador novoEntregador = new Entregador();
 
         try {
-            System.out.println("═══ DADOS BÁSICOS ═══");
+            System.out.println("═══ DADOS BÁSICOS ═══\n");
 
-            System.out.print(" Nome do Entregador: ");
+            System.out.print("Nome do Entregador: ");
             novoEntregador.setNome(sc.nextLine());
 
-            System.out.print(" Email: ");
+            System.out.print("Email: ");
             novoEntregador.setEmail(sc.nextLine());
 
-            System.out.print(" Senha: ");
+            System.out.print("Senha: ");
             String senha = sc.nextLine();
 
-            System.out.print(" Confirme a Senha: ");
+            System.out.print("Confirme a Senha: ");
             String confirmaSenha = sc.nextLine();
 
             if (!senha.equals(confirmaSenha)) {
-                System.out.println("\n As senhas não coincidem!");
+                System.out.println("\nAs senhas não coincidem!");
                 return;
             }
             novoEntregador.setSenha(senha);
 
-            System.out.println("═══ DADOS COMPLEMENTARES ═══");
+            System.out.println("\n═══ DADOS COMPLEMENTARES ═══\n");
 
-            System.out.print(" CPF: ");
+            System.out.print("CPF: ");
             novoEntregador.setCpf(sc.nextLine());
 
-            System.out.print(" Telefone: ");
+            System.out.print("Telefone: ");
             novoEntregador.setTelefone(sc.nextLine());
 
-            System.out.print(" Veículo (Carro, moto ou bicicleta): ");
+            System.out.print("Veículo (Carro, moto ou bicicleta): ");
             novoEntregador.setVeiculo(sc.nextLine());
 
             novoEntregador.setDisponivel(true);
 
-            System.out.print(" Contato de Emergência: ");
+            System.out.print("Contato de Emergência: ");
             novoEntregador.setContatoDeEmergencia(Integer.parseInt(sc.nextLine()));
 
-            System.out.print(" Nome do Contato de Emergência: ");
+            System.out.print("Nome do Contato de Emergência: ");
             novoEntregador.setNomeEmergencia(sc.nextLine());
 
-            System.out.println("═══ FORMAS DE PAGAMENTO ═══");
+            System.out.println("\n═══ FORMAS DE PAGAMENTO ═══\n");
             System.out.print("Digite as formas de pagamento (ex: pix,debito,credito): ");
             String formasInput = sc.nextLine();
 
             List<String> formas = Arrays.asList(formasInput.split(","));
             novoEntregador.setFormasPagamento(formas);
 
-            System.out.println("\n-----------------------------------");
-            System.out.println("||      CONFIRMAR CADASTRO?      ||");
-            System.out.println("-----------------------------------");
+            System.out.println("\nCONFIRMAR CADASTRO?\n");
+
             System.out.println(" Nome: " + novoEntregador.getNome());
             System.out.println(" Email: " + novoEntregador.getEmail());
             System.out.println(" CPF: " + novoEntregador.getCpf());
             System.out.println(" Telefone: " + novoEntregador.getTelefone());
             System.out.println(" Contato de Emergência: " + novoEntregador.getContatoDeEmergencia());
             System.out.println(" Nome do Contato: " + novoEntregador.getNomeEmergencia());
-            System.out.println("----------------------------------");
+
 
             System.out.print("\nConfirma cadastro? (S/N): ");
             String confirma = sc.nextLine();
@@ -114,8 +111,8 @@ public class TelaLoginEntregador {
             if (confirma.equalsIgnoreCase("S")) {
 
                 if (controller.cadastrar(novoEntregador)) {
-                    System.out.println("\n Entregador cadastrado com sucesso!");
-                    System.out.println(" Bem-vindo ao Pedija, " + novoEntregador.getNome() + "!");
+                    System.out.println("\nEntregador cadastrado com sucesso!");
+                    System.out.println("Bem-vindo ao Pedija, " + novoEntregador.getNome() + "\n");
 
                     Entregador entregadorLogado = controller.login(
                             novoEntregador.getEmail(),
@@ -123,21 +120,21 @@ public class TelaLoginEntregador {
                     );
 
                     if (entregadorLogado != null) {
-                        TelaInicialEntregador menu = new TelaInicialEntregador();
+                        TelaInicialEntregador menu = new TelaInicialEntregador(entregadorLogado);
                         menu.TelaInicioEntregador();
                     }
 
                 } else {
-                    System.out.println("\n Erro ao cadastrar entregador!");
+                    System.out.println("\nErro ao cadastrar entregador!");
                 }
 
             } else {
-                System.out.println("\n Cadastro cancelado!");
+                System.out.println("\nCadastro cancelado!");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("\n Erro no cadastro.");
+            System.out.println("\nErro no cadastro.");
         }
     }
 
@@ -152,7 +149,7 @@ public class TelaLoginEntregador {
 
         if (entregadorLogado != null) {
             System.out.println("Login realizado com sucesso! Bem-vindo " + entregadorLogado.getNome());
-            TelaInicialEntregador menu = new TelaInicialEntregador();
+            TelaInicialEntregador menu = new TelaInicialEntregador(entregadorLogado);
             menu.TelaInicioEntregador();
 
         } else {

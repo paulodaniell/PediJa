@@ -28,13 +28,12 @@ public class TelaPromocaoParceiro {
         int opcao = -1;
 
         do {
-            System.out.println("\n GERENCIAR PROMOÇÕES - " + parceiro.getNome());
-            System.out.println("------------------------------");
-            System.out.println(" 1 - Criar Promoção");
-            System.out.println(" 2 - Remover Promoção");
-            System.out.println(" 3 - Listar Promoções Ativas");
-            System.out.println(" 0 - Voltar");
-            System.out.println("------------------------------");
+            System.out.println("\nGERENCIAR PROMOÇÕES - " + parceiro.getNome());
+
+            System.out.println("\n1 - Criar Promoção");
+            System.out.println("2 - Remover Promoção");
+            System.out.println("3 - Listar Promoções Ativas");
+            System.out.println("0 - Voltar");
             System.out.print("Escolha uma opção: ");
 
             try {
@@ -71,15 +70,12 @@ public class TelaPromocaoParceiro {
     }
 
     private void criarPromocao() {
-        System.out.println("\n================================\n");
-        System.out.println("     CRIAR NOVA PROMOÇÃO            ");
-        System.out.println("================================\n");
-
+        System.out.println("\nCRIAR NOVA PROMOÇÃO\n");
 
         List<Produto> produtos = produtoController.listarPorParceiros(parceiro.getId());
 
         if (produtos.isEmpty()) {
-            System.out.println(" Você não tem produtos cadastrados!");
+            System.out.println("Você não tem produtos cadastrados!");
 
             return;
         }
@@ -90,6 +86,7 @@ public class TelaPromocaoParceiro {
         }
 
         try {
+
             System.out.print("\nDigite o ID do produto: ");
             int idProduto = sc.nextInt();
             sc.nextLine();
@@ -97,13 +94,13 @@ public class TelaPromocaoParceiro {
             Produto produto = produtoController.buscarPorId(idProduto);
 
             if (produto == null) {
-                System.out.println(" Produto não encontrado!");
+                System.out.println("Produto não encontrado!");
 
                 return;
             }
 
             if (produto.getIdParceiro() != parceiro.getId()) {
-                System.out.println(" Este produto não é seu!");
+                System.out.println("Este produto não é seu!");
 
                 return;
             }
@@ -115,7 +112,7 @@ public class TelaPromocaoParceiro {
             sc.nextLine();
 
             if (precoPromocional >= produto.getPreco()) {
-                System.out.println(" Preço promocional deve ser menor que o original!");
+                System.out.println("Preço promocional deve ser menor que o original!");
 
                 return;
             }
@@ -135,11 +132,11 @@ public class TelaPromocaoParceiro {
                 promocao.setAtiva(true);
 
                 if (promocaoController.adicionar(promocao)) {
-                    System.out.println("\n Promoção criada com sucesso!");
+                    System.out.println("\nPromoção criada com sucesso!");
                     System.out.println("Código da promoção: " + promocao.getId());
                 }
             } else {
-                System.out.println(" Promoção cancelada!");
+                System.out.println("Promoção cancelada!");
             }
 
         } catch (Exception e) {
@@ -150,19 +147,15 @@ public class TelaPromocaoParceiro {
 
     }
     private void removerPromocao() {
-        System.out.println("\n================================\n");
-        System.out.println("     REMOVER PROMOÇÃO               ");
-        System.out.println("================================\n\n");
-
+        System.out.println("\nREMOVER PROMOÇÃO\n");
 
         List<Promocao> promocoes = promocaoController.listarTodasPorParceiro(parceiro.getId());
 
         if (promocoes.isEmpty()) {
-            System.out.println(" Você não tem promoções cadastradas!");
+            System.out.println("Você não tem promoções cadastradas!");
 
             return;
         }
-
 
         for (Promocao p : promocoes) {
             System.out.println("ID: " + p.getId() + " | Produto ID: " + p.getIdProduto() +
@@ -193,9 +186,8 @@ public class TelaPromocaoParceiro {
         }
     }
     private void listarPromocoesAtivas() {
-        System.out.println("\n================================\n");
-        System.out.println("     PROMOÇÕES ATIVAS               ");
-        System.out.println("================================\n");
+
+        System.out.println("\nPROMOÇÕES ATIVAS\n");
 
         List<Promocao> promocoes = promocaoController.listarAtivasPorParceiro(parceiro.getId());
 
@@ -204,7 +196,7 @@ public class TelaPromocaoParceiro {
         } else {
             for (Promocao p : promocoes) {
                 if (p.isAtiva()) {
-                    System.out.println("─────────────────────────────");
+
                     System.out.println("ID: " + p.getId());
                     System.out.println("Produto ID: " + p.getIdProduto());
                     System.out.println("De: R$ " + String.format("%.2f", p.getPrecoOriginal()));
