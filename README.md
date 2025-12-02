@@ -1,5 +1,5 @@
 # Projeto POO - PediJá
-
+# Grupo 4 - Paulo Daniel de Moraes Ferreira , Álef Davi Alves de Carvalho,Luiz Miguel Nunes Pimenta e Lucas Alves Izaias.
 ## Fluxo Principal do Projeto PediJá
 
 1. Entrar (caso já tenha feito o cadastro) ou cadastrar no **Parceiro**.  
